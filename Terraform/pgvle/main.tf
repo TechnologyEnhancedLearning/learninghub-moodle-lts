@@ -44,7 +44,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
   default_node_pool {
     name                         = "default"
     vm_size                      = "Standard_B4ms"
-    temporary_name_for_rotation  = "tmpnodepool1"
+    temporary_name_for_rotation  = "tmpnp1"
 	auto_scaling_enabled         = true
     min_count                    = 2
     max_count                    = 3
