@@ -686,7 +686,9 @@ abstract class moodle_database {
                 $column = $columns[$key];
                 if ($column->meta_type == 'X') {
                     //ok so the column is a text column. sorry no text columns in the where clause conditions
-                    throw new dml_exception('textconditionsnotallowed', $conditions);
+                    //throw new dml_exception('textconditionsnotallowed', $conditions);
+                    // Use sql_compare_text() for text columns
+                    $key = $this->sql_compare_text($key);
                 }
             }
         }
