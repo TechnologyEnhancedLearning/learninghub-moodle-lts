@@ -32,6 +32,9 @@ $CFG->sslproxy = true;
 $CFG->phpunit_prefix = 'phpu_';
 $CFG->phpunit_dataroot = 'phpu_moodledata';
 
+$CFG->recordrtc_audio = false;
+$CFG->recordrtc_video = false;
+
 require_once(__DIR__ . '/lib/setup.php');
 
 // There is no php closing tag in this file,
