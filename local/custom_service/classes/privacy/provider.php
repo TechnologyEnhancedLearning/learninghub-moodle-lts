@@ -6,7 +6,7 @@ defined('MOODLE_INTERNAL') || die;
 use core_privacy\local\metadata\provider;
 use core_privacy\local\metadata\collection;
  
-class provider implements provider {
+class provider implements  \core_privacy\local\metadata\provider {
     /**
      * Returns metadata about this plugin’s data handling.
      * Since this plugin does not store any user data, it returns an empty collection.
