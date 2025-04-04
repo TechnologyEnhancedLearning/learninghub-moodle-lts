@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="../../config.php"
+         backupGlobals="false"
+         colors="true"
+         verbose="true">
+    <testsuite name="local_custom_service">
+        <file>privacy_test.php</file>
+    </testsuite>
+</phpunit>

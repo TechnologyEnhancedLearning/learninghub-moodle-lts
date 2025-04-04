@@ -24,7 +24,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2024100989;        // The current plugin version (Date: YYYYMMDDXX).
+$plugin->version   = 2024100990;        // The current plugin version (Date: YYYYMMDDXX).
 $plugin->requires  = 2024100290;        // Requires this Moodle version.
 $plugin->component = 'local_custom_service'; // Full name of the plugin (used for diagnostics)
-$plugin->privacy = ['provider' => 'local_custom_service\classes\privacy\provider'];
+$plugin->privacy = ['provider' => 'local_custom_service\privacy\provider'];
