@@ -3,7 +3,6 @@ namespace custom_service\privacy;
  
 defined('MOODLE_INTERNAL') || die;
  
-use core_privacy\local\metadata\provider;
 use core_privacy\local\metadata\collection;
  
 class provider implements  \core_privacy\local\metadata\provider {
