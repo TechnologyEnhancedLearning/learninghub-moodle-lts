@@ -76,10 +76,6 @@ class provider implements
                 'refreshtoken',
                 'idtoken',
             ],
-            'auth_oidc_sid' => [
-            'userid',
-            'sid',
-            'timecreated',],
         ];
 
         foreach ($tables as $table => $fields) {
