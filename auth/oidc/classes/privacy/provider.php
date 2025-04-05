@@ -13,16 +13,6 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
-
-/**
- * Privacy subsystem implementation.
- *
- * @package auth_oidc
- * @author James McQuillan <james.mcquillan@remote-learner.net>
- * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @copyright (C) 2014 onwards Microsoft, Inc. (http://microsoft.com/)
- */
-
 namespace auth_oidc\privacy;
 
 defined('MOODLE_INTERNAL') || die();
