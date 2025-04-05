@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -76,6 +76,10 @@ class provider implements
                 'refreshtoken',
                 'idtoken',
             ],
+            'auth_oidc_sid' => [
+            'userid',
+            'sid',
+            'timecreated',],
         ];
 
         foreach ($tables as $table => $fields) {

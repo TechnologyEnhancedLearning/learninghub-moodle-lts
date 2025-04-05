@@ -494,6 +494,10 @@ $string['change_binding_username_claim_tool_result'] = 'Update results';
 $string['update_username_results'] = 'Update username results';
 $string['new_username'] = 'New username';
 $string['missing_idp_type'] = 'This configuration is only available if an IdP type is configured.';
+$string['privacy:metadata:auth_oidc_sid'] = 'Stores OIDC session identifiers linked to users.';
+$string['privacy:metadata:auth_oidc_sid:userid'] = 'The ID of the user associated with the session.';
+$string['privacy:metadata:auth_oidc_sid:sid'] = 'The session ID from the OIDC provider.';
+$string['privacy:metadata:auth_oidc_sid:timecreated'] = 'The time the session ID was created.';
 
 // phpcs:enable moodle.Files.LangFilesOrdering.IncorrectOrder
 // phpcs:enable moodle.Files.LangFilesOrdering.UnexpectedComment
