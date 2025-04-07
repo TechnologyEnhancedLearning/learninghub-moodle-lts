@@ -76,6 +76,11 @@ class provider implements
                 'refreshtoken',
                 'idtoken',
             ],
+			'auth_oidc_sid' => [ // ✅ Add this block
+        'userid',
+        'sid',
+        'timecreated',
+    ],
         ];
 
         foreach ($tables as $table => $fields) {
