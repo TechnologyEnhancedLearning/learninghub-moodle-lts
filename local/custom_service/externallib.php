@@ -19,22 +19,26 @@ class insert_scorm_resource extends external_api {
                 'courseid' => new external_value(PARAM_TEXT, 'Course Id'),
                 'section' => new external_value(PARAM_TEXT, 'section'),  
                 'scormname' => new external_value(PARAM_TEXT, 'scorm name'),
-                'file' => new external_value(PARAM_TEXT, 'file'),
-                'path' => new external_value(PARAM_TEXT, 'path')
+                'foldername' => new external_value(PARAM_TEXT, 'foldername'),
+                'base64Zip' => new external_value(PARAM_RAW, 'Base64-encoded ZIP file content')
                  
             )
         );
     }
-    public static function insert_scorm_resource($courseids,$section,$scormname,$file,$path) {
+   
+    public static function insert_scorm_resource($courseids,$section,$scormname,$foldername,$base64Zip) {
         global $DB,$CFG;
         require_once($CFG->libdir . '/filelib.php');
         require_once($CFG->dirroot . '/course/lib.php');
         require_once($CFG->libdir . '/formslib.php');
         
         require_login();
+        // zip file
+        $savedPath = self::saveBase64ToZip($base64Zip, $foldername . '.zip');
+
+        //zip end here
         $courseid = $courseids; // Course ID where the SCORM package will be uploaded
-        $scormname = $scormname;// // Name for the SCORM module
-        $scormfile =$path . '' . $file. '.zip'; // Path to the SCORM .zip file
+        $scormfile =$savedPath;//$path . '' . $file. '.zip'; // Path to the SCORM .zip file
    
         $zip = new ZipArchive;
     
@@ -119,9 +123,7 @@ class insert_scorm_resource extends external_api {
         ;
         if ($file) {
             $extracted_files = $file->extract_to_storage($packer,$context->id, 'mod_scorm', 'content', 0, '/');
-            echo "Extraction complete!";
         } else {
-            echo "ZIP file not found.";
         }
        
         //new code for reading imsmanifest.xml
@@ -142,31 +144,42 @@ class insert_scorm_resource extends external_api {
         scorm_parse_scorm($scorm, $manifest);
         
    
-        
-        $count = 0;
-        $lti_updated = [
-            'message'=>'Scorm package added to course',
-            ];
-                        
-   
-                        
-               
+            $lti_updated[] = array(
+                'id' => $scorm->id,
+                'name' => $scormname,
+            );       
         return $lti_updated;
     }
     public static function insert_scorm_resource_returns() {
-        return new external_single_structure(
+        return new external_multiple_structure(
+            new external_single_structure(
                 array(
-                    'ids' => new external_value(PARAM_TEXT, 'course ids'),
-                    'message'=> new external_value(PARAM_TEXT, 'success message'),
-                    'updated'=>new external_value(PARAM_TEXT,'Items Updated')
+                    'id' => new external_value(PARAM_INT, 'new scorm id'),
+                    'name' => new external_value(PARAM_RAW, 'new scorm name'),
                 )
-            );
+            )
+        );
     }
+    public static function saveBase64ToZip($base64Data, $filename, $saveDir = 'uploads/')
+    {
+        // Make sure directory exists
+        if (!file_exists($saveDir)) {
+            mkdir($saveDir, 0777, true);
+        }
 
+        // Sanitize filename
+        $safeFilename = preg_replace('/[^a-zA-Z0-9_\.-]/', '_', $filename);
+        $zipPath = rtrim($saveDir, '/') . '/' . $safeFilename;
 
+        // Decode base64
+        $binaryData = base64_decode($base64Data);
 
-
-
-    
+        // Save the file
+        if (file_put_contents($zipPath, $binaryData) !== false) {
+            return realpath($zipPath); // return full path
+        } else {
+            return false;
+        }
+    }
 
 }
