@@ -214,6 +214,25 @@ class enrol_meta_observer extends enrol_meta_handler {
     public static function enrol_instance_updated(\core\event\enrol_instance_updated $event) {
         global $DB;
 
+        $instance = $DB->get_record('enrol', ['id' => $event->objectid], '*', MUST_EXIST);
+        
+        // Check if it is a self-enrolment
+        if ($instance->enrol === 'self') {
+            $courseid = $instance->courseid;
+            $status = $instance->status; // 0 = enabled, 1 = disabled
+
+            // Prepare data to send
+            $data = [
+                '_id' => $courseid,
+                'name' => 'Findwise Testing Catalogue', 
+                'description' => 'A moodle courese Binon',	            
+                'status' => $status
+            ];
+
+            // Send to external API
+            self::send_external_api($data);
+        }
+
         if (!enrol_is_enabled('meta')) {
             // This is slow, let enrol_meta_sync() deal with disabled plugin.
             return true;
@@ -229,5 +248,21 @@ class enrol_meta_observer extends enrol_meta_handler {
         }
 
         return true;
+    }
+
+    private static function send_external_api($data) {
+        $url = ''; // <-- API
+
+        $options = [
+            'http' => [
+                'header'  => "Content-type: application/json\r\n",
+                'method'  => 'POST',
+                'content' => json_encode($data),
+                'timeout' => 5,
+            ],
+        ];
+
+        $context  = stream_context_create($options);
+        @file_get_contents($url, false, $context); // Using @ to suppress warnings if API fails
     }
 }
