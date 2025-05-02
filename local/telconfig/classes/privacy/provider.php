@@ -1,5 +1,5 @@
 <?php
-namespace local_custom_service\privacy;
+namespace local_telconfig\privacy;
  
 defined('MOODLE_INTERNAL') || die;
  
