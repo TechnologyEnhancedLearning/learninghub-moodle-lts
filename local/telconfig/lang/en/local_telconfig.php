@@ -1,6 +1,7 @@
 <?php
 $string['pluginname'] = 'TEL Organisation Specific Configurations';
 $string['pluginname_desc'] = 'TEL Organisation Specific Configurations';
+$string['privacy:metadata'] = 'The tel_config plugin is used solely to handle TEL organisation-specific configurations.';
 
 $string['apibaseurl'] = 'API Base URL';
 $string['apibaseurl_desc'] = 'The base URL for your custom API.';
