@@ -16,7 +16,7 @@
 
 use advanced_testcase;
 
-class helper_test extends advanced_testcase {
+class telconfig_helper_test extends advanced_testcase {
     public function test_send_xx_api_makes_api_call() {
         $this->resetAfterTest();
 
