@@ -26,7 +26,7 @@ class observer {
     try {
         // Get enrol instance
         $enrol = $DB->get_record('enrol', ['id' => $event->objectid], '*', MUST_EXIST);
-
+        
         // Get course info
         $course = $DB->get_record('course', ['id' => $event->courseid], '*', MUST_EXIST);
 
@@ -49,46 +49,4 @@ class observer {
         debugging("Failed to fetch course/enrol data: " . $e->getMessage(), DEBUG_DEVELOPER);
     }
 }
-
-
-    /**
-     * Sends data to the configured external API endpoint.
-     *
-     * @param array $data
-     * @return void
-     */
-    private static function send_external_api(array $data): void {
-        global $CFG;
-        require_once($CFG->libdir . '/filelib.php');
-
-        // Get plugin config values
-        $apiurl = get_config('local_telconfig', 'apiurl');
-        $apitoken = get_config('local_telconfig', 'apitoken');
-
-        if (empty($apiurl) || empty($apitoken)) {
-            debugging('API URL or Token not configured in local_telconfig.', DEBUG_DEVELOPER);
-            return;
-        }
-
-        $curl = new \curl();
-        $headers = [
-            "Authorization: Bearer {$apitoken}",
-            "Content-Type: application/json"
-        ];
-
-        $options = [
-            'CURLOPT_HTTPHEADER' => $headers,
-            'timeout' => 5,
-        ];
-
-        try {
-            $response = $curl->post($apiurl, json_encode($data), $options);
-            // Optional: log the response if debugging
-            if (debugging('', DEBUG_DEVELOPER)) {
-                debugging('Self enrol API response: ' . $response, DEBUG_DEVELOPER);
-            }
-        } catch (\Exception $e) {
-            debugging('Error sending to external API: ' . $e->getMessage(), DEBUG_DEVELOPER);
-        }
-    }
 }

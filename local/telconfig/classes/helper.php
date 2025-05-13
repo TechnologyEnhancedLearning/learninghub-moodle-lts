@@ -23,6 +23,7 @@
  */
 
 namespace local_telconfig;
+use local_telconfig\api_client;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -34,36 +35,29 @@ class helper {
      * @param array $data
      * @return void
      */
-    public static function send_findwise_api(array $data): void {
+    public static function send_findwise_api(array $data, ?api_client $client = null): void {
         $indexurl = get_config('local_telconfig', 'findwiseindexurl');
         $indexmethod = get_config('local_telconfig', 'findwiseindexmethod');
         $collection = get_config('local_telconfig', 'findwisecollection');
         $apitoken = get_config('local_telconfig', 'findwiseapitoken');
 
-        $indexurl = rtrim($indexurl, '/').'/'.$indexmethod.'?token=' . urlencode($apitoken);
-        $apiurl = str_replace("{0}", $collection, $indexurl);
+        $indexurl = rtrim($indexurl, '/') . '/' . $indexmethod . '?token=' . urlencode($apitoken);
+        $apiurl = str_replace('{0}', $collection, $indexurl);
 
         if (empty($apiurl) || empty($apitoken)) {
             debugging('send_findwise_api: API URL or token not set in plugin config.', DEBUG_DEVELOPER);
             return;
         }
-           
-        $options = [
-            'http' => [
-                'header'  => "Content-type: application/json\r\n",
-                'method'  => 'POST',
-                'content' => json_encode($data),
-                'timeout' => 5,
-            ],
-        ];
 
-        $context = stream_context_create($options);
+        $client ??= new api_client();
+
         try {
-            $response = @file_get_contents($apiurl, false, $context);        
+            $response = $client->post($apiurl, $data);
+
             if ($response === false) {
-                debugging('send_findwise_api: Failed to send data to Findwise API.', DEBUG_DEVELOPER);
+                debugging('send_findwise_api: Failed to send data to findwise API.', DEBUG_DEVELOPER);
             } else {
-                debugging('send_findwise_api: Data sent successfully to Findwise API.', DEBUG_DEVELOPER);
+                debugging('send_findwise_api: Data sent successfully to findwise API.', DEBUG_DEVELOPER);
             }
         } catch (\Exception $e) {
             debugging('send_findwise_api: Exception occurred while sending data: ' . $e->getMessage(), DEBUG_DEVELOPER);
