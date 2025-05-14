@@ -45,8 +45,10 @@ class helper {
         $apiurl = str_replace('{0}', $collection, $indexurl);
 
         if (empty($apiurl) || empty($apitoken)) {
-            debugging('send_findwise_api: API URL or token not set in plugin config.', DEBUG_DEVELOPER);
-            return;
+            if (defined('LOCAL_TELCONFIG_DEV_TEST')) {
+                // Only fail during plugin tests
+                throw new \local_telconfig\config_exception("send_findwise_api: API URL or token not set in plugin config.");
+            }
         }
 
         $client ??= new api_client();

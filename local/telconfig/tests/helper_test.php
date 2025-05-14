@@ -21,6 +21,7 @@ use local_telconfig\api_client;
 class telconfig_helper_test extends advanced_testcase {
 
     public function test_send_findwise_api_makes_api_call() {
+        define('LOCAL_TELCONFIG_DEV_TEST', true); // Flag to enable strict config check
         $this->resetAfterTest();
 
         // Set fake plugin config values.
