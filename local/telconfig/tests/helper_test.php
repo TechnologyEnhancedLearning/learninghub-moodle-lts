@@ -15,21 +15,31 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 use advanced_testcase;
+use local_telconfig\helper;
+use local_telconfig\api_client;
 
 class telconfig_helper_test extends advanced_testcase {
-    public function test_send_xx_api_makes_api_call() {
+
+    public function test_send_findwise_api_makes_api_call() {
         $this->resetAfterTest();
 
+        // Set fake plugin config values.
         set_config('xxindexurl', 'http://fake.local/api', 'local_telconfig');
         set_config('xxindexmethod', 'index', 'local_telconfig');
         set_config('xxcollection', 'courses', 'local_telconfig');
         set_config('xxapitoken', 'faketoken', 'local_telconfig');
 
+        // Create a mock API client.
         $mock = $this->createMock(api_client::class);
         $mock->expects($this->once())
              ->method('post')
+             ->with(
+                 $this->stringContains('http://fake.local/api/index?token='),
+                 $this->equalTo(['courseid' => 123])
+             )
              ->willReturn('{"status":"ok"}');
 
+        // Call the method with the mock client.
         helper::send_findwise_api(['courseid' => 123], $mock);
     }
 }
