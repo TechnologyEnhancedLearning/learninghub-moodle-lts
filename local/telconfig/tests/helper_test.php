@@ -24,10 +24,10 @@ class telconfig_helper_test extends advanced_testcase {
         $this->resetAfterTest();
 
         // Set fake plugin config values.
-        set_config('xxindexurl', 'http://fake.local/api', 'local_telconfig');
-        set_config('xxindexmethod', 'index', 'local_telconfig');
-        set_config('xxcollection', 'courses', 'local_telconfig');
-        set_config('xxapitoken', 'faketoken', 'local_telconfig');
+        set_config('findwiseindexurl', 'http://fake.local/api', 'local_telconfig');
+        set_config('findwiseindexmethod', 'index', 'local_telconfig');
+        set_config('findwisecollection', 'courses', 'local_telconfig');
+        set_config('findwiseapitoken', 'faketoken', 'local_telconfig');
 
         // Create a mock API client.
         $mock = $this->createMock(api_client::class);
