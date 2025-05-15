@@ -55,9 +55,7 @@ class helper {
 
             if ($response === false) {
                 debugging('send_findwise_api: Failed to send data to findwise API.', DEBUG_DEVELOPER);
-            } else {
-                debugging('send_findwise_api: Data sent successfully to findwise API.', DEBUG_DEVELOPER);
-            }
+            } 
         } catch (\Exception $e) {
             debugging('send_findwise_api: Exception occurred while sending data: ' . $e->getMessage(), DEBUG_DEVELOPER);
         }
