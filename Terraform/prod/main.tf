@@ -327,7 +327,7 @@ resource "azurerm_redis_cache" "moodle_cache" {
 }
 
 resource "azurerm_communication_service" "CommunicationService" {
-  name                = "CommunicationServiceProd"
+  name                = "CommServiceProd"
   resource_group_name = azurerm_resource_group.learningHubMoodleResourceGroup.name
   data_location       = "UK"
 }
