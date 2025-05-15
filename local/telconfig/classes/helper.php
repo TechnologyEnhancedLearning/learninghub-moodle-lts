@@ -41,15 +41,17 @@ class helper {
         $collection = get_config('local_telconfig', 'findwisecollection');
         $apitoken = get_config('local_telconfig', 'findwiseapitoken');
 
-        $indexurl = rtrim($indexurl, '/') . '/' . $indexmethod . '?token=' . urlencode($apitoken);
-        $apiurl = str_replace('{0}', $collection, $indexurl);
-
-        if (empty($apiurl) || empty($apitoken)) {
+        if (empty($indexurl) || empty($apitoken)) {
             if (defined('LOCAL_TELCONFIG_DEV_TEST')) {
-                // Only fail during plugin tests
                 throw new \local_telconfig\config_exception("send_findwise_api: API URL or token not set in plugin config.");
+            } else {
+                debugging("Findwise API not called: Missing config.", DEBUG_DEVELOPER); // Optional for debugging logs
             }
+            return;
         }
+
+        $indexurl = rtrim($indexurl, '/') . '/' . $indexmethod . '?token=' . urlencode($apitoken);
+        $apiurl = str_replace('{0}', $collection, $indexurl);       
 
         $client ??= new api_client();
 
