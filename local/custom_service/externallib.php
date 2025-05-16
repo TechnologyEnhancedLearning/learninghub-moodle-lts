@@ -75,6 +75,8 @@ class insert_scorm_resource extends external_api {
         $scorm = new stdClass();
         $scorm->course = $courseid;
         $scorm->name = $scormname;
+        $scorm->reference='Test Ref.zip';
+        $scorm->intro = 'Intro to SCORM';
         $scorm->maxattempt=3;
         $scorm->introformat = FORMAT_HTML;
         $scorm->timemodified = time();
