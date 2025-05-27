@@ -79,7 +79,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "user_node_pool" {
   kubernetes_cluster_id = azurerm_kubernetes_cluster.aks.id
   vm_size               = var.ClusterNodeSize
   auto_scaling_enabled  = true
-  min_count             = 1
+  min_count             = 5
   max_count             = 20
   node_count            = var.ClusterNodeCount
   mode                  = "User"
