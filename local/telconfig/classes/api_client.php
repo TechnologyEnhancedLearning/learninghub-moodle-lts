@@ -17,4 +17,15 @@ class api_client {
         $context = stream_context_create($options);
         return @file_get_contents($url, false, $context);
     }
+
+    public function delete(string $url): string|false {
+        $options = [
+            'http' => [
+                'method'  => 'DELETE',
+                'timeout' => 5,
+            ]
+        ];
+        $context = stream_context_create($options);
+        return @file_get_contents($url, false, $context);
+    }
 }
