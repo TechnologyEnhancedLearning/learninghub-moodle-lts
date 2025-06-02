@@ -56,7 +56,7 @@ class course_data_builder {
                 'publication_date' => date('Y-m-d', $course->startdate),
                 'rating' => 0,
                 'resource_reference_id' => 0,
-                'resource_type' => 'Moodle',
+                'resource_type' => 'Course',
                 'title' => $course->fullname,
              ];
 
