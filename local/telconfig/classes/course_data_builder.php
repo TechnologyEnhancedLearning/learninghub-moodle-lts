@@ -38,8 +38,7 @@ class course_data_builder {
             $authors = array_values(array_map(fn($u) => fullname($u), $teachers));
 
             // Extract tags
-            require_once('../config.php');
-            require_once($CFG->dirroot . '../tag/lib.php');
+            require_once($CFG->dirroot . '/tag/lib.php');
             $tags = \core_tag_tag::get_item_tags('core', 'course', $course->id);
             $keywords = array_map(fn($tag) => $tag->rawname, $tags);
 

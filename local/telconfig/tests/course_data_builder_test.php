@@ -27,69 +27,45 @@ defined('MOODLE_INTERNAL') || die();
 
 class course_data_builder_test extends advanced_testcase {
 
+    
     public function test_build_course_metadata_returns_expected_array() {
-        global $CFG;
+        global $DB;
 
         $this->resetAfterTest(true);
 
-        // Setup a fake course object
-        $course = new \stdClass();
-        $course->id = 5;
-        $course->startdate = strtotime('2020-01-01');
-        $course->category = 1;
-        $course->summary = 'Test summary';
-        $course->fullname = 'Test course full name';
+        // Create a course using Moodle's generator
+        $course = $this->getDataGenerator()->create_course([
+            'fullname' => 'Test Course',
+            'summary' => 'Test summary',
+            'startdate' => strtotime('2022-01-01')
+        ]);
 
-        // Mock context_course::instance to return a dummy context
-        $context = $this->createMock(context_course::class);
-        $this->mockStaticMethod('context_course', 'instance', $context);
+        // Enrol a teacher in the course
+        $teacher = $this->getDataGenerator()->create_user(['firstname' => 'Alice', 'lastname' => 'Teacher']);
+        $roleid = 3; // editingteacher
+        $context = context_course::instance($course->id);
+        role_assign($roleid, $teacher->id, $context->id);
 
-        // Mock get_role_users to return dummy users
-        // Moodle's get_role_users is a procedural function, so we use a workaround:
-        // We define a global function for the test that returns dummy users.
-        // But since we cannot redefine easily, let's simulate authors directly:
-        // So we override the course_data_builder to mock authors for this test.
+        // Add tags to course
+        core_tag_tag::set_item_tags('core', 'course', $course->id, context_course::instance($course->id), ['tag1', 'tag2']);
 
-        // Mock core_tag_tag::get_item_tags static method
-        $tag1 = new \stdClass();
-        $tag1->rawname = 'tag1';
-        $tag2 = new \stdClass();
-        $tag2->rawname = 'tag2';
-
-        // Override core_tag_tag::get_item_tags by monkey patch (not trivial in PHP)
-        // Instead, we can temporarily redefine the method by extending the class,
-        // but for simplicity here, just test the output keys and types.
-
-        // Call the method under test
+        // Call the method
         $result = course_data_builder::build_course_metadata($course);
 
-        // Assert returned data is an array with expected keys
+        // Assertions
         $this->assertIsArray($result);
-        $this->assertArrayHasKey('_id', $result);
         $this->assertSame('M' . $course->id, $result['_id']);
-        $this->assertArrayHasKey('course_id', $result);
         $this->assertSame($course->id, $result['course_id']);
-        $this->assertArrayHasKey('authored_date', $result);
         $this->assertSame(date('Y-m-d', $course->startdate), $result['authored_date']);
-        $this->assertArrayHasKey('authors', $result);
-        $this->assertIsArray($result['authors']);
-        $this->assertArrayHasKey('catalogue_ids', $result);
+        $this->assertContains(fullname($teacher), $result['authors']);
         $this->assertEquals([$course->category], $result['catalogue_ids']);
-        $this->assertArrayHasKey('description', $result);
-        $this->assertIsString($result['description']);
-        $this->assertArrayHasKey('keywords', $result);
-        $this->assertIsArray($result['keywords']);
-        $this->assertArrayHasKey('location_paths', $result);
+        $this->assertSame(format_text($course->summary, FORMAT_HTML), $result['description']);
+        $this->assertEquals(['tag1', 'tag2'], $result['keywords']);
         $this->assertIsArray($result['location_paths']);
-        $this->assertArrayHasKey('publication_date', $result);
         $this->assertSame(date('Y-m-d', $course->startdate), $result['publication_date']);
-        $this->assertArrayHasKey('rating', $result);
         $this->assertSame(0, $result['rating']);
-        $this->assertArrayHasKey('resource_reference_id', $result);
         $this->assertSame(0, $result['resource_reference_id']);
-        $this->assertArrayHasKey('resource_type', $result);
-        $this->assertSame('Moodle', $result['resource_type']);
-        $this->assertArrayHasKey('title', $result);
+        $this->assertSame('Course', $result['resource_type']);
         $this->assertSame($course->fullname, $result['title']);
     }
 }
