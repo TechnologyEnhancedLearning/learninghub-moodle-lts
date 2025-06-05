@@ -41,6 +41,6 @@ class telconfig_helper_test extends advanced_testcase {
              ->willReturn('{"status":"ok"}');
 
         // Call the method with the mock client.
-        helper::send_findwise_api(['courseid' => 123], $mock);
+        helper::send_findwise_api(['courseid' => 123], 'POST', $mock);
     }
 }
