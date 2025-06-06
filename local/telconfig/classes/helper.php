@@ -35,14 +35,14 @@ class helper {
      * @param array $data
      * @return void
      */
-    public static function send_findwise_api(array $data, ?api_client $client = null): void {
+    public static function send_findwise_api(array $data, string $method = 'POST', ?api_client $client = null): void {
         $indexurl = get_config('local_telconfig', 'findwiseindexurl');
         $indexmethod = get_config('local_telconfig', 'findwiseindexmethod');
         $collection = get_config('local_telconfig', 'findwisecollection');
         $apitoken = get_config('local_telconfig', 'findwiseapitoken');
 
         if (empty($indexurl) || empty($apitoken)) {            
-            return;
+            return; 
         }
 
         $indexurl = rtrim($indexurl, '/') . '/' . $indexmethod . '?token=' . urlencode($apitoken);
@@ -51,7 +51,18 @@ class helper {
         $client ??= new api_client();
 
         try {
-            $response = $client->post($apiurl, $data);
+            if ($method === 'DELETE') {
+                // Add logic to construct a deletion URL with course ID
+                if (isset($data['course_id'])) {
+                    $deleteurl = rtrim($apiurl, '/') . '&id=M' . $data['course_id'];
+                    $response = $client->delete($deleteurl);
+                } else {
+                    debugging('send_findwise_api: Cannot perform DELETE without course_id in $data.', DEBUG_DEVELOPER);
+                    return;
+                }
+            } else {
+                $response = $client->post($apiurl, $data); // POST or PUT
+            }
 
             if ($response === false) {
                 debugging('send_findwise_api: Failed to send data to findwise API.', DEBUG_DEVELOPER);
