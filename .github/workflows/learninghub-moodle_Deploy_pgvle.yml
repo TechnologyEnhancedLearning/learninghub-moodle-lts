@@ -104,12 +104,18 @@ jobs:
 
       - name: Create PersistentVolume for theme
         run: kubectl apply -f kubectl/pv-definition-theme-${{ vars.AZURE_ENVIRONMENT }}.yml
+
+      - name: Create PersistentVolume for uploads
+        run: kubectl apply -f kubectl/pv-definition-uploads-${{ vars.AZURE_ENVIRONMENT }}.yml
   
       - name: Create PersistentVolumeClaim
         run: kubectl apply -f kubectl/pvc-definition-${{ vars.AZURE_ENVIRONMENT }}.yml
    
       - name: Create PersistentVolumeClaim for theme
         run: kubectl apply -f kubectl/pvc-definition-theme-${{ vars.AZURE_ENVIRONMENT }}.yml
+
+      - name: Create PersistentVolumeClaim for uploads
+        run: kubectl apply -f kubectl/pvc-definition-uploads-${{ vars.AZURE_ENVIRONMENT }}.yml
 
       - name: Attach ACR to cluster
         run: az aks update -n ${{ vars.AZURE_CLUSTER_NAME }} -g ${{ vars.AZURE_RESOURCE_GROUP_NAME }} --attach-acr ${{ vars.AZURE_CONTAINER_REGISTRY_NAME }}
