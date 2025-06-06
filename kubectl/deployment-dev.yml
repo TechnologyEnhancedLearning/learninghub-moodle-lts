@@ -33,7 +33,7 @@ spec:
         - name: moodletheme
           mountPath: /var/www/html/theme
         - name: moodlerestuploads
-          mountPath: /var/www/html/webservices/rest/uploads
+          mountPath: /var/www/html/webservice/rest/uploads
       volumes:
       - name: moodledata
         persistentVolumeClaim:
