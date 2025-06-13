@@ -35,7 +35,7 @@ if ($hassiteconfig) {
         get_string('findwiseindexmethod', 'local_telconfig'), get_string('findwiseindexmethod_desc', 'local_telconfig'), '', PARAM_TEXT));
     $settings->add(new admin_setting_configtext('local_telconfig/findwisecollection',
         get_string('findwisecollection', 'local_telconfig'), get_string('findwisecollection_desc', 'local_telconfig'), '', PARAM_TEXT));
-    $settings->add(new admin_setting_configtext('local_telconfig/findwiseapitoken',
+    $settings->add(new admin_setting_configpasswordunmask('local_telconfig/findwiseapitoken',
         get_string('findwiseapitoken', 'local_telconfig'), get_string('findwiseapitoken_desc', 'local_telconfig'), '', PARAM_TEXT));
 
     //Mustache template settings
