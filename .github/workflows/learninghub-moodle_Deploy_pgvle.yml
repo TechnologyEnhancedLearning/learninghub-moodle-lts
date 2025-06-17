@@ -194,6 +194,9 @@ jobs:
             rm -f $(basename $zipfile); \
           done
 
+      - name: Ensure uploads folder has correct permissions applied
+        run: chmod ugo+rwx ./webservice/rest/uploads
+
       - name: Build and push Docker image
         run: |
           docker build -t ${{ vars.AZURE_CONTAINER_REGISTRY_NAME }}.azurecr.io/${{ vars.DOCKER_IMAGE_NAME }}:latest . 

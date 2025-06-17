@@ -239,6 +239,9 @@ jobs:
             rm -f $(basename $zipfile); \
           done
 
+      - name: Ensure uploads folder has correct permissions applied
+        run: chmod ugo+rwx ./webservice/rest/uploads
+
       - name: Build and push Docker image
         run: |
           docker build \
