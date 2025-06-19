@@ -11,6 +11,7 @@ WORKDIR /var/www/html
 COPY . /var/www/html
 
 COPY php.ini /usr/local/etc/php/php.ini
+COPY upload-size.ini /usr/local/etc/php/conf.d/99-upload-size.ini
 
 # Expose port 80 to the outside world
 EXPOSE 80
