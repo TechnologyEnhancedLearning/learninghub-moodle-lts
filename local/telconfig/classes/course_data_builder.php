@@ -40,7 +40,7 @@ class course_data_builder {
             // Extract tags
             require_once($CFG->dirroot . '/tag/lib.php');
             $tags = \core_tag_tag::get_item_tags('core', 'course', $course->id);
-            $keywords = array_map(fn($tag) => $tag->rawname, $tags);
+            $keywords = array_map(fn($tag) => strtolower($tag->rawname), $tags);
 
             // Prepare data
             $data = [
