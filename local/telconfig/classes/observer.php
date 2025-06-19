@@ -17,33 +17,54 @@ class observer {
      * @return void
      */
     public static function enrol_instance_changed(\core\event\base $event): void {
-    global $DB;
+        global $DB;
 
-    try {
+        try {
 
-        // Get enrol instance
-         $enrol = $DB->get_record('enrol', ['id' => $event->objectid], '*', MUST_EXIST);
+            // Get enrol instance
+             $enrol = $DB->get_record('enrol', ['id' => $event->objectid], '*', MUST_EXIST);
 
-        // Only act if it's for 'self' enrolment.
-        if (!isset($event->other['enrol']) || $event->other['enrol'] !== 'self') {
-            return;
+            // Only act if it's for 'self' enrolment.
+            if (!isset($event->other['enrol']) || $event->other['enrol'] !== 'self') {
+                return;
+            }
+
+            // Get course info
+            $course = $DB->get_record('course', ['id' => $event->courseid], '*', MUST_EXIST);
+
+            if ((int)$enrol->status === ENROL_INSTANCE_ENABLED) {
+                // Fetch the enrolment instance data.
+                $data = course_data_builder::build_course_metadata($course);
+                helper::send_findwise_api($data);
+            } else {
+                // Delete from external API when disabled.
+                $data = ['course_id' => $course->id];
+                helper::send_findwise_api($data,'DELETE');
+            }
+
+        } catch (\dml_exception $e) {
+            debugging("Failed to fetch course/enrol data: " . $e->getMessage(), DEBUG_DEVELOPER);
         }
+    }
 
-        // Get course info
-        $course = $DB->get_record('course', ['id' => $event->courseid], '*', MUST_EXIST);
+    /**
+     * Triggered when a course is updated.
+     *
+     * @param \core\event\base $event
+     * @return void
+     */
+    public static function local_course_updated(\core\event\base $event): void {
+        global $DB;
 
-        if ((int)$enrol->status === ENROL_INSTANCE_ENABLED) {
-            // Fetch the enrolment instance data.
+        try {
+            $course = $DB->get_record('course', ['id' => $event->objectid], '*', MUST_EXIST);
+
+            // Rebuild and send metadata to API (as an update).
             $data = course_data_builder::build_course_metadata($course);
             helper::send_findwise_api($data);
-        } else {
-            // Delete from external API when disabled.
-            $data = ['course_id' => $course->id];
-            helper::send_findwise_api($data,'DELETE');
-        }
 
-    } catch (\dml_exception $e) {
-        debugging("Failed to fetch course/enrol data: " . $e->getMessage(), DEBUG_DEVELOPER);
+        } catch (\dml_exception $e) {
+            debugging("Failed to process course update: " . $e->getMessage(), DEBUG_DEVELOPER);
+        }
     }
-}
 }
