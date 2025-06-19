@@ -81,7 +81,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "user_node_pool" {
   auto_scaling_enabled  = true
   min_count             = 1
   max_count             = 5
-  node_count            = 2
+  node_count            = 1
   mode                  = "User"
   temporary_name_for_rotation  = "tmpup1"
   tags = {
