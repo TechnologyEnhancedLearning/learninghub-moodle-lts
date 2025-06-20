@@ -58,7 +58,7 @@ class course_data_builder_test extends advanced_testcase {
         $this->assertSame($course->id, $result['course_id']);
         $this->assertSame(date('Y-m-d', $course->startdate), $result['authored_date']);
         $this->assertContains(fullname($teacher), $result['authors']);
-        $this->assertEquals([], $result['catalogue_ids']);
+        $this->assertEquals(['1'], $result['catalogue_ids']);
         $this->assertSame(format_text($course->summary, FORMAT_HTML), $result['description']);
         $this->assertEquals(['tag1', 'tag2'], $result['keywords']);
         $this->assertIsArray($result['location_paths']);
