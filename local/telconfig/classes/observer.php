@@ -23,7 +23,7 @@ class observer {
 
             // Get enrol instance
              $enrol = $DB->get_record('enrol', ['id' => $event->objectid], '*', MUST_EXIST);
-
+           
             // Only act if it's for 'self' enrolment.
             if (!isset($event->other['enrol']) || $event->other['enrol'] !== 'self') {
                 return;
@@ -59,12 +59,27 @@ class observer {
         try {
             $course = $DB->get_record('course', ['id' => $event->objectid], '*', MUST_EXIST);
 
+            // Only proceed if the course has self enrolment enabled
+           if (!self::is_course_self_enrollable($course->id)) {
+                return;
+            }
+
             // Rebuild and send metadata to API (as an update).
             $data = course_data_builder::build_course_metadata($course);
             helper::send_findwise_api($data);
 
         } catch (\dml_exception $e) {
-            debugging("Failed to process course update: " . $e->getMessage(), DEBUG_DEVELOPER);
+            debugging("Failed to process local course update: " . $e->getMessage(), DEBUG_DEVELOPER);
         }
+    }    
+
+    private static function is_course_self_enrollable(int $courseid): bool {
+        global $DB;
+
+        return $DB->record_exists('enrol', [
+            'courseid' => $courseid,
+            'enrol' => 'self',
+            'status' => ENROL_INSTANCE_ENABLED,
+        ]);
     }
 }
