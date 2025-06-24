@@ -73,6 +73,59 @@ class observer {
         }
     }    
 
+    /**
+     * Triggered when a section is updated.
+     *
+     * @param \core\event\base $event
+     * @return void
+     */
+    public static function local_section_updated(\core\event\base $event): void {
+        global $DB;
+
+        try {
+            $section = $DB->get_record('course_sections', ['id' => $event->objectid], '*', MUST_EXIST);
+            $course = $DB->get_record('course', ['id' => $event->courseid], '*', MUST_EXIST);
+        
+            // Only proceed if the course has self enrolment enabled
+            if (!self::is_course_self_enrollable($course->id)) {
+                return;
+            }
+
+            // Handle the update, e.g., send new metadata
+            $data = course_data_builder::build_course_metadata($course); // or enrich this with section title
+            helper::send_findwise_api($data);
+
+        } catch (\Throwable $e) {
+            debugging('Failed in local section_updated: ' . $e->getMessage(), DEBUG_DEVELOPER);
+        }
+    }
+
+    /**
+     * Triggered when a module is updated.
+     *
+     * @param \core\event\base $event
+     * @return void
+     */
+    public static function local_module_updated(\core\event\base $event): void {
+        global $DB;
+
+        try {
+            $cm = get_coursemodule_from_id(null, $event->objectid, 0, false, MUST_EXIST);
+            $course = $DB->get_record('course', ['id' => $cm->course], '*', MUST_EXIST);
+
+            // Only proceed if the course has self enrolment enabled
+            if (!self::is_course_self_enrollable($course->id)) {
+                return;
+            }
+
+            // Build metadata
+            $data = course_data_builder::build_course_metadata($course); // or enrich with mod/section name
+            helper::send_findwise_api($data);
+
+        } catch (\Throwable $e) {
+            debugging('Failed in local module_updated: ' . $e->getMessage(), DEBUG_DEVELOPER);
+        }
+    }
     private static function is_course_self_enrollable(int $courseid): bool {
         global $DB;
 
