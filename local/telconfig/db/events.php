@@ -13,4 +13,16 @@ $observers = [
         'priority'    => 9999,
         'internal'    => false,
     ],   
+    [
+        'eventname'   => '\core\event\course_section_updated',
+        'callback'    => '\local_telconfig\observer::local_section_updated',
+        'priority'    => 9999,
+        'internal'    => false,
+    ],
+    [
+        'eventname'   => '\core\event\course_module_updated',
+        'callback'    => '\local_telconfig\observer::local_module_updated',
+        'priority'    => 9999,
+        'internal'    => false,
+    ],
 ];

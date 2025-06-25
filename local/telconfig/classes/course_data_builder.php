@@ -40,7 +40,19 @@ class course_data_builder {
             // Extract tags
             require_once($CFG->dirroot . '/tag/lib.php');
             $tags = \core_tag_tag::get_item_tags('core', 'course', $course->id);
-            $keywords = array_map(fn($tag) => strtolower($tag->rawname), $tags);
+            $keywords = array_reduce($tags, function ($carry, $tag) {
+                return array_merge($carry, self::tokenize_keywords($tag->rawname));
+            }, []);
+
+
+             // Merge in section and resource keywords
+            $keywords = array_merge(
+                $keywords,
+                self::get_section_keywords($course),
+                self::get_resource_keywords($course)
+            );
+
+            $keywords = array_values(array_unique($keywords));
 
             // Prepare data
             $data = [
@@ -65,5 +77,59 @@ class course_data_builder {
             debugging('Error in course_data_builder: ' . $e->getMessage(), DEBUG_DEVELOPER);
             return []; // Always return an array
         }
+    }
+
+    private static function get_section_keywords($course): array {
+        $keywords = [];
+        $modinfo = get_fast_modinfo($course);
+        $sections = $modinfo->get_section_info_all();
+
+        foreach ($sections as $section) {
+            if (!empty($section->name)) {
+                $keywords = array_merge($keywords, self::tokenize_keywords($section->name));
+            }
+        }        
+
+        return $keywords;
+    }
+
+    private static function get_resource_keywords($course): array {
+        global $DB;
+        $keywords = [];        
+        $coursemodules = $DB->get_records('course_modules', ['course' => $course->id]);
+
+        foreach ($coursemodules as $cm) {
+            // Skip if module is marked for deletion
+            if (!empty($cm->deletioninprogress)) {
+                continue;
+            }
+
+            // Get module type (e.g., 'resource', 'quiz', etc.)
+            $module = $DB->get_record('modules', ['id' => $cm->module], '*', IGNORE_MISSING);
+            if (!$module) {
+                continue;
+            }
+
+            // Dynamically get the module instance (e.g., from 'resource', 'quiz', etc.)
+            $instancetable = $module->name;
+            $instance = $DB->get_record($instancetable, ['id' => $cm->instance], '*', IGNORE_MISSING);
+            if ($instance && !empty($instance->name)) {
+                $keywords = array_merge($keywords, self::tokenize_keywords($instance->name));
+            }
+        }
+
+        return $keywords;
+    }
+
+    private static function tokenize_keywords(string $input): array {
+        $input = strtolower(trim($input));
+        if (empty($input)) {
+            return [];
+        }
+
+        $tokens = preg_split('/\s+/', $input); // split on spaces
+        $keywords = array_merge([$input], $tokens); // include full phrase and individual words
+
+        return array_unique($keywords); // remove duplicates
     }
 }
