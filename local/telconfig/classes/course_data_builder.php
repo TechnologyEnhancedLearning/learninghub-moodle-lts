@@ -41,7 +41,7 @@ class course_data_builder {
             require_once($CFG->dirroot . '/tag/lib.php');
             $tags = \core_tag_tag::get_item_tags('core', 'course', $course->id);
             $keywords = array_reduce($tags, function ($carry, $tag) {
-                return array_merge($carry, self::tokenize_keywords($tag->rawname));
+                return array_merge($carry, self::tokenise_keywords($tag->rawname));
             }, []);
 
 
@@ -85,9 +85,13 @@ class course_data_builder {
         $sections = $modinfo->get_section_info_all();
 
         foreach ($sections as $section) {
-            if (!empty($section->name)) {
-                $keywords = array_merge($keywords, self::tokenize_keywords($section->name));
+             // Skip hidden sections
+            if (!$section->uservisible || !$section->visible || empty($section->name)) {
+                continue;
             }
+
+            // Tokenise and merge keywords
+            $keywords = array_merge($keywords, self::tokenise_keywords($section->name));
         }        
 
         return $keywords;
@@ -95,12 +99,14 @@ class course_data_builder {
 
     private static function get_resource_keywords($course): array {
         global $DB;
-        $keywords = [];        
+        $keywords = [];
+    
+        // Now fetch all course modules from DB
         $coursemodules = $DB->get_records('course_modules', ['course' => $course->id]);
 
         foreach ($coursemodules as $cm) {
-            // Skip if module is marked for deletion
-            if (!empty($cm->deletioninprogress)) {
+            // Skip deleted or hidden modules
+            if (!empty($cm->deletioninprogress) || empty($cm->visible)) {
                 continue;
             }
 
@@ -114,14 +120,15 @@ class course_data_builder {
             $instancetable = $module->name;
             $instance = $DB->get_record($instancetable, ['id' => $cm->instance], '*', IGNORE_MISSING);
             if ($instance && !empty($instance->name)) {
-                $keywords = array_merge($keywords, self::tokenize_keywords($instance->name));
+                $keywords = array_merge($keywords, self::tokenise_keywords($instance->name));
             }
         }
 
         return $keywords;
     }
 
-    private static function tokenize_keywords(string $input): array {
+
+    private static function tokenise_keywords(string $input): array {
         $input = strtolower(trim($input));
         if (empty($input)) {
             return [];
