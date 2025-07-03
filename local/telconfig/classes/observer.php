@@ -134,4 +134,33 @@ class observer {
             'status' => ENROL_INSTANCE_ENABLED,
         ]);
     }
+
+    public static function on_user_loggedout(\core\event\user_loggedout $event) {
+        global $DB, $CFG, $USER;
+
+        $user = $event->get_record_snapshot('user', $event->objectid);
+
+        if ($user->auth !== 'oidc') {
+            return true; // Ignore non-OIDC users
+        }
+
+        // Load token
+        $tokenrec = $DB->get_record('auth_oidc_token', ['userid' => $user->id]);
+        if ($tokenrec && isset($tokenrec->idtoken)) {
+            $idtoken = $tokenrec->idtoken;
+            
+            $logouturl = get_config('auth_oidc', 'logouturi');
+            if (!$logouturl) {
+                $logouturl = 'https://login.microsoftonline.com/organizations/oauth2/logout?post_logout_redirect_uri=' .
+                    urlencode($CFG->wwwroot);
+            }
+            // Append id_token_hint
+            $logouturl .= '&id_token_hint=' . $idtoken;
+
+            // Use redirect now (Moodle already logged out the session)
+            redirect($logouturl);            
+        }
+
+        return true;
+    }
 }

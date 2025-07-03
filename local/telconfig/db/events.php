@@ -49,4 +49,10 @@ $observers = [
         'priority'    => 9999,
         'internal'    => false,
     ],
+    [
+        'eventname'   => '\core\event\user_loggedout',
+        'callback'    => 'local_telconfig\observer::on_user_loggedout',        
+        'priority'    => 9999,
+        'internal'    => false,
+    ],
 ];
