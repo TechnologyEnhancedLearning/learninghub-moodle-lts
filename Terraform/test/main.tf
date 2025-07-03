@@ -23,6 +23,12 @@ resource "azurerm_storage_share" "storage_share_theme" {
   quota                = var.StorageQuota
 }
 
+resource "azurerm_storage_share" "storage_share_uploads" {
+  name                 = "moodlerestuploads"
+  storage_account_name = azurerm_storage_account.storage_account.name
+  quota                = var.StorageQuota
+}
+
 resource "azurerm_storage_container" "assessment_container" {
   name                  = "assessmentstoragecontainer"
   storage_account_name  = azurerm_storage_account.storage_account.name

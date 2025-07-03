@@ -1,6 +1,6 @@
 name: Run tests for LearningHub-Moodle
 on:
-  pull_request:
+  workflow_dispatch:
   
 permissions:
   id-token: write
