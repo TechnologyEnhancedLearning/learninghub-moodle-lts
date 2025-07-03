@@ -327,13 +327,6 @@ class auth_plugin_oidc extends \auth_plugin_base {
                         preg_match("/\/oauth2\/logout$/", $logouturl)) {
                         $logouturl .= '?post_logout_redirect_uri=' . urlencode($CFG->wwwroot);
                     }
-                    else{
-                        $tokenrec = $DB->get_record('auth_oidc_token', ['userid' => $user->id]);
-                        $idToken = $tokenrec->idtoken;
-
-                        $logouturl .= '?post_logout_redirect_uri=' . urlencode($CFG->wwwroot);
-                        $logouturl .= '&id_token_hint=' . $idToken;
-                    }  
                 }
 
                 redirect($logouturl);
