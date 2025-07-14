@@ -1,12 +1,11 @@
 <?php
-
 defined('MOODLE_INTERNAL') || die();
 $functions = array(
    
     'mod_scorm_insert_scorm_resource' => array(
         'classname' => 'insert_scorm_resource',
         'methodname' => 'insert_scorm_resource',
-        'classpath' => 'local/custom_service/externallib.php',
+        'classpath' => 'local/scormresource/externallib.php',
         'description' => 'Create a scorm resource under a course',
         'type' => 'write',
         'ajax' => true,
