@@ -33,7 +33,7 @@ jobs:
           cd Terraform/${{ vars.AZURE_ENVIRONMENT }}
           terraform init "-backend-config=backend-${{ vars.AZURE_ENVIRONMENT }}.tfvars"
 
-      # - name: 'Terraform destroy'
+      # - name: 'Terraform   destroy'
       #   id: destroy
       #   run: |
       #     cd Terraform/pgvle
