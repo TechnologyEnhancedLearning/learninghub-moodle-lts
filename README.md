@@ -8,7 +8,7 @@ Learning Hub is the NHS England learning management and delivery platform develo
 
 Moodle is designed to allow educators, administrators and learners to create personalised learning environments with a single robust, secure and integrated system.
 
-### Documentation
+### Documentation 
 
 - Read our [User documentation][3]
 - Discover our [developer documentation][5]
