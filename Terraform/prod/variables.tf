@@ -61,3 +61,8 @@ variable "RedisName" {
 variable "SqlmiName" {
     type = string
 }
+
+
+variable "KubernetesVersion" {
+    type = string
+}

@@ -40,6 +40,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
   location            = azurerm_resource_group.learningHubMoodleResourceGroup.location
   resource_group_name = azurerm_resource_group.learningHubMoodleResourceGroup.name
   dns_prefix          = var.ClusterName
+  kubernetes_version  = var.KubernetesVersion
   default_node_pool {
     name                         = "default"
     vm_size                      = var.ClusterNodeSize

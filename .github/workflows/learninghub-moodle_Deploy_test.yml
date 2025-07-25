@@ -54,6 +54,7 @@ jobs:
       #       -var="SQLVcores=${{ vars.SQL_VCORES }}" \
       #       -var="RedisName=${{ vars.REDIS_NAME }}" \
       #       -var="SqlmiName=${{ vars.SQLMI_NAME }}"
+      #       -var="KubernetesVersion=${{ vars.KUBERNETES_VERSION }}"
 
       - name: 'Terraform apply'
         id: apply
@@ -75,7 +76,8 @@ jobs:
             -var="SQLStorageSize=${{ vars.SQL_STORAGE_SIZE }}" \
             -var="SQLVcores=${{ vars.SQL_VCORES }}" \
             -var="RedisName=${{ vars.REDIS_NAME }}" \
-            -var="SqlmiName=${{ vars.SQLMI_NAME }}"
+            -var="SqlmiName=${{ vars.SQLMI_NAME }}" \
+            -var="KubernetesVersion=${{ vars.KUBERNETES_VERSION }}"
 
   create_persistent_storage:
     needs: terraform
