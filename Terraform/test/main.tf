@@ -120,18 +120,6 @@ resource "azurerm_network_security_group" "nsg" {
     destination_address_prefix = "*"
   }
   security_rule {
-    name                       = "AllowInbound"
-    description                = "Allow inbound traffic"
-    direction                  = "Inbound"
-    access                     = "Allow"
-    priority                   = 103
-    protocol                   = "Tcp"
-    source_port_range          = "*"
-    destination_port_range     = "3342"
-    source_address_prefix      = "*"
-    destination_address_prefix = "*"
-  }
-  security_rule {
     access                  = "Allow"
     description             = "Allow Azure Load Balancer inbound traffic"
     destination_address_prefix =  "10.0.1.0/24"
@@ -260,6 +248,20 @@ resource "azurerm_network_security_group" "nsg" {
     source_port_ranges = []
   }
 }
+
+resource "azure_network_security_rule" "allow_sql_public_endpoint" {
+    name                       = "AllowSQLPublicEndpoint"
+    direction                  = "Inbound"
+    access                     = "Allow"
+    priority                   = 103
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "3342"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+    resource_group_name        = azurerm_resource_group.learningHubMoodleRsourceGroup.name
+    network_security_group_name = azurerm_network_security_group.nsg.name
+  }
 
 resource "azurerm_route_table" "route_table" {
   name                = "ManagedInstanceRouteTable"
