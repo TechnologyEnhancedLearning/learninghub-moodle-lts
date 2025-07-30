@@ -249,7 +249,7 @@ resource "azurerm_network_security_group" "nsg" {
   }
 }
 
-resource "azure_network_security_rule" "allow_sql_public_endpoint" {
+resource "azurerm_network_security_rule" "allow_sql_public_endpoint" {
     name                       = "AllowSQLPublicEndpoint"
     direction                  = "Inbound"
     access                     = "Allow"
