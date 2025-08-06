@@ -322,7 +322,7 @@ public static function get_user_certificates($userid) {
         $results[] = [
             'resourcetype' => 'Course',
             'resourcetitle' => $rec->certificatename,
-            'coursename' => $rec->coursename,
+            'resourcename' => $rec->coursename,
             'awardeddate' => $rec->timecreated,
             'downloadlink' => $downloadurl->out(false),
             'previewlink' => $previewurl->out(false)
@@ -337,6 +337,7 @@ public static function get_user_certificates_returns() {
             [
                 'resourcetype' => new external_value(PARAM_TEXT, 'Type of resource'),
                 'resourcetitle' => new external_value(PARAM_TEXT, 'Certificate title'),
+                'resourcename'  => new external_value(PARAM_TEXT, 'Course name'),
                 'awardeddate' => new external_value(PARAM_TEXT, 'Award date'),
                 'downloadlink' => new external_value(PARAM_URL, 'Download link'),
                 'previewlink' => new external_value(PARAM_URL, 'Preview link')
