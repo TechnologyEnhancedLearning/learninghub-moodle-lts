@@ -167,7 +167,7 @@ class mylearningservice_external extends external_api {
             if (!$courseimage) {
                 $courseimage = $OUTPUT->get_generated_url_for_course($context);
             }
-            $hascertificate = $DB->record_exists('customcert', ['course' => $course->id]);
+            $hascertificate =self:: course_has_certificate_enabled($course->id);
             $courseresult = [
                 'id' => $course->id,
                 'shortname' => $course->shortname,
@@ -210,6 +210,21 @@ class mylearningservice_external extends external_api {
 
         return $result;
     }
+    public static function course_has_certificate_enabled($courseid) {
+    global $DB;
+
+    $sql = "SELECT cm.id
+            FROM {course_modules} cm
+            JOIN {modules} m ON m.id = cm.module
+            WHERE m.name = :modname
+              AND cm.course = :courseid
+              AND cm.visible = 1"; // only visible activities
+
+    return $DB->record_exists_sql($sql, [
+        'modname' => 'coursecertificate',
+        'courseid' => $courseid
+    ]);
+}
 
     public static function get_recent_courses_returns() {
         return new external_multiple_structure(
@@ -254,4 +269,79 @@ class mylearningservice_external extends external_api {
             )
         );
     }
+
+    public static function get_user_certificates_parameters() {
+    return new external_function_parameters(
+        [
+            'userid' => new external_value(PARAM_INT, 'User ID')
+        ]
+    );
+}
+public static function get_user_certificates($userid) {
+    global $DB, $CFG;
+
+    require_once($CFG->libdir . '/filelib.php');
+
+      // Validate params
+    $params = self::validate_parameters(self::get_user_certificates_parameters(), array('userid' => $userid));
+
+    // SQL to fetch certificates linked to a course
+        $sql = "SELECT ci.id AS issueid,
+                    ci.timecreated,
+                    ct.name AS certificatename,
+                    c.id AS courseid,
+                    c.fullname AS coursename,
+                    cm.id AS cmid
+                FROM {tool_certificate_issues} ci
+                JOIN {tool_certificate_templates} ct 
+                    ON ci.templateid = ct.id
+                JOIN {course} c 
+                    ON ci.courseid = c.id
+                JOIN {course_modules} cm
+                    ON cm.course = c.id
+                JOIN {modules} m
+                    ON m.id = cm.module AND m.name = 'coursecertificate'
+                WHERE ci.userid = :userid";
+
+
+    $records = $DB->get_records_sql($sql, ['userid' => $userid]);
+
+    $results = [];
+    foreach ($records as $rec) {
+        // Build download link
+        $downloadurl = new moodle_url('/mod/coursecertificate/view.php', [
+            'id' => $rec->cmid,
+            'download' => 1
+        ]);
+
+        // Build preview link
+        $previewurl = new moodle_url('/mod/coursecertificate/view.php', [
+            'id' => $rec->cmid
+        ]);
+
+        $results[] = [
+            'resourcetype' => 'Course',
+            'resourcetitle' => $rec->certificatename,
+            'coursename' => $rec->coursename,
+            'awardeddate' => $rec->timecreated,
+            'downloadlink' => $downloadurl->out(false),
+            'previewlink' => $previewurl->out(false)
+        ];
+    }
+
+    return $results;
+}
+public static function get_user_certificates_returns() {
+    return new external_multiple_structure(
+        new external_single_structure(
+            [
+                'resourcetype' => new external_value(PARAM_TEXT, 'Type of resource'),
+                'resourcetitle' => new external_value(PARAM_TEXT, 'Certificate title'),
+                'awardeddate' => new external_value(PARAM_TEXT, 'Award date'),
+                'downloadlink' => new external_value(PARAM_URL, 'Download link'),
+                'previewlink' => new external_value(PARAM_URL, 'Preview link')
+            ]
+        )
+    );
+}
 }

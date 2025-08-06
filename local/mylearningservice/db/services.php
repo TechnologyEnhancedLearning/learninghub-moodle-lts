@@ -9,12 +9,22 @@ $functions = array(
         'ajax'        => true,
         'capabilities' => 'moodle/course:view',
     ),
+    'mylearningservice_get_user_certificates' => array(
+        'classname'   => 'mylearningservice_external',
+        'methodname'  => 'get_user_certificates', 
+        'classpath'   => 'local/mylearningservice/externallib.php',
+        'description' => 'Get certificates awarded to a user',
+        'type'        => 'read',
+        'ajax'        => true,
+        'capabilities' => 'moodle/course:view',
+    ),
 );
 $services = array(
     'Get Recent Courses' => array(
         'functions' => array(
            
-            'mylearningservice_get_recent_courses'
+            'mylearningservice_get_recent_courses',
+             'mylearningservice_get_user_certificates'
         ),
         'restrictedusers' => 0,
         'enabled' => 1,
