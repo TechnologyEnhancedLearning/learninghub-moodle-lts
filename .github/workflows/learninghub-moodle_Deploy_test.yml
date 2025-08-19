@@ -325,3 +325,35 @@ jobs:
       - name: Define trusted container registries
         run: |
           az policy assignment create --resource-group ${{ vars.AZURE_RESOURCE_GROUP_NAME }} --name "EnforceTrustedRegistries" --policy "febd0533-8e55-448f-b837-bd0e06f16469" --params "{\"allowedContainerImagesRegex\":{\"value\":\"learninghubmoodlecrtest.azurecr.io\"}}" --location uksouth
+
+  setup_cdc_on_db_tables:
+    needs: deploy_learninghubmoodle_to_cluster
+    runs-on: ubuntu-latest
+    environment: test
+    name: 'Setup CDC on DB tables'
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install sqlcmd and ODBC Driver
+        run: |
+          curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
+          curl https://packages.microsoft.com/config/ubuntu/20.04/prod.list | sudo tee /etc/apt/sources.list.d/mssql-release.list
+          sudo apt-get update
+          sudo ACCEPT_EULA=Y apt-get install -y msodbcsql17 mssql-tools
+          echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc
+          source ~/.bashrc
+
+      - name: Run SQL against Azure SQL Managed Instance
+        run: |
+          sqlcmd -S tcp:${{ vars.SQLMI_NAME }}.database.windows.net,1433 \
+                 -U ${{ vars.SQL_ADMINISTRATOR_LOGIN }} \
+                 -P ${{ secrets.SQL_ADMINISTRATOR_LOGIN_PASSWORD }} \
+                 -d ${{ vars.SQLMI_NAME }} \
+                 -Q "$(echo \
+                   'EXEC sys.sp_cdc_enable_db;' \
+                   'EXEC sys.sp_cdc_enable_table @source_schema = N''dbo'', @source_name = N''mdl_course_modules_completion'', @role_name = NULL, @supports_net_changes = 0;' \
+                   )"
+        env:
+          SQLCMDPASSWORD: ${{ secrets.SQL_ADMINISTRATOR_LOGIN_PASSWORD }}
+
