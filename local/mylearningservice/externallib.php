@@ -11,9 +11,9 @@ class mylearningservice_external extends external_api {
             // Allow omission by setting VALUE_DEFAULT and defaulting to 0 (meaning no limit)
             'months' => new external_value(PARAM_INT, 'Number of past months to include', VALUE_DEFAULT, 0),
             // Optional status filter
-            'statusfilter' => new external_value(PARAM_ALPHA, 'Course status filter: completed, inprogress, or empty for all', VALUE_DEFAULT, ''),
+            'statusfilter' => new external_value(PARAM_TEXT, 'Course status filter: completed, inprogress, or empty for all', VALUE_DEFAULT, ''),
             // Optional search term
-            'search' => new external_value(PARAM_RAW, 'Search keyword for course fullname/shortname', VALUE_DEFAULT, '')
+            'search' => new external_value(PARAM_TEXT, 'Search keyword for course fullname/shortname', VALUE_DEFAULT, '')
         )
     );
 }
@@ -295,7 +295,7 @@ class mylearningservice_external extends external_api {
     return new external_function_parameters(
         [
             'userid' => new external_value(PARAM_INT, 'User ID'),
-            'searchterm' => new external_value(PARAM_RAW, 'Search keyword for filtering certificates', VALUE_OPTIONAL)
+            'searchterm' => new external_value(PARAM_TEXT, 'Search keyword for filtering certificates', VALUE_DEFAULT, '')
         ]
     );
 }
