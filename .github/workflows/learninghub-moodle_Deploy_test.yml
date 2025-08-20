@@ -358,7 +358,7 @@ jobs:
           sqlcmd -S tcp:${{ vars.SQLMI_PUBLIC_NAME }}.database.windows.net,3342 \
                  -U ${{ vars.SQL_ADMINISTRATOR_LOGIN }} \
                  -P ${{ secrets.SQL_ADMINISTRATOR_LOGIN_PASSWORD }} \
-                 -d ${{ vars.SQLMI_NAME }} \
+                 -d LearningHubMoodle \
                  -Q "$(echo \
                    'EXEC sys.sp_cdc_enable_db;' \
                    'EXEC sys.sp_cdc_enable_table @source_schema = N''dbo'', @source_name = N''mdl_course_modules_completion'', @role_name = NULL, @supports_net_changes = 0;' \
