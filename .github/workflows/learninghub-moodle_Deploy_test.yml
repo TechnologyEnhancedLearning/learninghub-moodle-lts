@@ -353,6 +353,14 @@ jobs:
           sudo ACCEPT_EULA=Y apt-get install -y msodbcsql17 mssql-tools
           echo "/opt/mssql-tools/bin" >> $GITHUB_PATH
 
+      # Don't need to do this as test environment has public access to SQL MI open
+      # - name: Enable public endpoint for Azure SQL Managed Instance
+      #   run: |
+      #     az sql mi update \
+      #     --name ${{ vars.SQLMI_NAME }} \
+      #     --resource-group ${{ vars.AZURE_RESOURCE_GROUP_NAME }} \
+      #     --public-data-endpoint-enabled true
+
       - name: Run SQL against Azure SQL Managed Instance
         run: |
           sqlcmd -S tcp:${{ vars.SQLMI_PUBLIC_NAME }}.database.windows.net,3342 \
@@ -361,8 +369,27 @@ jobs:
                  -d LearningHubMoodle \
                  -Q "$(echo \
                    'EXEC sys.sp_cdc_enable_db;' \
-                   'EXEC sys.sp_cdc_enable_table @source_schema = N''dbo'', @source_name = N''mdl_course_modules_completion'', @role_name = NULL, @supports_net_changes = 0;' \
+                   'EXEC sys.sp_cdc_enable_table @source_schema = ''dbo'', @source_name = ''mdl_course'', @role_name = NULL, @supports_net_changes = 0;' \
+                   'EXEC sys.sp_cdc_enable_table @source_schema = ''dbo'', @source_name = ''mdl_course_categories'', @role_name = NULL, @supports_net_changes = 0;' \
+                   'EXEC sys.sp_cdc_enable_table @source_schema = ''dbo'', @source_name = ''mdl_course_completion_crit_compl'', @role_name = NULL, @supports_net_changes = 0;' \
+                   'EXEC sys.sp_cdc_enable_table @source_schema = ''dbo'', @source_name = ''mdl_course_completion_criteria'', @role_name = NULL, @supports_net_changes = 0;' \
+                   'EXEC sys.sp_cdc_enable_table @source_schema = ''dbo'', @source_name = ''mdl_course_completions'', @role_name = NULL, @supports_net_changes = 0;' \
+                   'EXEC sys.sp_cdc_enable_table @source_schema = ''dbo'', @source_name = ''mdl_course_modules'', @role_name = NULL, @supports_net_changes = 0;' \
+                   'EXEC sys.sp_cdc_enable_table @source_schema = ''dbo'', @source_name = ''mdl_course_modules_completion'', @role_name = NULL, @supports_net_changes = 0;' \
+                   'EXEC sys.sp_cdc_enable_table @source_schema = ''dbo'', @source_name = ''mdl_enrol'', @role_name = NULL, @supports_net_changes = 0;' \
+                   'EXEC sys.sp_cdc_enable_table @source_schema = ''dbo'', @source_name = ''mdl_modules'', @role_name = NULL, @supports_net_changes = 0;' \
+                   'EXEC sys.sp_cdc_enable_table @source_schema = ''dbo'', @source_name = ''mdl_scorm'', @role_name = NULL, @supports_net_changes = 0;' \
+                   'EXEC sys.sp_cdc_enable_table @source_schema = ''dbo'', @source_name = ''mdl_user'', @role_name = NULL, @supports_net_changes = 0;' \
+                   'EXEC sys.sp_cdc_enable_table @source_schema = ''dbo'', @source_name = ''mdl_user_enrolments'', @role_name = NULL, @supports_net_changes = 0;' \
                    )"
         env:
           SQLCMDPASSWORD: ${{ secrets.SQL_ADMINISTRATOR_LOGIN_PASSWORD }}
+
+      # Don't need to do this as test environment has public access to SQL MI open
+      # - name: Enable public endpoint for Azure SQL Managed Instance
+      #   run: |
+      #     az sql mi update \
+      #     --name ${{ vars.SQLMI_NAME }} \
+      #     --resource-group ${{ vars.AZURE_RESOURCE_GROUP_NAME }} \
+      #     --public-data-endpoint-enabled false
 
