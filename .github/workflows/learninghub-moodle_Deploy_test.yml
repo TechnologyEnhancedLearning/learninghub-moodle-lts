@@ -355,7 +355,7 @@ jobs:
 
       - name: Run SQL against Azure SQL Managed Instance
         run: |
-          sqlcmd -S tcp:${{ vars.SQLMI_NAME }}.database.windows.net,1433 \
+          sqlcmd -S tcp:${{ vars.SQLMI_PUBLIC_NAME }}.database.windows.net,3342 \
                  -U ${{ vars.SQL_ADMINISTRATOR_LOGIN }} \
                  -P ${{ secrets.SQL_ADMINISTRATOR_LOGIN_PASSWORD }} \
                  -d ${{ vars.SQLMI_NAME }} \
