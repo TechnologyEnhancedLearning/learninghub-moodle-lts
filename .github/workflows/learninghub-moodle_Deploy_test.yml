@@ -381,6 +381,7 @@ jobs:
                    'EXEC sys.sp_cdc_enable_table @source_schema = ''dbo'', @source_name = ''mdl_scorm'', @role_name = NULL, @supports_net_changes = 0;' \
                    'EXEC sys.sp_cdc_enable_table @source_schema = ''dbo'', @source_name = ''mdl_user'', @role_name = NULL, @supports_net_changes = 0;' \
                    'EXEC sys.sp_cdc_enable_table @source_schema = ''dbo'', @source_name = ''mdl_user_enrolments'', @role_name = NULL, @supports_net_changes = 0;' \
+                   'EXEC sys.sp_cdc_enable_table @source_schema = ''dbo'', @source_name = ''mdl_url'', @role_name = NULL, @supports_net_changes = 0;' \
                    )"
         env:
           SQLCMDPASSWORD: ${{ secrets.SQL_ADMINISTRATOR_LOGIN_PASSWORD }}
