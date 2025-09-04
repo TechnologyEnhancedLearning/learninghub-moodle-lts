@@ -35,6 +35,8 @@ $CFG->phpunit_dataroot = 'phpu_moodledata';
 $CFG->recordrtc_audio = false;
 $CFG->recordrtc_video = false;
 
+$CFG->disableupdateautodeploy = true;
+
 require_once(__DIR__ . '/lib/setup.php');
 
 // There is no php closing tag in this file,

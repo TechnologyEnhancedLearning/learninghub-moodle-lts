@@ -186,6 +186,16 @@ jobs:
       - name: Log in to Azure Container Registry
         run: az acr login --name ${{ vars.AZURE_CONTAINER_REGISTRY_NAME }}
 
+      - name: Setup Core Plugins
+        run: |
+          for plugin in ${{ vars.PLUGIN_CORE_SET }}; do \
+            IFS=":" && \
+            read folder zipfile <<< "$plugin" && \
+            wget https://$zipfile && \
+            unzip $(basename $zipfile) -d $folder && \
+            rm -f $(basename $zipfile); \
+          done
+
       - name: Setup Plugins
         run: |
           for plugin in ${{ vars.PLUGIN_SET }}; do \
