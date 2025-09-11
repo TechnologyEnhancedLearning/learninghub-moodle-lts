@@ -328,7 +328,7 @@ public static function get_user_certificates($userid, $searchterm = '') {
         ]);
         $results[] = [
             'resourcetype' => 'Course',
-            'resourcetitle' => $rec->coursename,
+            'resourcetitle' => $rec->certificatename,
             'resourcename' => $rec->coursename,
             'awardeddate' => $rec->timecreated,
             'downloadlink' => $downloadurl->out(false),
