@@ -402,7 +402,7 @@ class file_system_filedir extends file_system {
             ignore_user_abort($prev);
             throw new file_exception('storedfilecannotcreatefile');
         }
-        @chmod($hashfile, $this->filepermissions); // Fix permissions if needed.
+        chmod($hashfile, $this->filepermissions); // Fix permissions if needed.
         if (file_exists($hashfile.'.tmp')) {
             // Just in case anything fails in a weird way.
             @unlink($hashfile.'.tmp');
@@ -523,7 +523,7 @@ class file_system_filedir extends file_system {
             ignore_user_abort($prev);
             throw new file_exception('storedfilecannotcreatefile');
         }
-        @chmod($hashfile, $this->filepermissions); // Fix permissions if needed.
+        chmod($hashfile, $this->filepermissions); // Fix permissions if needed.
         if (file_exists($hashfile.'.tmp')) {
             // Just in case anything fails in a weird way.
             @unlink($hashfile.'.tmp');

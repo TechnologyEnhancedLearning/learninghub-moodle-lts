@@ -44,12 +44,8 @@ class send_new_user_passwords_task extends scheduled_task {
     public function execute() {
         global $DB;
 
-        $select = $DB->sql_compare_text('name') . ' = ? AND ' . $DB->sql_compare_text('value') . ' = ?';
-        $params = array('create_password', '1');
-
         // Generate new password emails for users - ppl expect these generated asap.
-        //if ($DB->count_records('user_preferences', array('name' => 'create_password', 'value' => '1'))) {
-        if ($DB->count_records_select('user_preferences', $select, $params)) {
+        if ($DB->count_records('user_preferences', array('name' => 'create_password', 'value' => '1'))) {
             mtrace('Creating passwords for new users...');
             $userfieldsapi = \core_user\fields::for_name();
             $usernamefields = $userfieldsapi->get_sql('u', false, '', '', false)->selects;
