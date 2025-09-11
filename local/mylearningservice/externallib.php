@@ -359,11 +359,14 @@ private static function fetch_user_certificates_data($userid, $searchterm = '') 
                  ON ci.templateid = ct.id
             JOIN {course} c 
                  ON ci.courseid = c.id
+            JOIN {course_categories} cat
+                 ON c.category = cat.id
             JOIN {course_modules} cm
                  ON cm.course = c.id
             JOIN {modules} m
                  ON m.id = cm.module AND m.name = 'coursecertificate'
-            WHERE ci.userid = :userid";
+            WHERE ci.userid = :userid
+                AND cat.visible = 1 AND c.visible = 1";   // only include certificates from visible categories and courses
 
     $queryparams = ['userid' => $userid];
 
