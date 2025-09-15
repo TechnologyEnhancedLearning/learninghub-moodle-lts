@@ -62,9 +62,15 @@ class mylearningservice_external extends external_api {
     }
         
          $enrolrecords = $DB->get_records_sql("
-             SELECT ue.timestart,ue.timeend
+             SELECT ue.timestart, cc.timecompleted ,ula.timeaccess
              FROM {user_enrolments} ue
              JOIN {enrol} e ON ue.enrolid = e.id
+             LEFT JOIN {course_completions} cc
+                ON cc.userid = ue.userid 
+                AND cc.course = e.courseid
+            LEFT JOIN {user_lastaccess} ula
+                ON ula.userid = ue.userid 
+                AND ula.courseid = e.courseid
              WHERE ue.userid = :userid AND e.courseid = :courseid
              ORDER BY ue.timestart DESC
          ", [
@@ -77,7 +83,8 @@ class mylearningservice_external extends external_api {
          if (!empty($enrolrecords)) {
              $firstrecord = reset($enrolrecords); // Gets first item
              $enroltime = (int)$firstrecord->timestart;
-             $enrolendtime=(int)$firstrecord->timeend;
+             $enrolendtime=(int)$firstrecord->timecompleted;
+             $lastaccessdate =(int)$firstrecord->timeaccess;
          }
          if(!empty($months))
          {
@@ -220,7 +227,8 @@ class mylearningservice_external extends external_api {
              'timemodified' => $course->timemodified,
              'certificateenabled'=>$hascertificate,
              'totalactivities' => $totalactivities,
-             'completedactivities'=>$completedactivities
+             'completedactivities'=>$completedactivities,
+             'lastaccessdate'=>$lastaccessdate
 
          ];
          if ($returnusercount) {
@@ -286,6 +294,7 @@ class mylearningservice_external extends external_api {
                     'certificateenabled' => new external_value(PARAM_BOOL, 'Whether the course has certificate.', VALUE_OPTIONAL),
                     'totalactivities' => new external_value(PARAM_INT, 'total activities', VALUE_OPTIONAL),
                     'completedactivities' => new external_value(PARAM_INT, 'completed activities count', VALUE_OPTIONAL),
+                    'lastaccessdate' => new external_value(PARAM_INT, 'Timestamp when the user access the course last', VALUE_OPTIONAL),
                 )
             )
         );
