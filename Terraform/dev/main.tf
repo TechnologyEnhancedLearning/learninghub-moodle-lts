@@ -249,6 +249,20 @@ resource "azurerm_network_security_group" "nsg" {
   }
 }
 
+resource "azurerm_network_security_rule" "allow_sql_public_endpoint" {
+    name                       = "AllowSQLPublicEndpoint"
+    direction                  = "Inbound"
+    access                     = "Allow"
+    priority                   = 103
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "3342"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+    resource_group_name        = azurerm_resource_group.learningHubMoodleResourceGroup.name
+    network_security_group_name = azurerm_network_security_group.nsg.name
+  }
+
 resource "azurerm_route_table" "route_table" {
   name                = "ManagedInstanceRouteTable"
   location            = azurerm_resource_group.learningHubMoodleResourceGroup.location
@@ -308,6 +322,7 @@ resource "azurerm_mssql_managed_instance" "sqlmi" {
   lifecycle {
     prevent_destroy = true
   }
+  public_data_endpoint_enabled = true
 }
 
 resource "azurerm_mssql_managed_database" "sqldb" {
