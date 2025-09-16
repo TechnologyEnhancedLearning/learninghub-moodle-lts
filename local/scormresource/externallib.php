@@ -99,7 +99,7 @@ class insert_scorm_resource extends external_api {
             'filearea'  => 'package',
             'itemid'    => 0, // Item ID (could be used to reference a specific instance of the package)
             'filepath'  => '/',
-            'filename'  => $file. '.zip'
+            'filename'  => $foldername. '.zip'
         );
         $file = $fs->create_file_from_pathname($fileinfo, $scormfile);
         
