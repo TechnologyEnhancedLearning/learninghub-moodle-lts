@@ -145,8 +145,7 @@ class mylearningservice_external extends external_api {
              }
          }
         if ($totalactivities > 0) {
-                $progresscalculated = ($completedactivities / $totalactivities) * 100;
-                 $progresscalculated = round($progresscalculated, 2); // round to 2 decimals
+                $progresscalculated =ceil(($completedactivities / $totalactivities) * 100);
         }
         else {
                 $progresscalculated = 0;
