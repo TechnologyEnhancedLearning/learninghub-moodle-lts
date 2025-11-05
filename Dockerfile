@@ -9,6 +9,8 @@ COPY . /var/www/html
 
 COPY php.ini /usr/local/etc/php/php.ini
 
+COPY 10-docker-php-moodle.ini /usr/local/etc/php/conf.d/
+
 # Expose port 80 to the outside world
 EXPOSE 80
 
