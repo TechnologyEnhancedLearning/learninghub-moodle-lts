@@ -1,9 +1,6 @@
 # Use the base image
 FROM moodlehq/moodle-php-apache:8.3
 
-ENV PHP_INI-UPLOAD_MAX_FILESIZE=700M
-ENV PHP_INI-POST_MAX_SIZE=700M
-
 # Set the working directory inside the container
 WORKDIR /var/www/html
 
@@ -11,7 +8,8 @@ WORKDIR /var/www/html
 COPY . /var/www/html
 
 COPY php.ini /usr/local/etc/php/php.ini
-COPY upload-size.ini /usr/local/etc/php/conf.d/99-upload-size.ini
+
+COPY 10-docker-php-moodle.ini /usr/local/etc/php/conf.d/
 
 # Expose port 80 to the outside world
 EXPOSE 80
