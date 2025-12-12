@@ -37,6 +37,10 @@ $CFG->recordrtc_video = false;
 
 $CFG->disableupdateautodeploy = true;
 
+$CFG->bigbluebuttonbn_server_url = 'BBB-SERVER-URL';
+$CFG->bigbluebuttonbn_shared_secret = 'BBB-SHARED-SECRET';
+
+
 require_once(__DIR__ . '/lib/setup.php');
 
 // There is no php closing tag in this file,
