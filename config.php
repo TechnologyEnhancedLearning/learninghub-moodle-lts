@@ -37,9 +37,8 @@ $CFG->recordrtc_video = false;
 
 $CFG->disableupdateautodeploy = true;
 
-$CFG->forced_plugin_settings['mod_bigbluebuttonbn']['server_url'] = 'BBB-SERVER-URL';
-$CFG->forced_plugin_settings['mod_bigbluebuttonbn']['shared_secret'] = 'BBB-SHARED-SECRET';
-
+$CFG->bigbluebuttonbn_server_url = 'BBB-SERVER-URL';
+$CFG->bigbluebuttonbn_shared_secret = 'BBB-SHARED-SECRET';
 
 
 require_once(__DIR__ . '/lib/setup.php');
