@@ -393,7 +393,7 @@ private static function fetch_user_certificates_data($userid, $searchterm = '') 
                   cc.userid = :userid
               AND cc.timecompleted IS NOT NULL
               AND c.visible = 1
-            ORDER BY cc.timecompleted DESC";   // only include certificates from visible categories and courses
+            ORDER BY cc.timecompleted DESC";   // only include certificates from visible categories and  courses
 
     $queryparams = ['userid' => $userid];
 
