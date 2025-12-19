@@ -363,25 +363,37 @@ public static function get_user_certificates($userid, $searchterm = '') {
 private static function fetch_user_certificates_data($userid, $searchterm = '') {
     global $DB;
 
-    $sql = "SELECT ci.id AS issueid,
+    $sql = "SELECT DISTINCT
+                   ci.id AS issueid,
                    ci.timecreated,
                    ct.name AS certificatename,
                    c.id AS courseid,
                    c.fullname AS coursename,
                    cm.id AS cmid
-            FROM {tool_certificate_issues} ci
-            JOIN {tool_certificate_templates} ct 
-                 ON ci.templateid = ct.id
-            JOIN {course} c 
-                 ON ci.courseid = c.id
+            FROM {course} c
             JOIN {course_categories} cat
-                 ON c.category = cat.id
+                   ON cat.id = c.category
+                  AND cat.visible = 1
+            JOIN {course_completions} cc
+                   ON cc.course = c.id
             JOIN {course_modules} cm
-                 ON cm.course = c.id
+                   ON cm.course = c.id
             JOIN {modules} m
-                 ON m.id = cm.module AND m.name = 'coursecertificate'
-            WHERE ci.userid = :userid
-                AND cat.visible = 1 AND c.visible = 1";   // only include certificates from visible categories and courses
+                   ON m.id = cm.module
+                  AND m.name = 'coursecertificate'
+            JOIN {coursecertificate} cert
+                   ON cert.id = cm.instance
+            JOIN {tool_certificate_templates} ct
+                   ON ct.id = cert.template
+            LEFT JOIN {tool_certificate_issues} ci
+                   ON ci.userid = cc.userid
+                  AND ci.courseid = c.id
+                  AND ci.templateid = ct.id
+            WHERE
+                  cc.userid = :userid
+              AND cc.timecompleted IS NOT NULL
+              AND c.visible = 1
+            ORDER BY cc.timecompleted DESC";   // only include certificates from visible categories and courses
 
     $queryparams = ['userid' => $userid];
 
