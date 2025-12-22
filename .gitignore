@@ -19,6 +19,7 @@
 # Temporary files including undo
 *~
 #
+/config.php
 /tags
 /TAGS
 /cscope.*
@@ -58,4 +59,3 @@ moodle-plugin-ci.phar
 phpcs.xml
 jsconfig.json
 UPGRADING-CURRENT.md
-/.vs
