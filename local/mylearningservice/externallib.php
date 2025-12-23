@@ -317,7 +317,7 @@ class mylearningservice_external extends external_api {
 public static function get_user_certificates($userid, $searchterm = '') {
     global $DB, $CFG;
     require_once($CFG->libdir . '/filelib.php');
-    // Validate both parameters
+
     $params = self::validate_parameters(
         self::get_user_certificates_parameters(),
         [
@@ -325,31 +325,42 @@ public static function get_user_certificates($userid, $searchterm = '') {
             'searchterm' => $searchterm
         ]
     );
-    // Overwrite variables with validated values
+
     $userid     = $params['userid'];
     $searchterm = $params['searchterm'];
-    // Fetch raw data
-    $records = self::fetch_user_certificates_data($userid, $searchterm);
+
+    $recordset = self::fetch_user_certificates_data($userid, $searchterm);
+
     $results = [];
-    foreach ($records as $rec) {
-        // Build download link
-        $downloadurl = new moodle_url('/mod/coursecertificate/view.php', [
-            'id' => $rec->cmid,
-            'download' => 1
-        ]);
-        // Build preview link
+    $count = 0;
+    foreach ($recordset as $rec) {
+        $count++;
+        // Preview link (always available)
         $previewurl = new moodle_url('/mod/coursecertificate/view.php', [
             'id' => $rec->cmid
         ]);
+
+        // Download link only if certificate issued
+        $downloadurl = null;
+        if (!empty($rec->issueid)) {
+            $downloadurl = (new moodle_url('/mod/coursecertificate/view.php', [
+                'id' => $rec->cmid,
+                'download' => 1
+            ]))->out(false);
+        }
+
         $results[] = [
-            'resourcetype' => 'Course',
+            'resourcetype'  => 'Course',
             'resourcetitle' => $rec->certificatename,
-            'resourcename' => $rec->coursename,
-            'awardeddate' => $rec->timecreated,
-            'downloadlink' => $downloadurl->out(false),
-            'previewlink' => $previewurl->out(false)
+            'resourcename'  => $rec->coursename,
+            'awardeddate'   => $rec->timecompleted ?? null,
+            'downloadlink'  => $downloadurl,
+            'previewlink'   => $previewurl->out(false),
+            'count'         => $count
         ];
     }
+
+    $recordset->close();
 
     return $results;
 }
@@ -363,7 +374,7 @@ public static function get_user_certificates($userid, $searchterm = '') {
 private static function fetch_user_certificates_data($userid, $searchterm = '') {
     global $DB;
 
-    $sql = "SELECT DISTINCT
+    $sql = "SELECT
                ci.id AS issueid,
                ci.timecreated,
                ct.name AS certificatename,
@@ -390,25 +401,24 @@ private static function fetch_user_certificates_data($userid, $searchterm = '') 
                ON ci.userid = cc.userid
               AND ci.courseid = c.id
               AND ci.templateid = ct.id
-        WHERE
-              cc.userid = :userid
+        WHERE cc.userid = :userid
           AND cc.timecompleted IS NOT NULL
           AND c.visible = 1
-        ORDER BY cc.timecompleted DESC";   // only include certificates from visible categories and  courses
+        ORDER BY cc.timecompleted DESC";
 
-    $queryparams = ['userid' => $userid];
+    $params = ['userid' => $userid];
 
-    // Search term filter
     if (!empty($searchterm)) {
         $like1 = $DB->sql_like('LOWER(c.fullname)', ':search1', false);
         $like2 = $DB->sql_like('LOWER(ct.name)', ':search2', false);
         $sql .= " AND ($like1 OR $like2)";
-        $queryparams['search1'] = '%' . core_text::strtolower($searchterm) . '%';
-        $queryparams['search2'] = '%' . core_text::strtolower($searchterm) . '%';
+        $params['search1'] = '%' . core_text::strtolower($searchterm) . '%';
+        $params['search2'] = '%' . core_text::strtolower($searchterm) . '%';
     }
 
-    return $DB->get_records_sql($sql, $queryparams);
+    return $DB->get_recordset_sql($sql, $params);
 }
+
 
 public static function get_user_certificates_returns() {
     return new external_multiple_structure(
