@@ -364,36 +364,37 @@ private static function fetch_user_certificates_data($userid, $searchterm = '') 
     global $DB;
 
     $sql = "SELECT DISTINCT
-                   ci.id AS issueid,
-                   ci.timecreated,
-                   ct.name AS certificatename,
-                   c.id AS courseid,
-                   c.fullname AS coursename,
-                   cm.id AS cmid
-            FROM {course} c
-            JOIN {course_categories} cat
-                   ON cat.id = c.category
-                  AND cat.visible = 1
-            JOIN {course_completions} cc
-                   ON cc.course = c.id
-            JOIN {course_modules} cm
-                   ON cm.course = c.id
-            JOIN {modules} m
-                   ON m.id = cm.module
-                  AND m.name = 'coursecertificate'
-            JOIN {coursecertificate} cert
-                   ON cert.id = cm.instance
-            JOIN {tool_certificate_templates} ct
-                   ON ct.id = cert.template
-            LEFT JOIN {tool_certificate_issues} ci
-                   ON ci.userid = cc.userid
-                  AND ci.courseid = c.id
-                  AND ci.templateid = ct.id
-            WHERE
-                  cc.userid = :userid
-              AND cc.timecompleted IS NOT NULL
-              AND c.visible = 1
-            ORDER BY cc.timecompleted DESC";   // only include certificates from visible categories and  courses
+               ci.id AS issueid,
+               ci.timecreated,
+               ct.name AS certificatename,
+               c.id AS courseid,
+               c.fullname AS coursename,
+               cm.id AS cmid,
+               cc.timecompleted
+        FROM {course} c
+        JOIN {course_categories} cat
+               ON cat.id = c.category
+              AND cat.visible = 1
+        JOIN {course_completions} cc
+               ON cc.course = c.id
+        JOIN {course_modules} cm
+               ON cm.course = c.id
+        JOIN {modules} m
+               ON m.id = cm.module
+              AND m.name = 'coursecertificate'
+        JOIN {coursecertificate} cert
+               ON cert.id = cm.instance
+        JOIN {tool_certificate_templates} ct
+               ON ct.id = cert.template
+        LEFT JOIN {tool_certificate_issues} ci
+               ON ci.userid = cc.userid
+              AND ci.courseid = c.id
+              AND ci.templateid = ct.id
+        WHERE
+              cc.userid = :userid
+          AND cc.timecompleted IS NOT NULL
+          AND c.visible = 1
+        ORDER BY cc.timecompleted DESC";   // only include certificates from visible categories and  courses
 
     $queryparams = ['userid' => $userid];
 
