@@ -340,14 +340,11 @@ public static function get_user_certificates($userid, $searchterm = '') {
             'id' => $rec->cmid
         ]);
 
-        // Download link only if certificate issued
-        $downloadurl = null;
-        if (!empty($rec->issueid)) {
-            $downloadurl = (new moodle_url('/mod/coursecertificate/view.php', [
-                'id' => $rec->cmid,
-                'download' => 1
-            ]))->out(false);
-        }
+        // Build download link
+        $downloadurl = new moodle_url('/mod/coursecertificate/view.php', [
+            'id' => $rec->cmid,
+            'download' => 1
+        ]);
 
         $results[] = [
             'resourcetype'  => 'Course',
