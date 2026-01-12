@@ -201,8 +201,13 @@ jobs:
           for plugin in ${{ vars.PLUGIN_SET }}; do \
             IFS=":" && \
             read folder zipfile <<< "$plugin" && \
+<<<<<<< Updated upstream
             wget https://moodle.org/plugins/download.php/$zipfile && \
             unzip $(basename $zipfile) -d $folder && \
+=======
+            wget https://$zipfile && \
+            unzip -o $(basename $zipfile) -d $folder && \
+>>>>>>> Stashed changes
             rm -f $(basename $zipfile); \
           done
 
