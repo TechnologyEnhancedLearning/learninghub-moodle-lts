@@ -204,7 +204,7 @@ jobs:
             IFS=":" && \
             read folder zipfile <<< "$plugin" && \
             wget https://$zipfile && \
-            unzip -o $(basename $zipfile) -d $folder && \
+            unzip -n $(basename $zipfile) -d $folder && \
             rm -f $(basename $zipfile); \
           done
 
