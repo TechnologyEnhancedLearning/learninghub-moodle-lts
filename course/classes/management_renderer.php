@@ -71,7 +71,7 @@ class core_course_management_renderer extends plugin_renderer_base {
         final: true,
     )]
     public function management_heading() {
-        \core\deprecation::emit_deprecation_if_present([self::class, __FUNCTION__]);
+        \core\deprecation::emit_deprecation([self::class, __FUNCTION__]);
     }
 
     /**
@@ -187,7 +187,7 @@ class core_course_management_renderer extends plugin_renderer_base {
             $a->parentcategory = $parent->get_formatted_name();
             $textlabel = get_string('categorysubcategoryof', 'moodle', $a);
         }
-        $courseicon = $this->output->pix_icon('i/course', get_string('courses'));
+        $courseicon = $this->output->pix_icon('i/course', get_string('courses'), 'core', ['class' => 'ps-1']);
         $bcatinput = array(
                 'id' => 'categorylistitem' . $category->id,
                 'type' => 'checkbox',
@@ -343,6 +343,10 @@ class core_course_management_renderer extends plugin_renderer_base {
             $actions = \core_course\management\helper::get_category_listitem_actions($category);
         }
         $menu = new action_menu();
+        $label = get_string('actionsmenu');
+        $actionicon = $this->output->pix_icon('t/edit_menu', '') . html_writer::span($label, 'sr-only');
+        $menu->set_menu_trigger($actionicon, 'iconsmall actionmenu');
+        $menu->triggerattributes['title'] = $label;
         $menu->attributes['class'] .= ' category-item-actions item-actions';
         $hasitems = false;
         foreach ($actions as $key => $action) {
@@ -1286,7 +1290,7 @@ class core_course_management_renderer extends plugin_renderer_base {
         final: true,
     )]
     public function course_search_form() {
-        \core\deprecation::emit_deprecation_if_present([self::class, __FUNCTION__]);
+        \core\deprecation::emit_deprecation([self::class, __FUNCTION__]);
     }
 
     /**
