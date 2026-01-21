@@ -120,8 +120,8 @@ resource "azurerm_network_security_group" "nsg" {
     destination_address_prefix = "*"
   }
   security_rule {
-    name                       = "AllowInbound"
-    description                = "Allow inbound traffic"
+    name                       = "AllowInbound3342"
+    description                = "Allow inbound traffic 3342"
     direction                  = "Inbound"
     access                     = "Allow"
     priority                   = 115
