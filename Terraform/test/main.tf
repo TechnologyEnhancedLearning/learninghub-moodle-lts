@@ -120,6 +120,18 @@ resource "azurerm_network_security_group" "nsg" {
     destination_address_prefix = "*"
   }
   security_rule {
+    name                       = "AllowInbound"
+    description                = "Allow inbound traffic"
+    direction                  = "Inbound"
+    access                     = "Allow"
+    priority                   = 115
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "3342"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
+  security_rule {
     access                  = "Allow"
     description             = "Allow Azure Load Balancer inbound traffic"
     destination_address_prefix =  "10.0.1.0/24"
