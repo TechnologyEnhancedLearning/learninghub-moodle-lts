@@ -124,7 +124,7 @@ resource "azurerm_network_security_group" "nsg" {
     description                = "Allow inbound traffic on 3342"
     direction                  = "Inbound"
     access                     = "Allow"
-    priority                   = 100
+    priority                   = 115
     protocol                   = "Tcp"
     source_port_range          = "*"
     destination_port_range     = "3342"
