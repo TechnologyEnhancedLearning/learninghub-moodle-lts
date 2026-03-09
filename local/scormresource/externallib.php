@@ -71,6 +71,14 @@ class insert_scorm_resource extends external_api {
         $scorm->maxattempt=0;
         $scorm->introformat = FORMAT_HTML;
         $scorm->timemodified = time();
+        /* SCORM Default Settings */
+        $scorm->popup = 0;                     
+        $scorm->skipview = 2;                  
+        $scorm->hidebrowse = 1;               
+        $scorm->nav = 0;                      
+        $scorm->hidetoc = 3;                  
+        $scorm->displaycoursestructure = 0;   
+        $scorm->displayattemptstatus = 0;     
         // Insert the SCORM instance into the database and get the instance ID
         $scorm->id = $DB->insert_record('scorm', $scorm);
         // Create a new course module record
