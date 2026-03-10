@@ -120,11 +120,11 @@ resource "azurerm_network_security_group" "nsg" {
     destination_address_prefix = "*"
   }
   security_rule {
-    name                       = "AllowInbound3342"
-    description                = "Allow inbound traffic on 3342"
+    name                       = "AllowInbound"
+    description                = "Allow inbound traffic"
     direction                  = "Inbound"
     access                     = "Allow"
-    priority                   = 115
+    priority                   = 103
     protocol                   = "Tcp"
     source_port_range          = "*"
     destination_port_range     = "3342"
@@ -320,6 +320,7 @@ resource "azurerm_mssql_managed_instance" "sqlmi" {
   lifecycle {
     prevent_destroy = true
   }
+  public_data_endpoint_enabled = true
 }
 
 resource "azurerm_mssql_managed_database" "sqldb" {
