@@ -320,6 +320,7 @@ resource "azurerm_mssql_managed_instance" "sqlmi" {
   lifecycle {
     prevent_destroy = true
   }
+  public_data_endpoint_enabled = true
 }
 
 resource "azurerm_mssql_managed_database" "sqldb" {
