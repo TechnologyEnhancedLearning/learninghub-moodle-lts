@@ -348,8 +348,8 @@ public static function get_user_certificates($userid, $searchterm = '') {
 
         $results[] = [
             'resourcetype'  => 'Course',
-            'resourcetitle' => $rec->certificatename,
-            'resourcename'  => $rec->coursename,
+            'resourcetitle' => $rec-> coursename,
+            'resourcename'  => $rec->certificatename,
             'awardeddate'   => $rec->timecompleted ?? null,
             'downloadlink'  => $downloadurl->out(false),
             'previewlink'   => $previewurl->out(false),
@@ -400,8 +400,7 @@ private static function fetch_user_certificates_data($userid, $searchterm = '') 
               AND ci.templateid = ct.id
         WHERE cc.userid = :userid
           AND cc.timecompleted IS NOT NULL
-          AND c.visible = 1
-        ORDER BY cc.timecompleted DESC";
+          AND c.visible = 1";        
 
     $params = ['userid' => $userid];
 
@@ -412,6 +411,8 @@ private static function fetch_user_certificates_data($userid, $searchterm = '') 
         $params['search1'] = '%' . core_text::strtolower($searchterm) . '%';
         $params['search2'] = '%' . core_text::strtolower($searchterm) . '%';
     }
+    // ORDER BY goes last
+    $sql .= " ORDER BY cc.timecompleted DESC";
 
     return $DB->get_recordset_sql($sql, $params);
 }
