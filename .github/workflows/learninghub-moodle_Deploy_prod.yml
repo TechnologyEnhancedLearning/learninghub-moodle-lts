@@ -309,7 +309,7 @@ jobs:
           --name userpool \
           --enable-cluster-autoscaler \
           --min-count 1 \
-          --max-count 10
+          --max-count 1
 
       - name: Create the loadbalancer service
         run: kubectl apply -f kubectl/service-prod.yml
