@@ -37,7 +37,7 @@ $CFG->recordrtc_video = false;
 
 $CFG->disableupdateautodeploy = true;
 
-$CFG->theme = 'boost';
+//$CFG->theme = 'boost';
 
 require_once(__DIR__ . '/lib/setup.php');
 
