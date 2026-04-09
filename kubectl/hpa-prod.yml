@@ -9,7 +9,7 @@ spec:
     kind: Deployment
     name: learninghubmoodleprod
   minReplicas: 1
-  maxReplicas: 1
+  maxReplicas: 5
   metrics:
   - type: Resource
     resource:
