@@ -105,7 +105,7 @@ jobs:
         id: apply
         run: |
           cd Terraform/prod
-          terraform apply -auto-approve \
+          terraform apply -auto-approve -lock=false \
             -var="ResourceGroupName=${{ vars.AZURE_RESOURCE_GROUP_NAME }}" \
             -var="ResourceGroupLocation=${{ vars.AZURE_RESOURCE_GROUP_LOCATION }}" \
             -var="StorageAccountName=${{ vars.AZURE_STORAGE_ACCOUNT_NAME }}" \
