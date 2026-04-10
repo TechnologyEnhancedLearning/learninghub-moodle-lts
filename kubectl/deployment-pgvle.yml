@@ -19,11 +19,11 @@ spec:
         imagePullPolicy: Always
         resources:
           requests:
-            cpu: "500m"
-            memory: "256Mi"
+            cpu: 500m
+            memory: 1Gi
           limits:
-            cpu: "1000m"
-            memory: "512Mi"
+            cpu: 1
+            memory: 4Gi
         ports:
         - containerPort: 80
         volumeMounts:
