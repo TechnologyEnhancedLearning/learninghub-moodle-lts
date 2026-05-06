@@ -36,6 +36,7 @@ $CFG->recordrtc_audio = false;
 $CFG->recordrtc_video = false;
 
 $CFG->disableupdateautodeploy = true;
+$CFG->preventfilepermissions = true;
 
 //$CFG->theme = 'boost';
 
