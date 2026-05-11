@@ -121,11 +121,7 @@ resource "azurerm_network_security_group" "nsg" {
   }
   security_rule {
     name                       = "AllowInbound3342"
-<<<<<<< HEAD
     description                = "Allow inbound traffic on 3342"
-=======
-    description                = "Allow inbound traffic 3342"
->>>>>>> 4613ac20b1036061938f01c6cff5040c3be887a3
     direction                  = "Inbound"
     access                     = "Allow"
     priority                   = 115
