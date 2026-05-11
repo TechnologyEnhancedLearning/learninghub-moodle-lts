@@ -246,13 +246,8 @@ jobs:
           for plugin in ${{ vars.PLUGIN_SET }}; do \
             IFS=":" && \
             read folder zipfile <<< "$plugin" && \
-<<<<<<< HEAD
-            wget https://moodle.org/plugins/download.php/$zipfile && \
-            unzip -n $(basename $zipfile) -d $folder && \
-=======
             wget https://$zipfile && \
             unzip $(basename $zipfile) -d $folder && \
->>>>>>> 4613ac20b1036061938f01c6cff5040c3be887a3
             rm -f $(basename $zipfile); \
           done
 
