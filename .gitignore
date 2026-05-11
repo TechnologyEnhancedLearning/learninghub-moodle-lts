@@ -59,4 +59,8 @@ moodle-plugin-ci.phar
 phpcs.xml
 jsconfig.json
 UPGRADING-CURRENT.md
+<<<<<<< HEAD
 .vs/
+=======
+.vs/
+>>>>>>> 4613ac20b1036061938f01c6cff5040c3be887a3

@@ -202,7 +202,11 @@ jobs:
             IFS=":" && \
             read folder zipfile <<< "$plugin" && \
             wget https://$zipfile && \
+<<<<<<< HEAD
             unzip -n $(basename $zipfile) -d $folder && \
+=======
+            unzip $(basename $zipfile) -d $folder && \
+>>>>>>> 4613ac20b1036061938f01c6cff5040c3be887a3
             rm -f $(basename $zipfile); \
           done
 
