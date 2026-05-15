@@ -178,8 +178,8 @@ jobs:
           for plugin in ${{ vars.PLUGIN_SET }}; do \
             IFS=":" && \
             read folder zipfile <<< "$plugin" && \
-            wget https://moodle.org/plugins/download.php/$zipfile && \
-            unzip -n $(basename $zipfile) -d $folder && \
+            wget https://$zipfile && \
+            unzip $(basename $zipfile) -d $folder && \
             rm -f $(basename $zipfile); \
           done
 
