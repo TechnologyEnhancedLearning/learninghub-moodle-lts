@@ -248,6 +248,30 @@ resource "azurerm_network_security_group" "nsg" {
     source_port_range =  "*"
     source_port_ranges =  []
   }
+  security_rule {
+    name                       = "mi-strg-p-out-10-0-1-0-24-v11"
+    description                = "Allow outbound to primary storage"
+    direction                  = "Outbound"
+    access                     = "Allow"
+    priority                   = 110
+    protocol                   = "*"
+    source_address_prefix      = "10.0.1.0/24"
+    destination_address_prefix = "Storage.uksouth"
+    source_port_range          = "*"
+    destination_port_range     = "443"
+  }
+  security_rule {
+    name                       = "mi-strg-s-out-10-0-1-0-24-v11"
+    description                = "Allow outbound to secondary storage"
+    direction                  = "Outbound"
+    access                     = "Allow"
+    priority                   = 111
+    protocol                   = "*"
+    source_address_prefix      = "10.0.1.0/24"
+    destination_address_prefix = "Storage.ukwest"
+    source_port_range          = "*"
+    destination_port_range     = "443"
+  }
 }
 
 resource "azurerm_route_table" "route_table" {
