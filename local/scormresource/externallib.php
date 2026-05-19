@@ -32,6 +32,7 @@ class insert_scorm_resource extends external_api {
         require_once(__DIR__ . '/../../config.php');
         require_login();
         global $DB, $USER;
+        //TD-7278: Test moodle DB deployment impact Databricks pipeline
         // zip file
         $savedPath = self::saveBase64ToZip($base64Zip, $foldername . '.zip');
         $courseid = $courseids; // Course ID where the SCORM package will be uploaded

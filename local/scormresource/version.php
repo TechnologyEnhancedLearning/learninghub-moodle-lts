@@ -1,7 +1,7 @@
 <?php
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2024100992;        
+$plugin->version   = 2024100993;        
 $plugin->requires  = 2024100290;        
 $plugin->component = 'local_scormresource'; 
 $plugin->privacy = ['provider' => 'local_scormresource\privacy\provider'];
