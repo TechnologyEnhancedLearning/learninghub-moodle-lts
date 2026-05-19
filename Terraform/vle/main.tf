@@ -328,19 +328,19 @@ resource "azurerm_redis_cache" "moodle_cache" {
 }
 
 resource "azurerm_communication_service" "CommunicationService" {
-  name                = "CommunicationServicePgvle"
+  name                = "CommunicationServicevle"
   resource_group_name = azurerm_resource_group.learningHubMoodleResourceGroup.name
   data_location       = "UK"
 }
 
 resource "azurerm_email_communication_service" "EmailCommunicationService" {
-  name                     = "EmailCommunicationServicePgvle"
+  name                     = "EmailCommunicationServicevle"
   resource_group_name      = azurerm_resource_group.learningHubMoodleResourceGroup.name
   data_location            = "UK"
 }
 
 resource "azurerm_email_communication_service_domain" "EmailCommunicationServiceDomain" {
-  name                = "moodle-pgvle.test-learninghub.org.uk"
+  name                = "moodle-vle.test-learninghub.org.uk"
   email_service_id    = azurerm_email_communication_service.EmailCommunicationService.id
   domain_management   = "CustomerManaged"
 }
