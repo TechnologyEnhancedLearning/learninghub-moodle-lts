@@ -1,8 +1,8 @@
-name: Deploy LearningHub-Moodle to Test
+name: Deploy LearningHub-Moodle to VLE
 on:
   push:
     branches:
-      - RC
+      - VLE
   
 permissions:
   id-token: write
@@ -11,7 +11,7 @@ permissions:
 jobs:
   terraform:
     runs-on: ubuntu-latest
-    environment: Test
+    environment: vle
     name: 'Terraform LearningHub Moodle'
     env:
       ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
@@ -30,13 +30,13 @@ jobs:
       - name: 'Terraform init'
         id: init
         run: |
-          cd Terraform/test
-          terraform init "-backend-config=backend-test.tfvars"
+          cd Terraform/${{ vars.AZURE_ENVIRONMENT }}
+          terraform init "-backend-config=backend-${{ vars.AZURE_ENVIRONMENT }}.tfvars"
 
-      # - name: 'Terraform destroy'
+      # - name: 'Terraform   destroy'
       #   id: destroy
       #   run: |
-      #     cd Terraform/test
+      #     cd Terraform/${{ vars.AZURE_ENVIRONMENT }}
       #     terraform destroy -auto-approve \
       #       -var="ResourceGroupName=${{ vars.AZURE_RESOURCE_GROUP_NAME }}" \
       #       -var="ResourceGroupLocation=${{ vars.AZURE_RESOURCE_GROUP_LOCATION }}" \
@@ -50,16 +50,16 @@ jobs:
       #       -var="ClusterNodeCount=${{ vars.AZURE_CLUSTER_NODE_COUNT }}" \
       #       -var="ClusterNodeSize=${{ vars.AZURE_CLUSTER_NODE_SIZE }}" \
       #       -var="SQLSkuName=${{ vars.SQL_SKU_NAME }}" \
-      #       -var="SQLStorageSize=${{ vars.SQL_STORAGE_SIZE }}"\
+      #       -var="SQLStorageSize=${{ vars.SQL_STORAGE_SIZE }}" \
       #       -var="SQLVcores=${{ vars.SQL_VCORES }}" \
       #       -var="RedisName=${{ vars.REDIS_NAME }}" \
-      #       -var="SqlmiName=${{ vars.SQLMI_NAME }}"
+      #       -var="SqlmiName=${{ vars.SQLMI_NAME }}" \
       #       -var="KubernetesVersion=${{ vars.KUBERNETES_VERSION }}"
 
       - name: 'Terraform apply'
         id: apply
         run: |
-          cd Terraform/test
+          cd Terraform/${{ vars.AZURE_ENVIRONMENT }}
           terraform apply -auto-approve \
             -var="ResourceGroupName=${{ vars.AZURE_RESOURCE_GROUP_NAME }}" \
             -var="ResourceGroupLocation=${{ vars.AZURE_RESOURCE_GROUP_LOCATION }}" \
@@ -82,7 +82,7 @@ jobs:
   create_persistent_storage:
     needs: terraform
     runs-on: ubuntu-latest
-    environment: Test
+    environment: vle
     name: 'Create persistent volume and persistent volume claim'
     env:
       AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
@@ -102,22 +102,22 @@ jobs:
         run: az aks get-credentials --resource-group ${{ vars.AZURE_RESOURCE_GROUP_NAME }} --name ${{ vars.AZURE_CLUSTER_NAME }}
 
       - name: Create PersistentVolume
-        run: kubectl apply -f kubectl/pv-definition-test.yml
+        run: kubectl apply -f kubectl/pv-definition-${{ vars.AZURE_ENVIRONMENT }}.yml
 
       - name: Create PersistentVolume for theme
-        run: kubectl apply -f kubectl/pv-definition-theme-test.yml
+        run: kubectl apply -f kubectl/pv-definition-theme-${{ vars.AZURE_ENVIRONMENT }}.yml
 
       - name: Create PersistentVolume for uploads
-        run: kubectl apply -f kubectl/pv-definition-uploads-test.yml
+        run: kubectl apply -f kubectl/pv-definition-uploads-${{ vars.AZURE_ENVIRONMENT }}.yml
   
       - name: Create PersistentVolumeClaim
-        run: kubectl apply -f kubectl/pvc-definition-test.yml
+        run: kubectl apply -f kubectl/pvc-definition-${{ vars.AZURE_ENVIRONMENT }}.yml
    
       - name: Create PersistentVolumeClaim for theme
-        run: kubectl apply -f kubectl/pvc-definition-theme-test.yml
+        run: kubectl apply -f kubectl/pvc-definition-theme-${{ vars.AZURE_ENVIRONMENT }}.yml
 
       - name: Create PersistentVolumeClaim for uploads
-        run: kubectl apply -f kubectl/pvc-definition-uploads-test.yml
+        run: kubectl apply -f kubectl/pvc-definition-uploads-${{ vars.AZURE_ENVIRONMENT }}.yml
 
       - name: Attach ACR to cluster
         run: az aks update -n ${{ vars.AZURE_CLUSTER_NAME }} -g ${{ vars.AZURE_RESOURCE_GROUP_NAME }} --attach-acr ${{ vars.AZURE_CONTAINER_REGISTRY_NAME }}
@@ -155,7 +155,7 @@ jobs:
   build_and_push_docker_image:
     needs: create_persistent_storage
     runs-on: ubuntu-latest
-    environment: Test
+    environment: vle
     name: 'Build and push learninghub moodle docker image'
     env:
       AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
@@ -201,7 +201,7 @@ jobs:
           for plugin in ${{ vars.PLUGIN_SET }}; do \
             IFS=":" && \
             read folder zipfile <<< "$plugin" && \
-            wget https://$zipfile && \
+            wget https://moodle.org/plugins/download.php/$zipfile && \
             unzip -n $(basename $zipfile) -d $folder && \
             rm -f $(basename $zipfile); \
           done
@@ -217,7 +217,7 @@ jobs:
   deploy_learninghubmoodle_to_cluster:
     needs: build_and_push_docker_image
     runs-on: ubuntu-latest
-    environment: Test
+    environment: vle
     name: 'Deploy learninghub moodle to AKS cluster'
     env:
       AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
@@ -249,10 +249,10 @@ jobs:
         continue-on-error: true
 
       - name: Deploy application image to AKS cluster
-        run: kubectl apply -f kubectl/deployment-test.yml --validate=false
+        run: kubectl apply -f kubectl/deployment-${{ vars.AZURE_ENVIRONMENT }}.yml --validate=false
 
       - name: Deploy the Horizontal Pod Autoscaler to the AKS cluster
-        run: kubectl apply -f kubectl/hpa-test.yml
+        run: kubectl apply -f kubectl/hpa-${{ vars.AZURE_ENVIRONMENT }}.yml
 
       - name: Setup Node Pool Autoscaler
         run: |
@@ -265,15 +265,15 @@ jobs:
           --max-count 2
 
       - name: Create the loadbalancer service
-        run: kubectl apply -f kubectl/service-test.yml
+        run: kubectl apply -f kubectl/service-${{ vars.AZURE_ENVIRONMENT }}.yml
 
       - name: Restart the pods to reload the image
-        run: kubectl rollout restart deployment/learninghubmoodletest -n learninghubmoodle
+        run: kubectl rollout restart deployment/learninghubmoodle${{ vars.AZURE_ENVIRONMENT }} -n learninghubmoodle
 
   fix_recommendations:
     needs: deploy_learninghubmoodle_to_cluster
     runs-on: ubuntu-latest
-    environment: test
+    environment: vle
     name: 'Ensure Azure recommendations are fixed'
     env:
       AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
@@ -299,7 +299,7 @@ jobs:
 
       - name: Disable automounting API credentials
         run: |
-          kubectl patch deployment learninghubmoodletest -p "{\"spec\": {\"template\": {\"spec\": {\"automountServiceAccountToken\": false}}}}" -n learninghubmoodle
+          kubectl patch deployment learninghubmoodle${{ vars.AZURE_ENVIRONMENT }} -p "{\"spec\": {\"template\": {\"spec\": {\"automountServiceAccountToken\": false}}}}" -n learninghubmoodle
           kubectl patch serviceaccount default -p "{\"automountServiceAccountToken\": false}" -n learninghubmoodle
 
       - name: Get node resource group
@@ -324,7 +324,7 @@ jobs:
       - name: Create analytics workspace
         id: create_analytics_workspace
         run: |
-          az monitor log-analytics workspace create --resource-group ${{ vars.AZURE_RESOURCE_GROUP_NAME }} --workspace-name LearningHubWorkspace --location ${{ vars.AZURE_RESOURCE_GROUP_LOCATION }}
+          az monitor log-analytics workspace create --resource-group ${{ vars.AZURE_RESOURCE_GROUP_NAME }} --workspace-name LearningHubWorkspace --location "${{ vars.AZURE_RESOURCE_GROUP_LOCATION }}"
           WORKSPACE_ID=$(az monitor log-analytics workspace show --resource-group ${{ vars.AZURE_RESOURCE_GROUP_NAME }} --workspace-name LearningHubWorkspace --query id -o tsv)
           echo "workspace_id=$WORKSPACE_ID" >> $GITHUB_OUTPUT
 
@@ -334,63 +334,4 @@ jobs:
 
       - name: Define trusted container registries
         run: |
-          az policy assignment create --resource-group ${{ vars.AZURE_RESOURCE_GROUP_NAME }} --name "EnforceTrustedRegistries" --policy "febd0533-8e55-448f-b837-bd0e06f16469" --params "{\"allowedContainerImagesRegex\":{\"value\":\"learninghubmoodlecrtest.azurecr.io\"}}" --location uksouth
-
-  setup_cdc_on_db_tables:
-    needs: deploy_learninghubmoodle_to_cluster
-    runs-on: ubuntu-latest
-    environment: test
-    name: 'Setup CDC on DB tables'
-
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Install sqlcmd and ODBC Driver
-        run: |
-          curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
-          curl https://packages.microsoft.com/config/ubuntu/20.04/prod.list | sudo tee /etc/apt/sources.list.d/mssql-release.list
-          sudo apt-get update
-          sudo ACCEPT_EULA=Y apt-get install -y msodbcsql17 mssql-tools
-          echo "/opt/mssql-tools/bin" >> $GITHUB_PATH
-
-      # Don't need to do this as test environment has public access to SQL MI open
-      # - name: Enable public endpoint for Azure SQL Managed Instance
-      #   run: |
-      #     az sql mi update \
-      #     --name ${{ vars.SQLMI_NAME }} \
-      #     --resource-group ${{ vars.AZURE_RESOURCE_GROUP_NAME }} \
-      #     --public-data-endpoint-enabled true
-
-      - name: Run SQL against Azure SQL Managed Instance
-        run: |
-          sqlcmd -S tcp:${{ vars.SQLMI_PUBLIC_NAME }}.database.windows.net,3342 \
-                 -U ${{ vars.SQL_ADMINISTRATOR_LOGIN }} \
-                 -P ${{ secrets.SQL_ADMINISTRATOR_LOGIN_PASSWORD }} \
-                 -d LearningHubMoodle \
-                 -Q "$(echo \
-                   'EXEC sys.sp_cdc_enable_db;' \
-                   'EXEC sys.sp_cdc_enable_table @source_schema = ''dbo'', @source_name = ''mdl_course'', @role_name = NULL, @supports_net_changes = 0;' \
-                   'EXEC sys.sp_cdc_enable_table @source_schema = ''dbo'', @source_name = ''mdl_course_categories'', @role_name = NULL, @supports_net_changes = 0;' \
-                   'EXEC sys.sp_cdc_enable_table @source_schema = ''dbo'', @source_name = ''mdl_course_completion_crit_compl'', @role_name = NULL, @supports_net_changes = 0;' \
-                   'EXEC sys.sp_cdc_enable_table @source_schema = ''dbo'', @source_name = ''mdl_course_completion_criteria'', @role_name = NULL, @supports_net_changes = 0;' \
-                   'EXEC sys.sp_cdc_enable_table @source_schema = ''dbo'', @source_name = ''mdl_course_completions'', @role_name = NULL, @supports_net_changes = 0;' \
-                   'EXEC sys.sp_cdc_enable_table @source_schema = ''dbo'', @source_name = ''mdl_course_modules'', @role_name = NULL, @supports_net_changes = 0;' \
-                   'EXEC sys.sp_cdc_enable_table @source_schema = ''dbo'', @source_name = ''mdl_course_modules_completion'', @role_name = NULL, @supports_net_changes = 0;' \
-                   'EXEC sys.sp_cdc_enable_table @source_schema = ''dbo'', @source_name = ''mdl_enrol'', @role_name = NULL, @supports_net_changes = 0;' \
-                   'EXEC sys.sp_cdc_enable_table @source_schema = ''dbo'', @source_name = ''mdl_modules'', @role_name = NULL, @supports_net_changes = 0;' \
-                   'EXEC sys.sp_cdc_enable_table @source_schema = ''dbo'', @source_name = ''mdl_scorm'', @role_name = NULL, @supports_net_changes = 0;' \
-                   'EXEC sys.sp_cdc_enable_table @source_schema = ''dbo'', @source_name = ''mdl_user'', @role_name = NULL, @supports_net_changes = 0;' \
-                   'EXEC sys.sp_cdc_enable_table @source_schema = ''dbo'', @source_name = ''mdl_user_enrolments'', @role_name = NULL, @supports_net_changes = 0;' \
-                   'EXEC sys.sp_cdc_enable_table @source_schema = ''dbo'', @source_name = ''mdl_url'', @role_name = NULL, @supports_net_changes = 0;' \
-                   )"
-        env:
-          SQLCMDPASSWORD: ${{ secrets.SQL_ADMINISTRATOR_LOGIN_PASSWORD }}
-
-      # Don't need to do this as test environment has public access to SQL MI open
-      # - name: Enable public endpoint for Azure SQL Managed Instance
-      #   run: |
-      #     az sql mi update \
-      #     --name ${{ vars.SQLMI_NAME }} \
-      #     --resource-group ${{ vars.AZURE_RESOURCE_GROUP_NAME }} \
-      #     --public-data-endpoint-enabled false
-
+          az policy assignment create --resource-group ${{ vars.AZURE_RESOURCE_GROUP_NAME }} --name "EnforceTrustedRegistries" --policy "febd0533-8e55-448f-b837-bd0e06f16469" --params "{\"allowedContainerImagesRegex\":{\"value\":\"learninghubmoodlecr${{ vars.AZURE_ENVIRONMENT }}.azurecr.io\"}}" --location uksouth
