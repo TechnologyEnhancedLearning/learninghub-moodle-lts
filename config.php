@@ -40,6 +40,12 @@ $CFG->disableupdateautodeploy = true;
 $CFG->bigbluebuttonbn_server_url = 'BBB-SERVER-URL';
 $CFG->bigbluebuttonbn_shared_secret = 'BBB-SHARED-SECRET';
 
+$CFG->debug = DEBUG_DEVELOPER;
+$CFG->debugdisplay = true;
+$CFG->perfdebug = 15;        // optional: shows DB queries, memory usage, load
+$CFG->debugstringids = true; // optional: shows missing language strings
+
+
 
 require_once(__DIR__ . '/lib/setup.php');
 
