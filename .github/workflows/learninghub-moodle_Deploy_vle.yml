@@ -171,7 +171,7 @@ jobs:
         
           sed -i -e 's/DB-HOST-NAME/${{ vars.CONFIG_MYSQL_DB_HOST_NAME }}/g' config.php
           sed -i -e 's/DB-NAME/${{ vars.CONFIG_DB_NAME }}/g' config.php
-          sed -i -e 's/'DB-USER-NAME/${{ vars.MYSQL_SQL_ADMINISTRATOR_LOGIN }}/g' config.php
+          sed -i -e 's/DB-USER-NAME/${{ vars.MYSQL_SQL_ADMINISTRATOR_LOGIN }}/g' config.php
           sed -i -e 's/DB-USER-PASSWORD/${{ secrets.MYSQL_SQL_ADMINISTRATOR_LOGIN_PASSWORD }}/g' config.php
           sed -i -e 's|WWW-ROOT|${{ vars.CONFIG_WWW_ROOT }}|g' config.php
           sed -i -e 's|DATA-ROOT|/var/www/moodledata|g' config.php
