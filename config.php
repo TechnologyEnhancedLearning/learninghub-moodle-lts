@@ -4,7 +4,7 @@ unset($CFG);
 global $CFG;
 $CFG = new stdClass();
 
-$CFG->dbtype    = 'mysqli';
+$CFG->dbtype    = 'sqlsrv';  // mysqli
 $CFG->dblibrary = 'native';
 $CFG->dbhost    = 'DB-HOST-NAME';
 $CFG->dbname    = 'DB-NAME';
@@ -13,9 +13,9 @@ $CFG->dbpass    = 'DB-USER-PASSWORD';
 $CFG->prefix    = 'mdl_';
 $CFG->dboptions = array (
   'dbpersist' => true,
-  'dbport' => 3306,
+  'dbport' => 1433,   // 3306
   'dbsocket' => false,
-  'dbcollation' => 'utf8mb4_unicode_ci'
+  'dbcollation' => 'SQL_Latin1_General_CP1_CI_AS'  // utf8mb4_unicode_ci
 );
 
 $CFG->wwwroot   = 'WWW-ROOT';
