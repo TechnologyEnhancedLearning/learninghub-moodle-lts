@@ -196,9 +196,10 @@ jobs:
             rm -f $(basename $zipfile); \
           done
 
+       # vars.PLUGIN_SET_MYSQL / vars.PLUGIN_SET 
       - name: Setup Plugins
         run: |
-          for plugin in ${{ vars.PLUGIN_SET_MYSQL }}; do \     # vars.PLUGIN_SET_MYSQL / vars.PLUGIN_SET 
+          for plugin in ${{ vars.PLUGIN_SET_MYSQL }}; do \
             IFS=":" && \
             read folder zipfile <<< "$plugin" && \
             wget https://$zipfile && \
