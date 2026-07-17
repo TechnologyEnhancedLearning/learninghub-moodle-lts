@@ -198,7 +198,7 @@ jobs:
 
       - name: Setup Plugins
         run: |
-          for plugin in ${{ vars.PLUGIN_SET }}; do \
+          for plugin in ${{ vars.PLUGIN_SET_MYSQL }}; do \     # vars.PLUGIN_SET_MYSQL / vars.PLUGIN_SET 
             IFS=":" && \
             read folder zipfile <<< "$plugin" && \
             wget https://$zipfile && \
