@@ -1686,8 +1686,6 @@ class PHPMailer
                 case 'qmail':
                     return $this->sendmailSend($this->MIMEHeader, $this->MIMEBody);
                 case 'smtp':
-                    // NB error_log line is experimental - remove if it causes any issues! CB
-                    error_log('[MOODLE SMTP] Sending email to: ' . implode(',', array_column($this->getToAddresses(), 0)));
                     return $this->smtpSend($this->MIMEHeader, $this->MIMEBody);
                 case 'mail':
                     return $this->mailSend($this->MIMEHeader, $this->MIMEBody);
