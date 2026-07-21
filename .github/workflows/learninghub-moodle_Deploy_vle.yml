@@ -199,39 +199,14 @@ jobs:
        # vars.PLUGIN_SET_MYSQL / vars.PLUGIN_SET 
       - name: Setup Plugins
         run: |
-          #for plugin in ${{ vars.PLUGIN_SET_MYSQL }}; do \
-          #  IFS=":" && \
-          #  read folder zipfile <<< "$plugin" && \
-          #  http_status=$(curl -L -w "%{http_code}" -o plugin.zip "https://$zipfile") && \
-          #  if [ "$http_status" != 200 ]; then exit 1 fi
-          #  wget https://$zipfile && \
-          #  unzip -o $(basename $zipfile) -d $folder && \
-          #  rm -f $(basename $zipfile); \
-          #done
-          set -euo pipefail
-
-          for plugin in ${{ vars.PLUGIN_SET_MYSQL }}; do
-            IFS=":" read folder zipfile <<< "$plugin"
-
-            echo "Downloading plugin: $zipfile"
-
-            # Download with HTTP status check
-            http_status=$(curl -L -w "%{http_code}" -o plugin.zip "https://$zipfile")
-
-            if [ "$http_status" != "200" ]; then
-              echo "ERROR: Download failed for $zipfile (HTTP $http_status)"
-              exit 1
-            fi
-
-            # Validate ZIP structure
-            if ! unzip -t plugin.zip >/dev/null 2>&1; then
-              echo "ERROR: File downloaded for $zipfile is not a valid ZIP"
-              exit 1
-            fi
-
-            # Extract
-            unzip -o $(basename $zipfile) -d $folder
-            rm -f $(basename $zipfile)
+          for plugin in ${{ vars.PLUGIN_SET_MYSQL }}; do \
+            IFS=":" && \
+            read folder zipfile <<< "$plugin" && \
+            http_status=$(curl -L -w "%{http_code}" -o plugin.zip "https://$zipfile") && \
+            if [ "$http_status" != 200 ]; then exit 1 fi
+            wget https://$zipfile && \
+            unzip -o $(basename $zipfile) -d $folder && \
+            rm -f $(basename $zipfile); \
           done
 
       - name: Ensure uploads folder has correct permissions applied
