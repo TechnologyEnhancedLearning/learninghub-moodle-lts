@@ -148,13 +148,7 @@ abstract class database_exporter {
         }
         $tables = $this->schema->getTables();
         $this->begin_database_export($CFG->version, $CFG->release, date('c'), $description);
-        $skip = ['question_attempt_steps', 'logstore_standard_log', 'grade_grades_history'];
         foreach ($tables as $table) {
-            if (in_array($table, $skip)) {
-                $this->feedback->output("Skipping table $table");
-                continue;
-            }
-
             $rs = $this->mdb->export_table_recordset($table->getName());
             if (!$rs) {
                 throw new ddl_table_missing_exception($table->getName());
