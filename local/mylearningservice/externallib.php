@@ -401,22 +401,24 @@ private static function fetch_user_certificates_data($userid, $searchterm = '') 
               AND ci.courseid = c.id
               AND ci.templateid = ct.id
             LEFT JOIN (
-              SELECT
-                userid,
-                courseid,
-                SUM(
-                  CASE
-                    WHEN LEAD(timecreated) OVER (PARTITION BY userid, courseid ORDER BY timecreated) IS NULL
-                      THEN 0
-                      ELSE LEAST(
-                        LEAD(timecreated) OVER (PARTITION BY userid, courseid ORDER BY timecreated) - timecreated,
-                        1800
-                       )
-                     END
-                   ) AS timespent
-               FROM {logstore_standard_log}
-               GROUP BY userid, courseid
-             ) ls ON ls.userid = cc.userid AND ls.courseid = c.id
+              SELECT userid, courseid,
+                SUM(CASE 
+                   WHEN nexttime IS NULL THEN 0
+                   ELSE CASE 
+                     WHEN nexttime - timecreated > 1800 THEN 1800
+                     ELSE nexttime - timecreated
+                   END
+                 END) AS timespent
+              FROM (
+                SELECT
+                        userid,
+                        courseid,
+                        timecreated,
+                        LEAD(timecreated) OVER (PARTITION BY userid, courseid ORDER BY timecreated) AS nexttime
+                    FROM {logstore_standard_log}
+                ) AS x
+                GROUP BY userid, courseid
+            ) ls ON ls.userid = cc.userid AND ls.courseid = c.id
             WHERE cc.userid = :userid
               AND cc.timecompleted IS NOT NULL
               AND c.visible = 1";
