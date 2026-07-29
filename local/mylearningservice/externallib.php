@@ -353,6 +353,7 @@ public static function get_user_certificates($userid, $searchterm = '') {
             'awardeddate'   => $rec->timecompleted ?? null,
             'downloadlink'  => $downloadurl->out(false),
             'previewlink'   => $previewurl->out(false),
+            'totaltimespent' => $rec->totaltimespent ?? null,
             'count'         => $count
         ];
     }
@@ -372,35 +373,53 @@ private static function fetch_user_certificates_data($userid, $searchterm = '') 
     global $DB;
 
     $sql = "SELECT
-               ci.id AS issueid,
-               ci.timecreated,
-               ct.name AS certificatename,
-               c.id AS courseid,
-               c.fullname AS coursename,
-               cm.id AS cmid,
-               cc.timecompleted
-        FROM {course} c
-        JOIN {course_categories} cat
-               ON cat.id = c.category
+              ci.id AS issueid,
+              ci.timecreated,
+              ct.name AS certificatename,
+              c.id AS courseid,
+              c.fullname AS coursename,
+              cm.id AS cmid,
+              cc.timecompleted,
+              ls.timespent AS totaltimespent
+            FROM {course} c
+            JOIN {course_categories} cat
+              ON cat.id = c.category
               AND cat.visible = 1
-        JOIN {course_completions} cc
-               ON cc.course = c.id
-        JOIN {course_modules} cm
-               ON cm.course = c.id
-        JOIN {modules} m
-               ON m.id = cm.module
+            JOIN {course_completions} cc
+              ON cc.course = c.id
+            JOIN {course_modules} cm
+              ON cm.course = c.id
+            JOIN {modules} m
+              ON m.id = cm.module
               AND m.name = 'coursecertificate'
-        JOIN {coursecertificate} cert
-               ON cert.id = cm.instance
-        JOIN {tool_certificate_templates} ct
-               ON ct.id = cert.template
-        LEFT JOIN {tool_certificate_issues} ci
-               ON ci.userid = cc.userid
+            JOIN {coursecertificate} cert
+              ON cert.id = cm.instance
+            JOIN {tool_certificate_templates} ct
+              ON ct.id = cert.template
+            LEFT JOIN {tool_certificate_issues} ci
+              ON ci.userid = cc.userid
               AND ci.courseid = c.id
               AND ci.templateid = ct.id
-        WHERE cc.userid = :userid
-          AND cc.timecompleted IS NOT NULL
-          AND c.visible = 1";        
+            LEFT JOIN (
+              SELECT
+                userid,
+                courseid,
+                SUM(
+                  CASE
+                    WHEN LEAD(timecreated) OVER (PARTITION BY userid, courseid ORDER BY timecreated) IS NULL
+                      THEN 0
+                      ELSE LEAST(
+                        LEAD(timecreated) OVER (PARTITION BY userid, courseid ORDER BY timecreated) - timecreated,
+                        1800
+                       )
+                     END
+                   ) AS timespent
+               FROM {logstore_standard_log}
+               GROUP BY userid, courseid
+             ) ls ON ls.userid = cc.userid AND ls.courseid = c.id
+            WHERE cc.userid = :userid
+              AND cc.timecompleted IS NOT NULL
+              AND c.visible = 1";
 
     $params = ['userid' => $userid];
 
@@ -427,7 +446,8 @@ public static function get_user_certificates_returns() {
                 'resourcename'  => new external_value(PARAM_TEXT, 'Course name'),
                 'awardeddate' => new external_value(PARAM_TEXT, 'Award date'),
                 'downloadlink' => new external_value(PARAM_URL, 'Download link'),
-                'previewlink' => new external_value(PARAM_URL, 'Preview link')
+                'previewlink' => new external_value(PARAM_URL, 'Preview link'),
+                'totaltimespent' => new external_value(PARAM_INT, 'Total time spent', VALUE_OPTIONAL)
             ]
         )
     );
