@@ -1,4 +1,4 @@
-name: Deploy LearningHub-Moodle to eintegrity 
+name: Deploy LearningHub-Moodle to eintegrity
 on:
   push:
     branches:
@@ -10,7 +10,6 @@ permissions:
 
 jobs:
   terraform:
-    needs: confirm-job
     runs-on: ubuntu-latest
     environment: eintegrity
     name: 'Terraform LearningHub Moodle'
