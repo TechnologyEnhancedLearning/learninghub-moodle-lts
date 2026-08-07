@@ -11,13 +11,12 @@ COPY php.ini /usr/local/etc/php/php.ini
 
 COPY 10-docker-php-moodle.ini /usr/local/etc/php/conf.d/
 
-# Fix moodledata permissions
-RUN mkdir -p /var/www/moodledata && \
-    chown -R www-data:www-data /var/www/moodledata && \
-    chmod -R 0770 /var/www/moodledata
-
 # Expose port 80 to the outside world
 EXPOSE 80
+
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
 
 # Start the Apache server
 CMD ["apache2-foreground"]
