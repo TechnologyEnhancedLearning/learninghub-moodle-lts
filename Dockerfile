@@ -14,10 +14,10 @@ COPY 10-docker-php-moodle.ini /usr/local/etc/php/conf.d/
 # Expose port 80 to the outside world
 EXPOSE 80
 
-COPY entrypoint.sh /usr/local/bin/custom-entrypoint.sh
-RUN chmod +x /usr/local/bin/custom-entrypoint.sh
+# COPY entrypoint.sh /usr/local/bin/custom-entrypoint.sh
+# RUN chmod +x /usr/local/bin/custom-entrypoint.sh
 
-ENTRYPOINT ["/usr/local/bin/custom-entrypoint.sh"]
+# ENTRYPOINT ["/usr/local/bin/custom-entrypoint.sh"]
 
 # Start the Apache server
 CMD ["apache2-foreground"]
