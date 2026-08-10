@@ -34,15 +34,8 @@ spec:
           mountPath: /var/www/html/theme
       volumes:
       - name: moodledata
-        azureFile:
-          secretName: azure-secret
-          shareName: moodledata
-          readOnly: false
-          mountOptions:
-            - dir_mode=0777
-            - file_mode=0777
-            - mfsymlinks
-            - nobrl
+        persistentVolumeClaim:
+          claimName: moodledataclaim
       - name: moodletheme
         persistentVolumeClaim:
           claimName: moodlethemeclaim
