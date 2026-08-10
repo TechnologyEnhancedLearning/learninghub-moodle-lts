@@ -1,0 +1,16 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: azurefile-csi
+provisioner: file.csi.azure.com
+parameters:
+  skuName: Standard_LRS
+mountOptions:
+  - uid=33
+  - gid=33
+  - dir_mode=0770
+  - file_mode=0660
+  - mfsymlinks
+  - nobrl
+reclaimPolicy: Retain
+volumeBindingMode: Immediate

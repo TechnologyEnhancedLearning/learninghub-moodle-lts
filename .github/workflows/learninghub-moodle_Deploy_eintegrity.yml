@@ -115,6 +115,9 @@ jobs:
       - name: Get AKS credentials
         run: az aks get-credentials --resource-group ${{ vars.AZURE_RESOURCE_GROUP_NAME }} --name ${{ vars.AZURE_CLUSTER_NAME }}
 
+      - name: Apply storage class
+        run: kubectl apply -f kubectl/storage-class.yml
+
       - name: Create PersistentVolume
         run: kubectl apply -f kubectl/pv-definition-eintegrity.yml
 
