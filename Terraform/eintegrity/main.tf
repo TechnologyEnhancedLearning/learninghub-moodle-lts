@@ -319,7 +319,7 @@ resource "azurerm_mssql_managed_instance" "sqlmi" {
     type = "SystemAssigned"
   }
   lifecycle {
-    prevent_destroy = true
+    prevent_destroy = false
   }
   public_data_endpoint_enabled = true
 }
