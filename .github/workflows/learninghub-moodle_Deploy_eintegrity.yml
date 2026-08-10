@@ -115,9 +115,6 @@ jobs:
       - name: Get AKS credentials
         run: az aks get-credentials --resource-group ${{ vars.AZURE_RESOURCE_GROUP_NAME }} --name ${{ vars.AZURE_CLUSTER_NAME }}
 
-      - name: Create storage secret
-        run: kubectl create secret generic azure-storage-secret --from-literal=azurestoreageaccountname=${{vars.AZURE_STORAGE_ACCOUNT_NAME}} --from-literal=azstorageaccountkey=${{secrets.AZURE_STORAGE_ACCOUNT_KEY}} -n learninghubmoodle
-
       - name: Create PersistentVolume
         run: kubectl apply -f kubectl/pv-definition-eintegrity.yml
 

@@ -35,7 +35,7 @@ spec:
       volumes:
       - name: moodledata
         azureFile:
-          secretName: azure-storage-secret
+          secretName: azure-secret
           shareName: moodledata
           readOnly: false
           mountOptions:
