@@ -9,5 +9,5 @@ spec:
   resources:
     requests:
       storage: 5Gi
-  storageClassName: azurefile-csi
+  storageClassName: azurefile-csi-moodle
   volumeName: moodledata

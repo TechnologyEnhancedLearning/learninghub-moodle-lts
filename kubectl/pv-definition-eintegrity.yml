@@ -10,7 +10,7 @@ spec:
   accessModes:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
-  storageClassName: azurefile-csi
+  storageClassName: azurefile-csi-moodle
   csi:
     driver: file.csi.azure.com
     volumeHandle: "moodleCluster#learninghubmoodleeintegrity#moodledata"  # make sure this volumeid is unique for every identical share in the cluster
