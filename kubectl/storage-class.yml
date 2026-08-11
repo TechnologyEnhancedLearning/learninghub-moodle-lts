@@ -8,9 +8,9 @@ parameters:
 mountOptions:
   - uid=33
   - gid=33
-  - dir_mode=0770
-  - file_mode=0660
+  - dir_mode=0777
+  - file_mode=0777
   - mfsymlinks
-  - nobrl
+  - actimeo=30
 reclaimPolicy: Retain
 volumeBindingMode: Immediate

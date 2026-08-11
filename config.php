@@ -40,6 +40,9 @@ $CFG->disableupdateautodeploy = true;
 $CFG->bigbluebuttonbn_server_url = 'BBB-SERVER-URL';
 $CFG->bigbluebuttonbn_shared_secret = 'BBB-SHARED-SECRET';
 
+// Route temporary local cache away from Azure Files SMB share
+$CFG->localcachedir = '/tmp/moodle_localcache';
+
 
 require_once(__DIR__ . '/lib/setup.php');
 
