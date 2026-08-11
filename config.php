@@ -29,9 +29,6 @@ $CFG->tool_generator_users_password = 'TOOL-GENERATOR-PASSWORD';
 
 //$CFG->sslproxy = true;
 
-$CFG->debug = (E_ALL | E_STRICT);
-$CFG->debugdisplay = true;
-
 $CFG->phpunit_prefix = 'phpu_';
 $CFG->phpunit_dataroot = 'phpu_moodledata';
 
@@ -42,17 +39,6 @@ $CFG->disableupdateautodeploy = true;
 
 $CFG->bigbluebuttonbn_server_url = 'BBB-SERVER-URL';
 $CFG->bigbluebuttonbn_shared_secret = 'BBB-SHARED-SECRET';
-
-// Route temporary local cache away from Azure Files SMB share
-$CFG->localcachedir = '/tmp/moodle_localcache';
-$CFG->cachedir = '/tmp/moodle_cache';
-$CFG->tempdir = '/tmp/moodle_temp';
-$CFG->slasharguments = false;
-
-$CFG->preventfilelocking = true; // Optional fail-safe if lock factory hangs
-$CFG->lock_factory = '\core\lock\file_lock_factory';
-$CFG->file_lock_root = '/tmp/moodle_lock';
-
 
 require_once(__DIR__ . '/lib/setup.php');
 
