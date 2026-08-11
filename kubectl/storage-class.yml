@@ -12,5 +12,6 @@ mountOptions:
   - file_mode=0777
   - mfsymlinks
   - actimeo=30
+  - cache=none
 reclaimPolicy: Retain
 volumeBindingMode: Immediate

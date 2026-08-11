@@ -49,6 +49,10 @@ $CFG->cachedir = '/tmp/moodle_cache';
 $CFG->tempdir = '/tmp/moodle_temp';
 $CFG->slasharguments = false;
 
+$CFG->preventfilelocking = true; // Optional fail-safe if lock factory hangs
+$CFG->lock_factory = '\core\lock\file_lock_factory';
+$CFG->file_lock_root = '/tmp/moodle_lock';
+
 
 require_once(__DIR__ . '/lib/setup.php');
 
