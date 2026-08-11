@@ -42,6 +42,9 @@ $CFG->bigbluebuttonbn_shared_secret = 'BBB-SHARED-SECRET';
 
 // Route temporary local cache away from Azure Files SMB share
 $CFG->localcachedir = '/tmp/moodle_localcache';
+$CFG->cachedir = '/tmp/moodle_cache';
+$CFG->tempdir = '/tmp/moodle_temp';
+$CFG->slasharguments = false;
 
 
 require_once(__DIR__ . '/lib/setup.php');
