@@ -41,6 +41,10 @@ if (!webservice_protocol_is_enabled('rest')) {
 }
 
 $server = new webservice_rest_server(WEBSERVICE_AUTHMETHOD_PERMANENT_TOKEN);
+
+// Temporary debug logging — remove when finished
+error_log(print_r($_REQUEST, true));
+
 $server->run();
 die;
 
