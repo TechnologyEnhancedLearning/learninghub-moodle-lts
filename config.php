@@ -27,7 +27,7 @@ $logouturl = $CFG->logouturl = 'index.php';
 
 $CFG->tool_generator_users_password = 'TOOL-GENERATOR-PASSWORD';
 
-//$CFG->sslproxy = true;
+$CFG->sslproxy = true;
 
 $CFG->phpunit_prefix = 'phpu_';
 $CFG->phpunit_dataroot = 'phpu_moodledata';
@@ -40,11 +40,8 @@ $CFG->disableupdateautodeploy = true;
 $CFG->bigbluebuttonbn_server_url = 'BBB-SERVER-URL';
 $CFG->bigbluebuttonbn_shared_secret = 'BBB-SHARED-SECRET';
 
-$CFG->debug = (E_ALL | E_STRICT);     // Full Moodle developer debugging
-$CFG->debugdisplay = true;            // Display debug messages
-
-
-
+//$CFG->debug = (E_ALL | E_STRICT);     // Full Moodle developer debugging
+//$CFG->debugdisplay = true;            // Display debug messages
 
 require_once(__DIR__ . '/lib/setup.php');
 
