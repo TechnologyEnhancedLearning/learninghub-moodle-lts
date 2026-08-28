@@ -82,7 +82,6 @@ resource "azurerm_kubernetes_cluster_node_pool" "user_node_pool" {
   max_count             = 5
   node_count            = 1
   mode                  = "User"
-  temporary_name_for_rotation  = "tmpup1"
   tags = {
     Environment = var.Environment
   }
