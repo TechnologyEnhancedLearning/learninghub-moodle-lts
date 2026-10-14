@@ -37,8 +37,8 @@ $CFG->recordrtc_video = false;
 
 $CFG->disableupdateautodeploy = true;
 
-$CFG->bigbluebuttonbn_server_url = 'BBB-SERVER-URL';
-$CFG->bigbluebuttonbn_shared_secret = 'BBB-SHARED-SECRET';
+//$CFG->bigbluebuttonbn_server_url = 'BBB-SERVER-URL';
+//$CFG->bigbluebuttonbn_shared_secret = 'BBB-SHARED-SECRET';
 
 //$CFG->debug = (E_ALL | E_STRICT);
 //$CFG->debugdisplay = 1;
