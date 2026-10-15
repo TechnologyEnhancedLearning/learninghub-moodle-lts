@@ -83,7 +83,6 @@ resource "azurerm_kubernetes_cluster_node_pool" "user_node_pool" {
   max_count             = 5
   node_count            = 2
   mode                  = "User"
-  orchestrator_version    = azurerm_kubernetes_cluster.aks.kubernetes_version
   tags = {
     Environment = var.Environment
   }
