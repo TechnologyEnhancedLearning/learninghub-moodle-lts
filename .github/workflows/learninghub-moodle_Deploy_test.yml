@@ -210,14 +210,14 @@ jobs:
       - name: Ensure uploads folder has correct permissions applied
         run: chmod ugo+rwx ./webservice/rest/uploads
 
-     - name: Build and push Docker image
-       run: |
-         docker build \
-           --pull \
-           --no-cache \
-           --build-arg PLUGIN_SET="${{ vars.PLUGIN_SET }}" \
-           -t ${{ vars.AZURE_CONTAINER_REGISTRY_NAME }}.azurecr.io/${{ vars.DOCKER_IMAGE_NAME }}:latest . 
-         docker push ${{ vars.AZURE_CONTAINER_REGISTRY_NAME }}.azurecr.io/${{ vars.DOCKER_IMAGE_NAME }}:latest
+      - name: Build and push Docker image
+        run: |
+          docker build \
+            --pull \
+            --no-cache \
+            --build-arg PLUGIN_SET="${{ vars.PLUGIN_SET }}" \
+            -t ${{ vars.AZURE_CONTAINER_REGISTRY_NAME }}.azurecr.io/${{ vars.DOCKER_IMAGE_NAME }}:latest . 
+          docker push ${{ vars.AZURE_CONTAINER_REGISTRY_NAME }}.azurecr.io/${{ vars.DOCKER_IMAGE_NAME }}:latest
 
   deploy_learninghubmoodle_to_cluster:
     needs: build_and_push_docker_image
