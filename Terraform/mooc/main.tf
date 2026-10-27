@@ -49,6 +49,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
     min_count                    = 2
     max_count                    = 3
     only_critical_addons_enabled = true
+    orchestrator_version         = var.KubernetesVersion
   }
   identity {
     type = "SystemAssigned"

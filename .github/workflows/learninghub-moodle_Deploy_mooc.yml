@@ -152,6 +152,8 @@ jobs:
           sed -i -e 's|WWW-ROOT|${{ vars.CONFIG_WWW_ROOT }}|g' config.php
           sed -i -e 's|DATA-ROOT|/var/www/moodledata|g' config.php
           sed -i -e 's/TOOL-GENERATOR-PASSWORD/${{ secrets.CONFIG_TOOL_GENERATOR_PASSWORD }}/g' config.php
+          sed -i -e 's/REDIS_NAME/${{ vars.REDIS_NAME }}/g' config.php
+          sed -i -e 's/REDIS_PRIMARY_ACCESS_KEY/${{ secrets.REDIS_PRIMARY_ACCESS_KEY }}/g' config.php
   
       - name: 'Az CLI login'
         uses: azure/login@v1
