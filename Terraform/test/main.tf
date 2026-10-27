@@ -49,7 +49,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
     min_count                    = 2
     max_count                    = 3
     only_critical_addons_enabled = true
-    orchestrator_version         = "1.32.9"
+    orchestrator_version         = var.KubernetesVersion
   }
   identity {
     type = "SystemAssigned"
@@ -84,7 +84,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "user_node_pool" {
   max_count             = 5
   node_count            = 2
   mode                  = "User"
-  orchestrator_version  = "1.32.9"
+  orchestrator_version  = var.KubernetesVersion
   tags = {
     Environment = var.Environment
   }
