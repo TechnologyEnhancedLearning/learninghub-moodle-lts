@@ -84,7 +84,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "user_node_pool" {
   max_count             = 5
   node_count            = 2
   mode                  = "User"
-  orchestrator_version  = var.KubernetesVersion
+  orchestrator_version  = "1.33"
   tags = {
     Environment = var.Environment
   }
