@@ -60,7 +60,7 @@ jobs:
         id: apply
         run: |
           cd Terraform/dev
-          terraform apply -refresh-only -auto-approve \
+          terraform apply -auto-approve \
             -var="ResourceGroupName=${{ vars.AZURE_RESOURCE_GROUP_NAME }}" \
             -var="ResourceGroupLocation=${{ vars.AZURE_RESOURCE_GROUP_LOCATION }}" \
             -var="StorageAccountName=${{ vars.AZURE_STORAGE_ACCOUNT_NAME }}" \
