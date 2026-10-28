@@ -50,6 +50,11 @@ resource "azurerm_kubernetes_cluster" "aks" {
     max_count                    = 3
     only_critical_addons_enabled = true
     orchestrator_version         = var.KubernetesVersion
+    upgrade_settings {
+      drain_timeout_in_minutes      = 30
+      max_surge                     = "10%"
+      node_soak_duration_in_minutes = 0
+    }
   }
   identity {
     type = "SystemAssigned"
