@@ -49,6 +49,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
     min_count                    = 2
     max_count                    = 3
     only_critical_addons_enabled = true
+    orchestrator_version         = var.KubernetesVersion
   }
   identity {
     type = "SystemAssigned"
@@ -349,7 +350,7 @@ resource "azurerm_redis_cache" "moodle_cache" {
   capacity            = 2
   family              = "C"
   sku_name            = "Standard"
-  non_ssl_port_enabled = false
+  non_ssl_port_enabled = true
   minimum_tls_version = "1.2"
 }
 
