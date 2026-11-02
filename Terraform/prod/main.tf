@@ -60,6 +60,10 @@ resource "azurerm_kubernetes_cluster" "aks" {
   tags = {
     environment = var.Environment
   }
+  lifecycle {
+    # This prevents accidental deletion of production clusters
+    prevent_destroy = true 
+  }
 }
 
 provider "kubernetes" {
