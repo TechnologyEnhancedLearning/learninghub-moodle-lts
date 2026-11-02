@@ -63,6 +63,16 @@ resource "azurerm_kubernetes_cluster" "aks" {
   lifecycle {
     # This prevents accidental deletion of production clusters
     prevent_destroy = true 
+
+    # Add this line to prevent drift flags from forcing a full cluster rebuild
+    ignore_changes = [
+      azure_policy_enabled,
+      cost_analysis_enabled,
+      http_application_routing_enabled,
+      local_account_disabled,
+      oidc_issuer_enabled,
+      open_service_mesh_enabled
+    ]
   }
 }
 
@@ -73,7 +83,7 @@ provider "kubernetes" {
   cluster_ca_certificate = base64decode(azurerm_kubernetes_cluster.aks.kube_config.0.cluster_ca_certificate)
 }
 
-resource "kubernetes_namespace" "custom_namespace" {
+resource "kubernetes_namespace_v1" "custom_namespace" {
   metadata {
     name = "learninghubmoodle"
   }
