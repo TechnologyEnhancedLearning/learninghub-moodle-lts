@@ -74,9 +74,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
       azure_policy_enabled,
       cost_analysis_enabled,
       http_application_routing_enabled,
-      local_account_disabled,
-      oidc_issuer_enabled,
-      open_service_mesh_enabled
+      local_account_disabled
     ]
   }
 }
@@ -88,7 +86,7 @@ provider "kubernetes" {
   cluster_ca_certificate = base64decode(azurerm_kubernetes_cluster.aks.kube_config.0.cluster_ca_certificate)
 }
 
-resource "kubernetes_namespace_v1" "custom_namespace" {
+resource "kubernetes_namespace" "custom_namespace" {
   metadata {
     name = "learninghubmoodle"
   }
