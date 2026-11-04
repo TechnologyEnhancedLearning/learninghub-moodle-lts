@@ -170,7 +170,7 @@ class send_user_notifications extends \core\task\adhoc_task {
                             // Need to comeback and visit this later to properly fix the problem
                             $this->log("Marking as read anyway!!!", 1);
                             $marksposts[$post->id] = true;
-                            $sendcount++;
+                            $sentcount++;
                             //$failedposts[] = $post->id;
                             //$errorcount++;
                         }
