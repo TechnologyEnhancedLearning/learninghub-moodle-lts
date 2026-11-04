@@ -181,12 +181,12 @@ class send_user_notifications extends \core\task\adhoc_task {
 
         $this->log_finish("Sent {$sentcount} messages with {$errorcount} failures");
         if (!empty($markposts)) {
-            if (get_user_preferences('forum_markasreadonnotification', 1, $this->recipient->id) == 1) {
+            //if (get_user_preferences('forum_markasreadonnotification', 1, $this->recipient->id) == 1) {
                 $this->log_start("Marking posts as read");
                 $count = count($markposts);
                 forum_tp_mark_posts_read($this->recipient, array_keys($markposts));
                 $this->log_finish("Marked {$count} posts as read");
-            }
+            //}
         }
 
         if ($errorcount > 0 and $sentcount === 0) {
