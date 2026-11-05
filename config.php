@@ -58,6 +58,11 @@ $CFG->session_redis_auth = 'REDIS_PRIMARY_ACCESS_KEY'; // Leave blank if unauthe
 $CFG->session_redis_database = 0; // Default database index
 $CFG->session_redis_prefix = 'moodle_sess_'; // Unique prefix for your cluster
 
+$CFG->enable_read_only_session = true;
+$CFG->session_database_acquire_lock_timeout = 60; // Reduces standard wait cycles to 60 seconds
+$CFG->debugsessionlock = 5; // Logs any backend thread holding a session lock for >5 seconds
+
+
 require_once(__DIR__ . '/lib/setup.php');
 
 // There is no php closing tag in this file,
