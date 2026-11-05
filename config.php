@@ -46,7 +46,7 @@ $CFG->dbsessions = false;
 // Configure Redis Session Driver
 $CFG->session_handler_class = '\core\session\redis';
 $CFG->session_redis_host = 'moodle-cache-prod.redis.cache.windows.net';
-$CFG->session_redis_port = 6380; // Or 6380 for SSL
+$CFG->session_redis_port = 6379; // Or 6380 for SSL
 
 // Tell Moodle to use TLS encryption explicitly
 $CFG->session_redis_encrypt = ['verify_peer' => true]; 
