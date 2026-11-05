@@ -41,7 +41,6 @@ resource "azurerm_kubernetes_cluster" "aks" {
   resource_group_name = azurerm_resource_group.learningHubMoodleResourceGroup.name
   dns_prefix          = var.ClusterName
   kubernetes_version  = var.KubernetesVersion
-  oidc_issuer_enabled = true
   default_node_pool {
     name                         = "default"
     vm_size                      = var.ClusterNodeSize
@@ -50,6 +49,12 @@ resource "azurerm_kubernetes_cluster" "aks" {
     min_count                    = 2
     max_count                    = 3
     only_critical_addons_enabled = true
+    orchestrator_version         = var.KubernetesVersion
+    upgrade_settings {
+      drain_timeout_in_minutes      = 30
+      max_surge                     = "10%"
+      node_soak_duration_in_minutes = 0
+    }
   }
   identity {
     type = "SystemAssigned"
@@ -59,6 +64,18 @@ resource "azurerm_kubernetes_cluster" "aks" {
   }
   tags = {
     environment = var.Environment
+  }
+  lifecycle {
+    # This prevents accidental deletion of production clusters
+    prevent_destroy = true 
+
+    # Add this line to prevent drift flags from forcing a full cluster rebuild
+    ignore_changes = [
+      azure_policy_enabled,
+      cost_analysis_enabled,
+      http_application_routing_enabled,
+      local_account_disabled
+    ]
   }
 }
 
