@@ -298,7 +298,17 @@ class send_user_notifications extends \core\task\adhoc_task {
         global $CFG, $PAGE;
         $author = $this->get_post_author($post->userid, $course, $forum, $cm, $context);
         if (empty($author)) {
-            return false;
+            //return false;
+            //Fix for issue where author has unsubscribed from the forum
+            $author = new \stdClass();
+            $author->id = $post->userid; // Keep the original ID so core components know who it originally was
+            $author->firstname = get_string('unknownuser', 'moodle'); // Or use hardcoded text like 'Unknown'
+            $author->lastname = get_string('user', 'moodle');
+            $author->email = $CFG->noreplyaddress; // Prevent email routing loops to non-existent accounts
+            $author->picture = 0; // Don't try to render a user profile image
+            $author->imagealt = '';
+            $author->groups = []; // Initialize groups array to prevent notices in output renders
+            $author->groups[$forum->id] = []; 
         }
 
         // Prepare to actually send the post now, and build up the content.
