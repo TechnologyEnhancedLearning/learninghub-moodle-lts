@@ -63,7 +63,6 @@ function message_send(\core\message\message $eventdata) {
 
     //new message ID to return
     $messageid = false;
-    $this->log("message_send1", 1);
     // Fetch default (site) preferences
     $defaultpreferences = get_message_output_default_preferences();
     $preferencebase = $eventdata->component.'_'.$eventdata->name;
@@ -72,7 +71,6 @@ function message_send(\core\message\message $eventdata) {
     if (!empty($defaultpreferences->{$preferencebase.'_disable'})) {
         return $messageid;
     }
-    $this->log("message_send2", 1);
     // By default a message is a notification. Only personal/private messages aren't notifications.
     if (!isset($eventdata->notification)) {
         $eventdata->notification = 1;
@@ -85,7 +83,6 @@ function message_send(\core\message\message $eventdata) {
         debugging('Attempt to send msg from unknown user', DEBUG_NORMAL);
         return false;
     }
-    $this->log("message_send3", 1);
     // Cast context URL and name.
     if (!empty($eventdata->contexturl)) {
         $eventdata->contexturl = (string) $eventdata->contexturl;
@@ -93,7 +90,6 @@ function message_send(\core\message\message $eventdata) {
     if (!empty($eventdata->contexturlname)) {
         $eventdata->contexturlname = (string) $eventdata->contexturlname;
     }
-    $this->log("message_send4", 1);
     // Legacy messages (FROM a single user TO a single user) must be converted into conversation messages.
     // Then, these will be passed through the conversation messages code below.
     if (!$eventdata->notification && !$eventdata->convid) {
@@ -101,7 +97,6 @@ function message_send(\core\message\message $eventdata) {
         // Given this is the only 'message' type message provider, we can exit now if this is the case.
         // Don't waste processing time trying to work out the other conversation member, if it's an individual
         // conversation, just throw a generic debugging notice and return.
-        $this->log("message_send5", 1);
         if (empty($CFG->messaging) || $eventdata->component !== 'moodle' || $eventdata->name !== 'instantmessage') {
             debugging('Attempt to send msg from a provider '.$eventdata->component.'/'.$eventdata->name.
                 ' that is inactive or not allowed for the user id='.$eventdata->userto->id, DEBUG_NORMAL);
@@ -157,14 +152,12 @@ function message_send(\core\message\message $eventdata) {
         $conversationid = !empty($conversationid) ? $conversationid : $conversation->id;
         $eventdata->convid = $conversationid;
     }
-    $this->log("message_send6", 1);
     // This is a message directed to a conversation, not a specific user as was the way in legacy messaging.
     // The above code has adapted the legacy messages into conversation messages.
     // We must call send_message_to_conversation(), which handles per-member processor iteration and triggers
     // a per-conversation event.
     // All eventdata for messages should now have a convid, as we fixed this above.
     if (!$eventdata->notification) {
-        $this->log("message_send7", 1);
         // Only one message will be saved to the DB.
         $conversationid = $eventdata->convid;
         $table = 'messages';
@@ -214,7 +207,6 @@ function message_send(\core\message\message $eventdata) {
 
         return \core\message\manager::send_message_to_conversation($eventdata, $tabledata);
     }
-    $this->log("message_send8", 1);
     // Else the message is a notification.
     if (!is_object($eventdata->userto)) {
         $eventdata->userto = core_user::get_user($eventdata->userto);
@@ -237,7 +229,6 @@ function message_send(\core\message\message $eventdata) {
             ' that is inactive or not allowed for the user id='.$eventdata->userto->id, DEBUG_NORMAL);
         return false;
     }
-    $this->log("message_send9", 1);
     // Verify all necessary data fields are present.
     if (!isset($eventdata->userto->auth) or !isset($eventdata->userto->suspended)
             or !isset($eventdata->userto->deleted) or !isset($eventdata->userto->emailstop)) {
@@ -270,7 +261,6 @@ function message_send(\core\message\message $eventdata) {
     $tabledata->customdata = $eventdata->customdata;
     $tabledata->contexturl = $eventdata->contexturl ?? null;
     $tabledata->contexturlname = $eventdata->contexturlname ?? null;
-    $this->log("message_send10", 1);
     if ($messageid = message_handle_phpunit_redirection($eventdata, $table, $tabledata)) {
         return $messageid;
     }
@@ -334,7 +324,6 @@ function message_send(\core\message\message $eventdata) {
             }
         }
     }
-    $this->log("message_send11", 1);
     // Store unread message just in case we get a fatal error any time later.
     $tabledata->id = $DB->insert_record($table, $tabledata);
     $eventdata->savedmessageid = $tabledata->id;
