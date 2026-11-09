@@ -296,10 +296,8 @@ class send_user_notifications extends \core\task\adhoc_task {
      */
     protected function send_post($course, $forum, $discussion, $post, $cm, $context) {
         global $CFG, $PAGE;
-        $this->log("send_post1", 1);
         $author = $this->get_post_author($post->userid, $course, $forum, $cm, $context);
         if (empty($author)) {
-            $this->log("send_post2", 1);
             return false;
         }
 
@@ -312,7 +310,6 @@ class send_user_notifications extends \core\task\adhoc_task {
 
         // Generate a reply-to address from using the Inbound Message handler.
         $replyaddress = $this->get_reply_address($course, $forum, $discussion, $post, $cm, $context);
-        $this->log("send_post3", 1);
         $data = new \mod_forum\output\forum_post_email(
             $course,
             $cm,
@@ -337,7 +334,6 @@ class send_user_notifications extends \core\task\adhoc_task {
             'courseshortname' => $data->get_coursename(),
         ];
         $postsubject = html_to_text(get_string('postmailsubject', 'forum', $a), 0);
-        $this->log("send_post4", 1);
         // Message headers are stored against the message author.
         $author->customheaders = $this->get_message_headers($course, $forum, $discussion, $post, $a, $data);
 
@@ -364,7 +360,6 @@ class send_user_notifications extends \core\task\adhoc_task {
                     ]
                 ]);
         }
-        $this->log("send_post5", 1);
 
         $eventdata->smallmessage = get_string('smallmessage', 'forum', (object) [
                 'user' => fullname($author),
@@ -389,7 +384,6 @@ class send_user_notifications extends \core\task\adhoc_task {
                 'reply' => get_string_manager()->get_string('reply', 'forum', null, $eventdata->userto->lang),
             ],
         ];
-        $this->log("send_post6", 1);
         return message_send($eventdata);
     }
 
