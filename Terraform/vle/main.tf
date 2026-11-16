@@ -92,21 +92,21 @@ resource "azurerm_private_endpoint" "premium_file_pe" {
 resource "azurerm_storage_share" "premium_moodledata" {
   name               = "moodledata"
   storage_account_id = azurerm_storage_account.premium_file_storage.id
-  quota              = 100 # Minimum 100 GiB for Premium FileStorage
+  quota              = 500 # Minimum 100 GiB for Premium FileStorage
   enabled_protocol   = "NFS"
 }
 
 resource "azurerm_storage_share" "premium_moodletheme" {
   name               = "moodletheme"
   storage_account_id = azurerm_storage_account.premium_file_storage.id
-  quota              = 100
+  quota              = 500
   enabled_protocol   = "NFS"
 }
 
 resource "azurerm_storage_share" "premium_moodlerestuploads" {
   name               = "moodlerestuploads"
   storage_account_id = azurerm_storage_account.premium_file_storage.id
-  quota              = 100
+  quota              = 500
   enabled_protocol   = "NFS"
 }
 
