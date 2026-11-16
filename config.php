@@ -27,7 +27,7 @@ $logouturl = $CFG->logouturl = 'index.php';
 
 $CFG->tool_generator_users_password = 'TOOL-GENERATOR-PASSWORD';
 
-//$CFG->sslproxy = true;
+$CFG->sslproxy = true;
 
 $CFG->phpunit_prefix = 'phpu_';
 $CFG->phpunit_dataroot = 'phpu_moodledata';
