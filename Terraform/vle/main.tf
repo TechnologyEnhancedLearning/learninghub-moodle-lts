@@ -92,7 +92,7 @@ resource "azurerm_private_endpoint" "premium_file_pe" {
   # Automatically registers the new storage account's private IP in your existing DNS zone
   private_dns_zone_group {
     name                 = "file-dns-zone-group"
-    private_dns_zone_ids = [azurerm_private_dns_zone.file_dns_zone.id]
+    private_dns_zone_ids = [data.azurerm_private_dns_zone.file_dns_zone.id]
   }
 }
 
