@@ -64,7 +64,7 @@ data "azurerm_virtual_network" "aks_vnet" {
   resource_group_name = "MC_Learninghub-Moodle-Vle_learninghubMoodleVle_uksouth"
 }
 
-resource "azurerm_private_dns_zone" "file_dns_zone" {
+data "azurerm_private_dns_zone" "file_dns_zone" {
   name                = "privatelink.file.core.windows.net"
   resource_group_name = azurerm_resource_group.learningHubMoodleResourceGroup.name
 }
