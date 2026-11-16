@@ -59,10 +59,16 @@ data "azurerm_subnet" "private_endpoint_subnet" {
   resource_group_name  = "MC_LearningHub-Moodle-Dev_learninghubMoodleDev_uksouth"
 }
 
-# Reference the existing Azure Files Private DNS Zone
-data "azurerm_private_dns_zone" "file_dns_zone" {
-  name                = "learninghubmoodledev.file.core.windows.net"
+resource "azurerm_private_dns_zone" "file_dns_zone" {
+  name                = "privatelink.file.core.windows.net"
   resource_group_name = azurerm_resource_group.learningHubMoodleResourceGroup.name
+}
+
+resource "azurerm_private_dns_zone_virtual_network_link" "file_dns_link" {
+  name                  = "moodle-file-dns-link"
+  resource_group_name   = azurerm_resource_group.learningHubMoodleResourceGroup.name
+  private_dns_zone_name = azurerm_private_dns_zone.file_dns_zone.name
+  virtual_network_id    = data.azurerm_virtual_network.aks_vnet.id # Reference to aks-vnet-10306673
 }
 
 resource "azurerm_private_endpoint" "premium_file_pe" {
