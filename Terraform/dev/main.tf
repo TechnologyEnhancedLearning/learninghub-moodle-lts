@@ -56,7 +56,7 @@ resource "azurerm_storage_account" "premium_file_storage" {
 data "azurerm_subnet" "private_endpoint_subnet" {
   name                 = "aks-subnet"
   virtual_network_name = "aks-vnet-10306673"
-  resource_group_name  = azurerm_resource_group.learningHubMoodleResourceGroup.name
+  resource_group_name  = "MC_LearningHub-Moodle-Dev_learninghubMoodleDev_uksouth"
 }
 
 # Reference the existing Azure Files Private DNS Zone
