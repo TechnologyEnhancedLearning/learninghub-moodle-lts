@@ -35,6 +35,77 @@ resource "azurerm_storage_container" "assessment_container" {
   container_access_type = "private"
 }
 
+resource "azurerm_storage_account" "premium_file_storage" {
+  name                     = var.PremiumStorageAccountName # Must be globally unique, lowercase alphanumeric
+  resource_group_name      = azurerm_resource_group.learningHubMoodleResourceGroup.name
+  location                 = azurerm_resource_group.learningHubMoodleResourceGroup.location
+  account_tier             = "Premium"
+  account_kind             = "FileStorage"
+  account_replication_type = "LRS"
+
+  # Required for NFS v4.1 shares
+  https_traffic_only_enabled = false
+
+  # NFS requires restricting access to a VNet/Subnet or Private Endpoint
+  network_rules {
+    default_action             = "Deny"
+  }
+}
+
+# Reference the subnet where your existing Private Endpoint lives
+data "azurerm_subnet" "private_endpoint_subnet" {
+  name                 = "aks-subnet"
+  virtual_network_name = "aks-vnet-10306673"
+  resource_group_name  = azurerm_resource_group.learningHubMoodleResourceGroup.name
+}
+
+# Reference the existing Azure Files Private DNS Zone
+data "azurerm_private_dns_zone" "file_dns_zone" {
+  name                = "learninghubmoodledev.file.core.windows.net"
+  resource_group_name = azurerm_resource_group.learningHubMoodleResourceGroup.name
+}
+
+resource "azurerm_private_endpoint" "premium_file_pe" {
+  name                = "${var.PremiumStorageAccountName}-pe"
+  location            = azurerm_resource_group.learningHubMoodleResourceGroup.location
+  resource_group_name = azurerm_resource_group.learningHubMoodleResourceGroup.name
+  subnet_id           = data.azurerm_subnet.private_endpoint_subnet.id
+
+  private_service_connection {
+    name                           = "${var.PremiumStorageAccountName}-psc"
+    private_connection_resource_id = azurerm_storage_account.premium_file_storage.id
+    is_manual_connection           = false
+    subresource_names              = ["file"] # Targets Azure Files specifically
+  }
+
+  # Automatically registers the new storage account's private IP in your existing DNS zone
+  private_dns_zone_group {
+    name                 = "file-dns-zone-group"
+    private_dns_zone_ids = [data.azurerm_private_dns_zone.file_dns_zone.id]
+  }
+}
+
+resource "azurerm_storage_share" "premium_moodledata" {
+  name               = "moodledata"
+  storage_account_id = azurerm_storage_account.premium_file_storage.id
+  quota              = 100 # Minimum 100 GiB for Premium FileStorage
+  enabled_protocol   = "NFS"
+}
+
+resource "azurerm_storage_share" "premium_moodletheme" {
+  name               = "moodletheme"
+  storage_account_id = azurerm_storage_account.premium_file_storage.id
+  quota              = 100
+  enabled_protocol   = "NFS"
+}
+
+resource "azurerm_storage_share" "premium_moodlerestuploads" {
+  name               = "moodlerestuploads"
+  storage_account_id = azurerm_storage_account.premium_file_storage.id
+  quota              = 100
+  enabled_protocol   = "NFS"
+}
+
 resource "azurerm_kubernetes_cluster" "aks" {
   name                = var.ClusterName
   location            = azurerm_resource_group.learningHubMoodleResourceGroup.location
