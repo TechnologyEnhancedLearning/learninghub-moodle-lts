@@ -13,11 +13,10 @@ spec:
   storageClassName: azurefile-csi
   csi:
     driver: file.csi.azure.com
-    volumeHandle: "moodleCluster#premiumlhmoodledev#moodledata"  # Updated handle to force fresh CSI tracking
+    volumeHandle: "moodleCluster#premiumlhmoodledev#moodledata"  
     volumeAttributes:
-      protocol: nfs                                              # Required for NFS shares
+      protocol: nfs
       shareName: moodledata
       server: premiumlhmoodledev.privatelink.file.core.windows.net # Ensure Private Endpoint DNS exists for this!
-    # nodeStageSecretRef removed: NFS uses VNet/Private Endpoint security, not storage account keys
   mountOptions:
-    - nconnect=4                                                 # Replaces all SMB-only mountOptions
+    - nconnect=4
