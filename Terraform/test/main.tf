@@ -64,7 +64,7 @@ data "azurerm_virtual_network" "aks_vnet" {
   resource_group_name = "MC_LearningHub-Moodle-Test_learninghubMoodleTest_uksouth"
 }
 
-resource "azurerm_private_dns_zone" "file_dns_zone" {
+data "azurerm_private_dns_zone" "existing_file_dns_zone" {
   name                = "privatelink.file.core.windows.net"
   resource_group_name = azurerm_resource_group.learningHubMoodleResourceGroup.name
 }
@@ -92,7 +92,7 @@ resource "azurerm_private_endpoint" "premium_file_pe" {
   # Automatically registers the new storage account's private IP in your existing DNS zone
   private_dns_zone_group {
     name                 = "file-dns-zone-group"
-    private_dns_zone_ids = [azurerm_private_dns_zone.file_dns_zone.id]
+    private_dns_zone_ids = [azurerm_private_dns_zone.existing_file_dns_zone.id]
   }
 }
 
