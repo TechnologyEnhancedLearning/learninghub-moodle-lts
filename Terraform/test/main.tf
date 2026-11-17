@@ -69,13 +69,6 @@ data "azurerm_private_dns_zone" "existing_file_dns_zone" {
   resource_group_name = azurerm_resource_group.learningHubMoodleResourceGroup.name
 }
 
-resource "azurerm_private_dns_zone_virtual_network_link" "file_dns_link" {
-  name                  = "moodle-file-dns-link"
-  resource_group_name   = azurerm_resource_group.learningHubMoodleResourceGroup.name
-  private_dns_zone_name = azurerm_private_dns_zone.file_dns_zone.name
-  virtual_network_id    = data.azurerm_virtual_network.aks_vnet.id 
-}
-
 resource "azurerm_private_endpoint" "premium_file_pe" {
   name                = "${var.PremiumStorageAccountName}-pe"
   location            = azurerm_resource_group.learningHubMoodleResourceGroup.location
