@@ -1,0 +1,12 @@
+/*
+ Half size button with half size margin
+ */
+.nhsuk-button--small {
+  @extend .nhsuk-button;
+  box-shadow: 0 2px 0 $nhsuk-box-shadow-color;
+  font-size: 0.95rem;
+  margin-bottom: 2px;
+  margin-right: 5px;
+  padding: 4px 6px;
+  transition: none;
+}
