@@ -103,13 +103,6 @@ resource "azurerm_storage_share" "premium_moodledata" {
   enabled_protocol   = "NFS"
 }
 
-resource "azurerm_storage_share" "premium_moodletheme" {
-  name               = "moodletheme"
-  storage_account_id = azurerm_storage_account.premium_file_storage.id
-  quota              = 100
-  enabled_protocol   = "NFS"
-}
-
 resource "azurerm_storage_share" "premium_moodlerestuploads" {
   name               = "moodlerestuploads"
   storage_account_id = azurerm_storage_account.premium_file_storage.id
