@@ -55,6 +55,8 @@ $CFG->session_redis_auth = 'REDIS_PRIMARY_ACCESS_KEY'; // Leave blank if unauthe
 $CFG->session_redis_database = 0; // Default database index
 $CFG->session_redis_prefix = 'moodle_sess_'; // Unique prefix for your cluster
 
+$CFG->localcachedir = '/tmp/moodle-localcache';
+
 
 require_once(__DIR__ . '/lib/setup.php');
 
