@@ -99,7 +99,8 @@ jobs:
       #       -var="SQLVcores=${{ vars.SQL_VCORES }}" \
       #       -var="RedisName=${{ vars.REDIS_NAME }}" \
       #       -var="SqlmiName=${{ vars.SQLMI_NAME }}" \
-      #       -var="KubernetesVersion=${{ vars.KUBERNETES_VERSION }}"
+      #       -var="KubernetesVersion=${{ vars.KUBERNETES_VERSION }}" \
+      #       -var="PremiumStorageAccountName=${{ vars.AZURE_PREMIUM_STORAGE_ACCOUNT_NAME }}"
 
       - name: 'Terraform apply'
         id: apply
@@ -122,7 +123,9 @@ jobs:
             -var="SQLVcores=${{ vars.SQL_VCORES }}" \
             -var="RedisName=${{ vars.REDIS_NAME }}" \
             -var="SqlmiName=${{ vars.SQLMI_NAME }}" \
-            -var="KubernetesVersion=${{ vars.KUBERNETES_VERSION }}"
+            -var="KubernetesVersion=${{ vars.KUBERNETES_VERSION }}" \
+            -var="PremiumStorageAccountName=${{ vars.AZURE_PREMIUM_STORAGE_ACCOUNT_NAME }}"
+
 
   create_persistent_storage:
     needs: terraform
