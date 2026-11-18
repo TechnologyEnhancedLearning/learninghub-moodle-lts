@@ -1,0 +1,1093 @@
+/* Import the entire NHSUK scss */
+@import "../node_modules/nhse-tel-frontend/packages/nhsuk";
+@import "../scss/bootstrap/_config.scss";
+
+@import "../../boost/scss/fontawesome.scss";
+@import "../../boost/scss/bootstrap.scss";
+@import "../../boost/scss/moodle.scss";
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/**
+ * For sticky header
+ */
+body {
+  height: auto;
+}
+
+/**
+ * Extra colour mappings for Moodle
+ */
+$btn-default-text: $color_nhsuk-black;
+$btn-default-background: $color_nhsuk-white;
+
+$btn-primary-text: $color_nhsuk-white;
+$btn-primary-background: $color_nhsuk-blue;
+$btn-primary-border: $color_nhsuk-blue;
+
+$btn-secondary-text: $color_nhsuk-white;
+$btn-secondary-background: $color_nhsuk-dark-blue;
+$btn-secondary-border: $color_nhsuk-dark-blue;
+
+/* Import NHSE scss directory partials */
+@import "nhse/courseindex";
+@import "nhse/media";
+
+/* Custom components */
+@import "components/button/button";
+
+/**
+ * Generic style tweaks
+ */
+a {
+  &.btn {
+    &:focus {
+      @include nhsuk-focused-button;
+    }
+  }
+  &.btn {
+    &:focus {
+      @include nhsuk-focused-button;
+    }
+  }
+  &.nav-link {
+    &:focus {
+      @include nhsuk-focused-button;
+    }
+  }
+}
+
+button {
+  &.btn {
+    &:focus {
+      @include nhsuk-focused-button;
+    }
+  }
+}
+
+input {
+  &.custom-control-input {
+    &:focus {
+      @include nhsuk-focused-text;
+    }
+  }
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  font-weight: 600;
+}
+
+h1 {
+  font-size: 1.75rem;
+}
+h2 {
+  font-size: 1.50rem;
+}
+h3 {
+  font-size: 1.35rem;
+}
+h4, h5, h6 {
+  font-size: 1.1875rem;
+}
+
+ul {
+  @extend %nhsuk-list;
+  @extend %nhsuk-list--bullet;
+}
+
+ol {
+  @extend %nhsuk-list;
+  @extend %nhsuk-list--number;
+}
+
+ul {
+  &.course-list {
+    padding-left: 0;
+    border-left: calc(1px + 5px) solid $color_nhsuk-blue;
+  }
+}
+
+.text-muted {
+  color: $nhsuk-text-color !important;
+}
+
+.nhsuk-breadcrumb__item {
+  font-size: 15px;
+}
+
+/**
+ * Button styles
+ */
+.btn {
+  &:not(
+    .btn-icon,
+    .btn-close,
+    .btn-link,
+    .btn-open,
+    .search-icon,
+    .navbar .dropdown-toggle,
+    .icon-no-margin
+  ) {
+    @extend .nhsuk-button--small;
+    box-shadow: 0 2px 0 $nhsuk-box-shadow-color;
+  }
+
+  &.disabled {
+    @extend .nhsuk-button--disabled;
+    box-shadow: 0 2px 0 $nhsuk-box-shadow-color;
+  }
+
+  &.active, &.visited {
+    @extend .nhsuk-button--reverse;
+    box-shadow: 0 2px 0 $nhsuk-box-shadow-color;
+  }
+
+  &.text-primary {
+    color: $btn-secondary-text!important;
+  }
+}
+
+.bg-secondary {
+  color: $nhsuk-reverse-button-text-color!important;
+}
+
+.btn {
+  &.btn-secondary,
+  &.btn-outline-secondary {
+    @extend .nhsuk-button--small;
+    @extend .nhsuk-button--secondary;
+    box-shadow: 0 2px 0 $nhsuk-box-shadow-color;
+
+    &:visited {
+      color: $nhsuk-reverse-button-color;
+    }
+  }
+}
+
+.btn-group>.btn:not(:first-child),
+.btn-group>.btn:not(:last-child):not(.dropdown-toggle),
+.btn-group>.btn-group:not(:first-child)>.btn,
+.btn-group>.btn-group:not(:last-child)>.btn {
+  border-top-left-radius: 4px!important;
+  border-top-right-radius: 4px!important;
+  border-bottom-left-radius: 4px!important;
+  border-bottom-right-radius: 4px!important;
+}
+
+/**
+ * Body styles
+ */
+body {
+  background-color: $nhsuk-form-element-background-color;
+  background: none;
+  &.limitedwidth {
+    #page {
+      &.drawers {
+        .main-inner {
+          max-width: 990px;
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Background variations
+ */
+
+.bg-dark {
+  color: $btn-primary-text;
+  background-color: $btn-primary-background !important;
+  * {
+    color: $btn-primary-text !important;
+  }
+}
+
+.bg-light {
+  color: $color_nhsuk-grey-1;
+  background-color: $btn-default-background !important;
+  > * {
+    color: $color_nhsuk-grey-1 !important;
+  }
+}
+
+/**
+ * Increase max container width
+ */
+.nhsuk-width-container {
+  max-width: 990px;
+}
+
+/**
+ * Cards and box styles
+ */
+
+.card {
+  border: none;
+  border-radius: 0;
+  -moz-border-radius: 0;
+  margin: 0;
+  background-color: $color_nhsuk-grey-5;
+  &.course-card {
+    background-color: $color_nhsuk-white;
+  }
+}
+
+.course_category_tree {
+  .category {
+    >.info {
+      >.categoryname {
+        font-size: inherit;
+      }
+    }
+  }
+}
+
+.dashboard-card-deck {
+  .dashboard-card {
+    background-color: $color_nhsuk-white;
+    .dashboard-card-img {
+      border-radius: 0;
+    }
+  }
+}
+
+/**
+ * Drawer styles
+ */
+.drawer {
+  ul {
+    font-size: 15px;
+  }
+  .card-text {
+    li {
+      padding: .25rem .5rem;
+    }
+  }
+}
+
+.drawer-toggles {
+  .drawer-toggler {
+    top: calc(140px + 0.7rem)
+  }
+}
+
+@media (max-width: 991.98px) {
+  .drawer-toggles {
+    .drawer-toggler {
+      top: calc(99vh - (60px * 2.5))
+    }
+  }
+}
+
+.drawercontent {
+  height: calc(100% - 124px);
+  h1, h2, h3 {
+    margin-bottom: 0;
+    padding: .25rem .5rem;
+    line-height: 1.5;
+  }
+}
+
+.drawers {
+  .block_myoverview>.card-body {
+    padding: 1.25rem!important;
+  }
+}
+.comment-area {
+  padding: 10px 0 0;
+}
+
+.comment-list {
+  font-size: 1rem;
+  color: $nhsuk-text-color;
+  li {
+    background-color: $color_nhsuk-white;
+    margin: 0;
+    margin-bottom: 10px;
+  }
+}
+.comment-ctrl {
+  font-size: 1rem;
+}
+
+
+.dropdown-menu {
+  min-width: 20rem;
+}
+
+[data-region=right-hand-drawer].drawer {
+  top: 84px;
+  height: calc(100% - 149px)
+}
+
+@media (min-width: 640px) {
+  [data-region=right-hand-drawer].drawer {
+    top: 92px;
+  }
+}
+
+/**
+ * Header styles
+ */
+.sticky-top {
+  position: sticky;
+  top: 0;
+}
+
+.nhsuk-header__container {
+  padding: 16px 0;
+  max-width: 990px;
+}
+
+.nhsuk-header__search-form {
+  margin: 0;
+}
+
+@media (max-width: 40.0525em) {
+  .nhsuk-header__container {
+    display: flex !important;
+    .nhsuk-header__logo {
+      padding-right: 12px;
+    }
+  }
+}
+
+.header-maxwidth {
+  max-width: 990px;
+}
+
+@media (min-width: 768px) {
+  .header-maxwidth {
+    padding-left: 0;
+  }
+}
+
+.icon {
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+  padding-top:0;
+  padding-bottom:0;
+}
+
+.editmode-switch-form {
+  margin-block-start: 0.4em;
+  margin-block-end: 0.6em;
+  .input-group {
+    label {
+      padding-top: 3px;
+    }
+  }
+}
+
+/**
+ * Page and headings
+ */
+
+#page-wrapper {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  #page {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1440px;
+    &.nhsuk-width-container {
+      max-width: 990px;
+    }
+    .main-inner {
+      padding: 1.5rem 1.5rem;
+      width: 100%;
+    }
+  }
+
+  svg {
+    max-height: 50px;
+  }
+}
+
+/**
+ * Max width except reportbuilder
+ */
+#page-admin-reportbuilder,
+#page-admin-reportbuilder-edit {
+  height: 100%;
+  #page-wrapper {
+    #page {
+      width: 100%;
+      max-width: 100%;
+    }
+  }
+}
+
+#page {
+  width: 100%;
+  max-width: 1920px;
+  margin: 0 auto;
+  &.drawers {
+    margin-top: 0;
+
+    .main-inner {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+  }
+
+  a {
+    &:not([class]) {
+      text-decoration: underline;
+
+      &:focus {
+        @include nhsuk-focused-text;
+      }
+    }
+  }
+}
+
+@media (min-width: 992px) {
+  #page {
+    &.drawers {
+      &.show-drawer-left {
+        padding-left: 286px;
+        margin-left: 0;
+      }
+      &.show-drawer-right {
+        padding-right: 316px;
+        margin-right: 0;
+      }
+    }
+  }
+}
+
+.pagelayout-admin,
+.pagelayout-mycourses,
+.pagelayout-mydashboard
+{
+  #page-wrapper {
+    #page {
+      padding-top: 0;
+    }
+  }
+}
+
+.pagelayout-login,
+.pagelayout-popup,
+.pagelayout-embedded,
+.pagelayout-redirect
+{
+  #page-wrapper {
+    #page {
+      padding-top: 60px;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  #page.drawers {
+    .main-inner {
+      padding: 1.5rem 1.5rem;
+      width: 100%;
+    }
+
+    div[role="main"] {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+}
+
+#frontpage-available-course-list {
+  .coursebox {
+    @extend .nhsuk-card__content;
+    border-radius: 0;
+    border-top: 1px solid $color_nhsuk-grey-4;
+
+    & > .info {
+      @extend .nhsuk-card--care__heading;
+      & > .coursename {
+        @extend .nhsuk-card--care__heading;
+        font-size: 1.5rem;
+        font-weight: bold;
+
+        & a {
+          color: inherit;
+        }
+      }
+    }
+    & > .content {
+      @extend .nhsuk-card__content;
+    }
+  }
+}
+
+.reportbuilder-toggle-card {
+  .toggle-card-button {
+    i.toggle-card-icon {
+      color: $color_nhsuk-white;
+    }
+  }
+}
+
+/**
+ * Container notification messages
+ */
+
+.content-item-container {
+  &.notification {
+    .content-item-body {
+      .notification-message {
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+#region-main {
+  height: 100%;
+}
+
+/**
+ * Header navigation
+ */
+.nhsuk-header--white {
+  .nhsuk-header__navigation-link {
+    color: $color_nhsuk-white;
+    white-space: nowrap;
+
+    &:visited {
+      color: $color_nhsuk-white;
+    }
+
+    &.active {
+      border-bottom: 4px solid $color_nhsuk-white;
+    }
+
+    &:checked {
+      color: $color_nhsuk-black;
+      border-bottom: 4px solid $color_nhsuk-black;
+    }
+  }
+}
+
+/**
+ * Header navigation tabs only
+ */
+.nav-tabs {
+  .nhsuk-header__navigation-link {
+    color: $color_nhsuk-blue;
+    border-bottom: 0;
+    padding: 12px 12px;
+
+    &.dropdown-item {
+      display: flex;
+      padding-left: 1rem;
+    }
+
+    &:visited {
+      color: $color_nhsuk-blue;
+    }
+
+    &.active {
+      background-color: $color_nhsuk-blue;
+      color: $color_nhsuk-white;
+    }
+
+    &:hover {
+      background-color: $color_nhsuk-blue;
+      color: $color_nhsuk-white;
+    }
+
+    &:checked {
+      background-color: $color_nhsuk-blue;
+      color: $color_nhsuk-white;
+    }
+  }
+
+  .nav-link {
+    &:focus {
+      @include nhsuk-focused-text;
+    }
+  }
+}
+
+/**
+ * Header navigation light variation
+ */
+
+.nhsuk-header__navigation {
+  overflow: visible;
+}
+.nhsuk-header__service-name {
+  max-width: none;
+}
+.nhsuk-header--white {
+  background-color: $color_nhsuk-white;
+  .nhsuk-header__navigation {
+    color: $btn-default-text;
+    background-color: $btn-default-background;
+    .nhsuk-header__service-name {
+      color: $btn-default-text;
+    }
+  }
+
+  .nhsuk-header__navigation-link {
+    &:visited {
+      color: $color_nhsuk-black;
+    }
+    &.active {
+      border-bottom: 4px solid $color_nhsuk-blue;
+    }
+    &:checked {
+      color: $color_nhsuk-white;
+      border-bottom: 4px solid $color_nhsuk-white;
+    }
+  }
+}
+
+.nhsuk-breadcrumb__list {
+  .nhsuk-breadcrumb__item {
+    .nhsuk-breadcrumb__link {
+      padding: 0 10px 10px 0;
+    }
+  }
+}
+
+.navbar-toggler-icon {
+  width: 2.0em;
+  height: 2.0em;
+}
+
+.navbar-expand {
+  .navbar-nav {
+    .nav-link {
+      padding-top: 15px;
+    }
+  }
+}
+
+@media (min-width: 992px) {
+  .path-admin-reportbuilder {
+    &.pagelayout-popup {
+      .dynamictabs {
+        .nav-tabs {
+          padding-top: 0;
+        }
+      }
+    }
+  }
+}
+
+.popover-region-header-container {
+  height: 50px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.nav {
+  margin-left: 0;
+}
+
+.nav-link {
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.icon-no-margin {
+  &:focus {
+    @include nhsuk-focused-button;
+  }
+}
+
+.navbar {
+  color: $btn-primary-text;
+  background-color: $btn-primary-background;
+  box-shadow: none;
+  padding: 0;
+
+  .divider {
+    display: none;
+  }
+
+  .dropdown-toggle::after {
+    display: none;
+    color: $btn-primary-text;
+  }
+
+  .popover-region .popover-region-container {
+    top: 84px;
+    color: $nhsuk-secondary-text-color;
+  }
+
+  .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='3' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+  }
+
+  .nav-link {
+    color: $btn-primary-text;
+  }
+
+  .primary-navigation {
+    .navigation {
+      .nav-link {
+        box-shadow: none;
+        -moz-outline-style: none;
+        height: auto;
+        border-top: 0;
+        outline: 0;
+      }
+    }
+  }
+
+  .navbar-brand {
+    color: $btn-primary-text;
+  }
+
+  .navbar-nav {
+    .btn {
+      &:not(
+        .btn-close,
+        .btn-open
+      ) {
+        color: $btn-primary-text;
+        background-color: $btn-primary-background;
+        &:focus {
+          @include nhsuk-focused-button;
+        }
+        border-color: transparent;
+        border-bottom: none;
+      }
+    }
+
+    .custom-control-input:checked~.custom-control-label::before {
+      color: $btn-primary-text;
+      background-color: $btn-default-background;
+      border-color: $btn-default-background;
+    }
+
+    .custom-control-input:checked~.custom-control-label::after {
+      background-color: $btn-primary-background;
+    }
+
+    .text-primary {
+      color: $btn-secondary-text!important;
+    }
+  }
+
+  &.navbar__light {
+    color: $btn-default-text;
+    background-color: $btn-default-background;
+    .navbar-brand {
+      color: $btn-default-text;
+    }
+
+    .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    }
+
+    .nav-link {
+      color: $btn-default-text;
+    }
+
+    .navbar-nav {
+      .btn {
+        &:not(
+          .btn-close,
+          .btn-open
+        ) {
+          color: $btn-default-text;
+          background-color: $btn-default-background;
+          border-color: transparent;
+          border-bottom: none;
+        }
+      }
+    }
+
+    .custom-control-input {
+
+      &:checked ~ .custom-control-label::before {
+        color: $btn-primary-text;
+        background-color: $btn-primary-background;
+        border-color: $btn-primary-background;
+      }
+
+      &:checked ~ .custom-control-label::after {
+        background-color: $btn-default-background;
+      }
+    }
+
+    .dropdown-toggle::after {
+      color: $btn-default-text;
+    }
+
+    .primary-navigation {
+      .navigation {
+        color: $btn-default-text;
+        background-color: $btn-default-background;
+      }
+
+      .navbar-nav {
+        .show > .nav-link, .active > .nav-link, .nav-link.show, .nav-link.active {
+          color: $btn-primary-text;
+          background-color: $btn-primary-background;
+          border-color: transparent;
+          border-bottom-color: $btn-default-background;
+        }
+
+        .nav-link:hover {
+          color: $btn-default-text;
+          background-color: $btn-default-background;
+          border-color: transparent;
+          border-bottom-color: $btn-primary-background;
+        }
+      }
+    }
+
+    .text-primary {
+      color: $btn-default-text!important;
+    }
+  }
+
+  &.navbar__dark {
+    color: $btn-primary-text;
+    background-color: $btn-primary-background;
+
+    .navbar-brand {
+      color: $btn-primary-text;
+    }
+
+    .nav-link {
+      color: $btn-primary-text;
+    }
+
+    .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    }
+
+    .primary-navigation {
+      .navigation {
+        color: $btn-primary-text;
+        background-color: $btn-primary-background;
+      }
+
+      .navbar-nav {
+        .show > .nav-link, .active > .nav-link, .nav-link.show, .nav-link.active {
+          color: $btn-default-text;
+          background-color: $btn-default-background;
+          border-color: transparent;
+          border-bottom-color: $btn-primary-background;
+        }
+
+        .nav-link:hover {
+          color: $btn-primary-text;
+          background-color: $btn-primary-background;
+          border-color: transparent;
+          border-bottom-color: $btn-default-background;
+        }
+      }
+    }
+  }
+}
+
+.content-area {
+  .navbar {
+    a, a:visited {
+     color: $btn-primary-text;
+    }
+  }
+}
+
+.nhsuk-header__search-wrap {
+  .btn-close,
+  .btn-open {
+    color: $btn-primary-text;
+    background-color: $btn-primary-background;
+  }
+}
+
+@media (min-width: 48.0625em) {
+  .nhsuk-search__input {
+    width: 180px;
+  }
+
+  .nhsuk-search__submit {
+    padding: 0 8px 0;
+  }
+}
+
+#navbuttons {
+  input[type="submit"] {
+    @extend .nhsuk-button--small;
+  }
+}
+
+/**
+ * Double-sized Checkboxes
+ */
+input[type=checkbox] {
+  -ms-transform: scale(2); /* IE */
+  -moz-transform: scale(2); /* FF */
+  -webkit-transform: scale(2); /* Safari and Chrome */
+  -o-transform: scale(2); /* Opera */
+  transform: scale(2);
+}
+
+label input[type=checkbox] {
+  margin-right: 1.0rem!important;
+}
+.form-check label {
+  padding-left: 1.0rem!important;
+}
+
+.form-check-inline .form-check-input {
+  margin-left: 1.0rem;
+  margin-right: 1.0rem;
+}
+
+.form-control {
+  padding: 0 0.75rem;
+  border-radius: 0;
+}
+
+.form-item {
+  .form-setting {
+    .form-defaultinfo {
+      padding-left: 1rem;
+    }
+  }
+}
+
+.custom-select {
+  padding: 0 1.75rem 0 .75rem
+}
+
+.simplesearchform {
+  .btn-close {
+    right: -2.5em;
+    top: 0.2rem;
+  }
+  .collapse.show {
+    background-color: $color_nhsuk-blue;
+    right: 0;
+  }
+  .collapsing {
+    background-color: $color_nhsuk-blue;
+    right: 0;
+  }
+  .searchform-navbar {
+    padding-right: 2.5em;
+}
+  .input-group {
+    input.form-control {
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+}
+
+.nhsuk-header__navigation-item {
+  border-top: none;
+}
+
+.popover-region-toggle::before, .popover-region-toggle::after {
+  display: none;
+}
+
+@media (min-width: 480px) {
+  .navbar {
+    .popover-region {
+      .popover-region-container {
+        top: 49px;
+      }
+    }
+    .popover-region-toggle::before, .popover-region-toggle::after {
+      display: inline-block;
+    }
+  }
+}
+
+@media (min-width: 640px) {
+  .navbar {
+    .divider {
+      display: block;
+    }
+    .dropdown-toggle::after {
+      display: inline-block;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .d-md-none {
+    display: block !important;
+  }
+  [data-region=right-hand-drawer].drawer {
+    top: 92px;
+  }
+  body.limitedwidth {
+    #page.drawers {
+      .footer-popover {
+        max-width: none;
+      }
+    }
+  }
+}
+
+@media (min-width: 992px) {
+  .d-md-none {
+    display: none !important;
+  }
+  [data-region=right-hand-drawer].drawer {
+    top: 140px;
+  }
+  .drawer-left, .drawer-right {
+    top: 135px;
+    height: calc(100vh - 124px)
+  }
+}
+
+.nhsuk-list--number, ol {
+  padding-left: 32px;
+}
+
+/**
+ * Calendar styles
+ */
+.maincalendar {
+  .calendarmonth {
+    ul {
+      li {
+        &>a {
+          white-space: normal;
+        }
+      }
+    }
+
+    td {
+      .day-number-circle {
+        .day-number {
+          padding: 50% 0;
+        }
+      }
+    }
+  }
+}
+
+th, td {
+  font-size: 1.0rem;
+}
+
+@media (min-width: 40.0625em) {
+  th, td {
+    font-size: 1.0rem;
+  }
+  .nhsuk-breadcrumb__item {
+    font-size: 1.1875rem;
+  }
+}

@@ -1,0 +1,38 @@
+/**
+ * Variables overload for Bootstrap 4
+ */
+$font-family-sans-serif:  Frutiger W01, Arial, Sans-serif !default;
+$font-family-monospace:   Frutiger W01, Arial, Sans-serif !default;
+$font-family-base:        $font-family-sans-serif !default;
+$font-weight-base:        400 !default;
+
+$blue:    $color_nhsuk-blue !default;
+$cyan:    $color_nhsuk-blue !default;
+$indigo:  $color_nhsuk-purple !default;
+$purple:  $color_nhsuk-purple !default;
+$pink:    $color_nhsuk-pink !default;
+$red:     $color_nhsuk-red !default;
+$orange:  $color_nhsuk-orange !default;
+$yellow:  $color_nhsuk-yellow !default;
+$green:   $color_nhsuk-green !default;
+$teal:    $color_nhsuk-aqua-green !default;
+
+/**
+ * Extra colour mappings fpr Moodle theme
+ */
+$color_nhsuk-dark-blue: #005eb8;
+
+$btn-default-text: $color_nhsuk-black;
+$btn-default-background: $color_nhsuk-white;
+
+$btn-primary-text: $color_nhsuk-white;
+$btn-primary-background: $color_nhsuk-blue;
+$btn-primary-border: $color_nhsuk-blue;
+
+$btn-secondary-text: $color_nhsuk-white;
+$btn-secondary-background: $color_nhsuk-dark-blue;
+$btn-secondary-border: $color_nhsuk-dark-blue;
+
+.rounded {
+  border-radius: 0;
+}

@@ -9,7 +9,6 @@
                 display: flex;
 
                 .icon {
-                    max-width: initial;
                     width: auto;
                     height: 1.3rem;
                 }
@@ -86,7 +85,7 @@
                     &.status-icon {
                         .icon {
                             font-size: 8rem;
-                            max-width: initial;
+                            width: auto;
                             margin: 0;
                         }
                     }

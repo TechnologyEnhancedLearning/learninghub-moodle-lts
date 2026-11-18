@@ -410,7 +410,9 @@ $message-day-color: color-yiq($message-app-bg) !default;
             display: flex;
             align-items: center;
         }
-
+        .footer-container [data-region="view-overview"] {
+            display: none;
+        }
         .overflow-y {
             overflow-y: unset;
         }
@@ -605,7 +607,7 @@ $message-day-color: color-yiq($message-app-bg) !default;
         color: $message-day-color;
     }
     .lazy-load-list {
-        overflow-y: inherit;
+        overflow-y: auto;
     }
 }
 #page-message-index {
