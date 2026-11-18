@@ -27,7 +27,7 @@ $logouturl = $CFG->logouturl = 'index.php';
 
 $CFG->tool_generator_users_password = 'TOOL-GENERATOR-PASSWORD';
 
-//$CFG->sslproxy = true;
+$CFG->sslproxy = true;
 
 $CFG->phpunit_prefix = 'phpu_';
 $CFG->phpunit_dataroot = 'phpu_moodledata';
@@ -56,8 +56,8 @@ $CFG->session_redis_database = 0; // Default database index
 $CFG->session_redis_prefix = 'moodle_sess_'; // Unique prefix for your cluster
 
 
-$CFG->debug = (E_ALL | E_STRICT);
-$CFG->debugdisplay = 1;
+//$CFG->debug = (E_ALL | E_STRICT);
+//$CFG->debugdisplay = 1;
 
 
 require_once(__DIR__ . '/lib/setup.php');
