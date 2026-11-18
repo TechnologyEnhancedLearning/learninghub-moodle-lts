@@ -30,17 +30,12 @@ spec:
         - name: moodledata
           mountPath: /var/www/moodledata
           readOnly: false
-        - name: moodletheme
-          mountPath: /var/www/html/theme
         - name: moodlerestuploads
           mountPath: /var/www/html/webservice/rest/uploads
       volumes:
       - name: moodledata
         persistentVolumeClaim:
           claimName: moodledataclaim
-      - name: moodletheme
-        persistentVolumeClaim:
-          claimName: moodlethemeclaim
       - name: moodlerestuploads
         persistentVolumeClaim:
           claimName: moodleuploadsclaim
