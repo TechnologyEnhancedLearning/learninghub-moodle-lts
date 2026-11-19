@@ -65,3 +65,7 @@ variable "SqlmiName" {
 variable "KubernetesVersion" {
     type = string
 }
+
+variable "PremiumStorageAccountName" {
+    type = string
+}
