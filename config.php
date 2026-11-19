@@ -62,6 +62,9 @@ $CFG->enable_read_only_session = true;
 $CFG->session_database_acquire_lock_timeout = 60; // Reduces standard wait cycles to 60 seconds
 $CFG->debugsessionlock = 5; // Logs any backend thread holding a session lock for >5 seconds
 
+$CFG->localcachedir = '/tmp/moodle-localcache';
+$CFG->localrequestdir = '/tmp/moodle-localrequest';
+
 
 require_once(__DIR__ . '/lib/setup.php');
 

@@ -1,0 +1,105 @@
+/* ==========================================================================
+// FOOTER STYLING
+// ========================================================================== */
+
+/* ------------------------------------------------------------------------------------------ */
+/* FOOTER                                                                                     */
+/* Some of this can be removed when theme updated to v10 NHS UK Frontend
+/* ------------------------------------------------------------------------------------------ */
+
+.nhsuk-footer {
+  background-color: #d8dde0;
+  border-top: 4px solid core.nhsuk-colour("blue");
+}
+
+.nhsuk-footer {
+  padding-top: 24px;
+}
+
+@media (min-width: 40.0625em) {
+  .nhsuk-footer {
+    padding-top: 32px;
+  }
+}
+
+.nhsuk-footer .nhsuk-width-container {
+  margin-left: 16px;
+  /* or 32px for larger screens */
+  margin-right: 16px;
+}
+
+
+@media (min-width: 48.0625em) {
+  .nhsuk-footer .nhsuk-width-container {
+    margin-left: 24px;
+    margin-right: 24px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .nhsuk-footer .nhsuk-width-container {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+
+.nhsuk-footer .nhsuk-footer-container {
+  background-color: transparent;
+  border-top: none;
+  width: 100%;
+}
+
+.nhsuk-footer .nhsuk-footer__list {
+  float: none;
+  /* cancel v9 float */
+  width: auto;
+  /* allow list to take full width */
+  padding-right: 0;
+  padding-bottom: 0;
+}
+
+@media (min-width: 48.0625em) {
+  .nhsuk-footer__meta .nhsuk-footer__list-item {
+    display: inline-block;
+    margin-right: 32px;
+  }
+}
+
+/* Override v9 mobile footer border + padding */
+.nhsuk-footer .nhsuk-footer__meta {
+  border-top: none !important;
+  padding-top: 0 !important;
+}
+
+/*
+ * Ensure footer links are underlined to match LH styling
+ */
+.nhsuk-footer .nhsuk-footer__list-item-link {
+  text-decoration: underline;
+}
+
+/*
+ * Match focus and hover state to LH styling
+ */
+.nhsuk-footer .nhsuk-footer__list-item-link:hover,
+.nhsuk-footer .nhsuk-footer__list-item-link:focus {
+  text-decoration: none;
+}
+
+
+.nhsuk-footer .nhsuk-body-s {
+  display: block;
+  font-size: .875rem;
+  line-height: 1.71429;
+  margin-top: 0;
+}
+
+@media (min-width: 40.0625em) {
+  .nhsuk-footer .nhsuk-body-s {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+}

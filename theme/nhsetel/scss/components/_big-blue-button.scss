@@ -1,0 +1,20 @@
+.mod_bigbluebuttonbn_recordings_table .yui3-datatable {
+    width: 100% !important;
+    overflow-x: auto !important; /* Forces the horizontal scrollbar when needed */
+    display: block !important;
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iPhones */
+}
+
+/* 2. Prevent the internal YUI widget from being wider than the viewport */
+.mod_bigbluebuttonbn_recordings_table .yui3-datatable,
+.mod_bigbluebuttonbn_recordings_table .yui3-datatable-content {
+    max-width: 100vw !important; /* Constraints it to the screen width */
+}
+
+.mod_bigbluebuttonbn_recordings_table .yui3-datatable-table {
+	width: auto !important;    
+}
+
+
+
+

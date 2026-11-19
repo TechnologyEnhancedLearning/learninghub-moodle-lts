@@ -1,0 +1,71 @@
+// 1. CORE MODULE & VARIABLE OVERRIDE
+// THIS MUST BE THE FIRST EXECUTABLE LINE to satisfy the Sass compiler.
+
+@use "nhsuk-frontend/src/nhsuk/core" with (
+  $nhsuk-page-width: 1200px,   
+);
+
+
+// VENDOR EXCEPTION
+// The problematic file that caused so much trouble can now be safely imported.
+@import "nhsuk-frontend/src/nhsuk/core/vendor/sass-mq";
+
+@import "../scss/bootstrap/_config.scss";
+
+// FRAMEWORK COMPONENTS
+@import "nhsuk-frontend/src/nhsuk/components";
+
+@import "../../boost/scss/fontawesome.scss";
+@import "../../boost/scss/bootstrap.scss";
+
+@import "../../boost/scss/moodle.scss";
+
+
+/* ==========================================================================
+// THEME COLOUR MAPPINGS
+// ========================================================================== */
+
+$header-account-bg: #004b93;
+$btn-primary-background: core.nhsuk-colour("blue");
+$btn-secondary-border: core.nhsuk-colour("dark-blue");
+
+/* ==========================================================================
+// IMPORT PARTIALS
+// ========================================================================== */
+
+@import "base/reset";
+@import "base/base";
+@import "base/focus";
+@import "base/utilities";
+@import "layout/layout";
+@import "nhsetel/courseindex";
+@import "nhsetel/media";
+@import "components/button";
+@import "components/dropdown";
+@import "components/navbar";
+@import "components/header";
+@import "components/footer";
+@import "components/scorm-fullscreen";
+@import "components/card";
+@import "components/drawer";
+@import "components/course-management";
+@import "components/questionnaire";
+@import "components/course-certificate";
+@import "components/expander";
+@import "components/enrolement";
+@import "components/calendar";
+@import "components/frontpage";
+@import "components/reportbuilder";
+@import "components/form";
+@import "components/pagination";
+@import "components/notifications";
+@import "components/utilities";
+@import "components/grade-report";
+@import "components/navigation";
+@import "components/icons";
+@import "components/topics";
+@import "components/multitopic";
+@import "components/weekly";
+@import "components/big-blue-button";
+@import "components/comments";
+

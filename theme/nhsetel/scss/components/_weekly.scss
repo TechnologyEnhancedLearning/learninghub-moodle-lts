@@ -1,0 +1,71 @@
+/* =========================================================================
+   Weekly Course Format Styles
+   ========================================================================= */
+
+.format-weeks {
+
+    /* Hide 'Current week' badges in drawer */
+    .courseindex .courseindex-item .badge {
+        display: none !important;
+    }
+
+    /* Add padding gutter to prevent active state bar from overlapping chevrons */
+    .courseindex .courseindex-item {
+        padding-left: 1rem !important;
+    }
+
+    /* Retain primary color and font weight for current week text */
+    .courseindex .courseindex-section.current > .courseindex-section-title .courseindex-link,
+    .courseindex .courseindex-section.current > .courseindex-section-title .courseindex-chevron {
+        color: #005eb8 !important;
+        font-weight: bold !important;
+    }
+
+    /* Remove default solid background from the current week section */
+    .courseindex .is-current-section > .courseindex-item {
+        background-color: transparent !important;
+    }
+
+    /* Ensure text and icons maintain primary color in active state */
+    .courseindex .is-current-section > .courseindex-item .courseindex-link,
+    .courseindex .is-current-section > .courseindex-item .courseindex-chevron,
+    .courseindex .is-current-section > .courseindex-item i {
+        color: #005eb8 !important;
+    }
+
+    /* Align expander icon vertically to the top */
+    .nhsuk-expander .nhsuk-details__summary-text::before {
+        bottom: auto !important;
+        top: 0 !important;
+        margin-top: 2px;
+    }
+
+    /* Increase top margin for badges within content area expanders */
+    .course-content .section .badge {
+        margin-top: 1rem;
+    }
+}
+
+/* =========================================================================
+   Drawer Navigation (Active States)
+   ========================================================================= */
+
+/* Apply gradient indicator bar and enforce primary text color for all active drawer states */
+body.format-weeks .courseindex .courseindex-item.pageitem,
+body.format-weeks .courseindex .courseindex-item.is-active,
+body.format-weeks .courseindex .courseindex-item.active {
+    background: linear-gradient(to right, #005eb8 .4rem, transparent 0) !important;
+    color: #005eb8 !important;
+}
+
+
+/* =========================================================================
+   Main Course Content Area
+   ========================================================================= */
+
+body.format-weeks #region-main {
+    /* Standardize activity indentation inside nested subsections to match baseline layout */
+    .nhsuk-expander .nhsuk-details__text .activity-item {
+        padding-left: 2rem !important;
+    }
+}

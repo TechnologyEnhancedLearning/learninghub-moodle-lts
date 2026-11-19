@@ -1,0 +1,206 @@
+// ==========================================================================
+// 1. GLOBAL DRAWER & CONTENT STYLES
+// ==========================================================================
+
+.drawer {
+  // Global drawer text size
+  ul {
+    font-size: 15px;
+  }
+
+  // RHS Block Drawer: Padding for list items inside blocks
+  .card-text li {
+    padding: 0.25rem 0.5rem;
+  }
+}
+
+// LHS and RHS drawer content default heading styles
+.drawercontent {
+  h1, h2, h3 {
+    margin-bottom: 0;
+    padding: 0.25rem 0.5rem;
+    line-height: 1.5;
+  }
+}
+
+// Add padding to cards on 'my overview' page 
+// Note: This does not affect the LHS or RHS drawers
+.drawers .block_myoverview > .card-body {
+  padding: 1.25rem !important;
+}
+
+// ==========================================================================
+// 2. COURSE INDEX (LHS MENU) STYLES
+// ==========================================================================
+
+.courseindex {
+  // --- Global Item Styles ---
+  .courseindex-item {
+    border-radius: 0 !important;
+    border: 0 !important;
+
+    .courseindex-link {
+      color: #005eb8 !important;
+    }
+
+    // Apply underline ONLY to the text link of the specific row being hovered.
+    // The :not(:has(...)) prevents parent section titles from underlining 
+    // when you hover over one of their nested child activities.
+    &:hover:not(:has(.courseindex-item:hover)) {
+      .courseindex-link {
+        text-decoration: underline !important;
+      }
+      
+      &.pageitem {
+        background-color: transparent; 
+        color: inherit;
+      }
+    }
+
+    // Failsafe: Explicitly prevent chevrons, completion icons, and locks 
+    // from receiving an underline, even if hovered directly.
+    .courseindex-chevron,
+    .courseindex-locked,
+    .completioninfo {
+      text-decoration: none !important;
+      
+      &:hover {
+        text-decoration: none !important;
+      }
+    }
+  }
+
+  // --- Active / Highlighted Page Item ---
+  .courseindex-item.pageitem {
+    background: linear-gradient(to right, #005eb8 0.4rem, transparent 0);
+    color: #005eb8 !important;
+    font-weight: bold;
+    scroll-margin: 6rem;
+  }
+
+  // --- Icons & Completion Status ---
+  .completioninfo {
+    display: inline-flex;
+    align-items: center; 
+    align-self: center; 
+
+    .icon {
+      font-size: 0.6rem; 
+      margin-top: 0.5rem; 
+      vertical-align: middle;
+    }
+  }
+
+  // Prevent status icon on LHS menu pushing text across
+  .icon {
+    margin-right: 0 !important;
+  }
+}
+
+// --- Course View Specific Overrides (Disable scroll highlighting) ---
+.path-course-view .courseindex {
+  // Target active classes to suppress JS scroll highlighting
+  .courseindex-item.pageitem,
+  .courseindex-item.is-active,
+  .courseindex-item.active {
+    background: transparent !important;
+    background-color: transparent !important;
+    color: #005eb8 !important;
+    font-weight: normal !important;
+
+    a.courseindex-link {
+      background-color: transparent !important;
+      color: #005eb8 !important;
+    }
+  }
+}
+
+// ==========================================================================
+// 3. DESKTOP LAYOUT & STICKY DRAWER (Large Screens +)
+// ==========================================================================
+
+@media (min-width: 992px) {
+  
+  // Allow unrestricted page height
+  body,
+  #page-wrapper {
+    overflow: visible !important;
+  }
+
+  // Dynamically calculate the RHS drawer top using the current header height
+  .drawer-left,
+  .drawer-right {    
+    height: auto !important;
+  }
+  .drawer-right {
+    top: var(--header-height, 135px) !important;    
+  }
+
+  // --- NHS Main Layout Wrapper ---
+  .nhs-main-layout {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: flex-start !important;
+    position: relative !important;
+    flex: 1 0 auto !important;
+
+    // Conditionally apply only if the LHS drawer is open 
+    body:has(#page.show-drawer-left) & {
+      width: auto;      
+    }
+
+    // Default hidden state to prevent affecting page layout
+    .nhs-static-drawer {
+      display: none !important;
+      visibility: hidden;    
+    }
+
+    // Sticky LHS drawer (Active State)
+    .nhs-static-drawer.show {
+      display: block !important;
+      visibility: visible !important;    
+      position: sticky !important;
+      top: 0px !important;
+      z-index: 1 !important; // Lowers sticky layer below dropdown menus
+      min-width: 285px !important;
+      max-width: 285px !important;
+      overflow-y: auto !important;
+      overflow-x: hidden !important;
+      transform: none !important;
+      transition: none !important;
+      background-color: #f8f9fa;
+      height: auto !important;
+
+      .drawer-header {
+        display: flex !important;
+        height: 60px; // Match actual header height
+        min-height: 60px;
+        margin-top: 1rem;
+        
+        // Vertically centre the close button
+        .drawertoggle {
+          display: inline-flex;
+          align-items: center;
+        }
+      }
+    }
+  }
+  
+  // Force main content container to bypass fixed-height/sticky constraints.
+  // This allows the content and drawer to flow naturally, ensuring the footer 
+  // is correctly pushed by the total page height rather than being trapped 
+  // by a viewport-locked container.
+  body.pagelayout-course,
+  body.pagelayout-incourse,
+  body.pagelayout-report,
+  body.pagelayout-admin,
+  body.pagelayout-base {
+    .nhs-main-layout #page {
+      height: auto !important;
+      overflow: visible !important;
+      margin: 0 !important;
+      padding-left: 0 !important;
+      flex: 1 1 auto !important;
+    }
+  }
+}

@@ -1,0 +1,14 @@
+/* ==========================================================================
+// PREVENT HORIZONTAL SCROLLING ON TABLE OF CERTIFIED USERS
+// ========================================================================== */
+
+/* Prevent table of certified users causing mobile view horizontal scrolling  */
+.mod_coursecertificate_issues_table table {
+  display: block;
+  overflow-x: auto;
+}
+
+/* Left-align the View Certificate button container */
+.mod_coursecertificate_view .mdl-align {
+    text-align: left !important;
+}

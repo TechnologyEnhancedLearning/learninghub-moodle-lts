@@ -1,0 +1,273 @@
+navbar {
+  color: $btn-primary-text;
+  background-color: $btn-primary-background;
+  box-shadow: none;
+  padding: 0;
+
+  .divider {
+    display: none;
+  }
+
+  .dropdown-toggle::after {
+    display: none;
+    color: $btn-primary-text;
+  }
+
+  .popover-region .popover-region-container {
+    top: 84px;
+    color: core.$nhsuk-secondary-text-color;
+  }
+
+  .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='3' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+  }
+
+  .nav-link {
+    color: $btn-primary-text;
+  }
+
+  .navbar-brand {
+    color: $btn-primary-text;
+  }
+
+  .navbar-nav {
+    .btn {
+
+      &:not(.btn-close,
+        .btn-open) {
+        color: $btn-primary-text;
+        background-color: $btn-primary-background;
+
+        &:focus {
+          @include core.nhsuk-focused-button;
+        }
+
+        border-color: transparent;
+        border-bottom: none;
+      }
+    }
+
+    .custom-control-input:checked~.custom-control-label::before {
+      color: $btn-primary-text;
+      background-color: $btn-default-background;
+      border-color: $btn-default-background;
+    }
+
+    .custom-control-input:checked~.custom-control-label::after {
+      background-color: $btn-primary-background;
+    }
+
+    .text-primary {
+      color: $btn-secondary-text !important;
+    }
+  }
+
+  &.navbar__light {
+    color: $btn-default-text;
+    background-color: $btn-default-background;
+
+    .navbar-brand {
+      color: $btn-default-text;
+    }
+
+    .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    }
+
+    .nav-link {
+      color: $btn-default-text;
+    }
+
+    .navbar-nav {
+      .btn {
+
+        &:not(.btn-close,
+          .btn-open) {
+          color: $btn-default-text;
+          background-color: $btn-default-background;
+          border-color: transparent;
+          border-bottom: none;
+        }
+      }
+    }
+
+    .custom-control-input {
+
+      &:checked~.custom-control-label::before {
+        color: $btn-primary-text;
+        background-color: $btn-primary-background;
+        border-color: $btn-primary-background;
+      }
+
+      &:checked~.custom-control-label::after {
+        background-color: $btn-default-background;
+      }
+    }
+
+    .dropdown-toggle::after {
+      color: $btn-default-text;
+    }
+
+    .primary-navigation {
+      .navigation {
+        color: $btn-default-text;
+        background-color: $btn-default-background;
+      }
+
+      .navbar-nav {
+
+        .show>.nav-link,
+        .active>.nav-link,
+        .nav-link.show,
+        .nav-link.active {
+          color: $btn-primary-text;
+          background-color: $btn-primary-background;
+          border-color: transparent;
+          border-bottom-color: $btn-default-background;
+        }
+
+        .nav-link:hover {
+          color: $btn-default-text;
+          background-color: $btn-default-background;
+          border-color: transparent;
+          border-bottom-color: $btn-primary-background;
+        }
+      }
+    }
+
+    .text-primary {
+      color: $btn-default-text !important;
+    }
+  }
+
+  &.navbar__dark {
+    color: $btn-primary-text;
+    background-color: $btn-primary-background;
+
+    .navbar-brand {
+      color: $btn-primary-text;
+    }
+
+    .nav-link {
+      color: $btn-primary-text;
+    }
+
+    .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    }
+
+    .primary-navigation {
+      .navigation {
+        color: $btn-primary-text;
+        background-color: $btn-primary-background;
+      }
+
+      .navbar-nav {
+
+        .show>.nav-link,
+        .active>.nav-link,
+        .nav-link.show,
+        .nav-link.active {
+          color: $btn-default-text;
+          background-color: $btn-default-background;
+          border-color: transparent;
+          border-bottom-color: $btn-primary-background;
+        }
+
+        .nav-link:hover {
+          color: $btn-primary-text;
+          background-color: $btn-primary-background;
+          border-color: transparent;
+          border-bottom-color: $btn-default-background;
+        }
+      }
+    }
+  }
+}
+
+.content-area {
+  .navbar {
+
+    a,
+    a:visited {
+      color: $btn-primary-text;
+    }
+  }
+}
+
+@media (min-width: 480px) {
+  .navbar {
+    .popover-region {
+      .popover-region-container {
+        top: 49px;
+      }
+    }
+
+    .popover-region-toggle::before,
+    .popover-region-toggle::after {
+      display: inline-block;
+    }
+  }
+}
+
+@media (min-width: 640px) {
+  .navbar {
+    .divider {
+      display: block;
+    }
+
+    .dropdown-toggle::after {
+      display: inline-block;
+    }
+  }
+}
+
+
+.navbar-toggler-icon {
+  width: 2.0em;
+  height: 2.0em;
+}
+
+.navbar-expand {
+  .navbar-nav {
+    .nav-link {
+      padding-top: 15px;
+    }
+  }
+}
+
+.nav {
+  margin-left: 0;
+}
+
+.nav-link {
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.nhsuk-navigation-container {
+  @include mq($until: tablet) {
+    margin-top: 0;
+  }
+}
+
+/*  Make secondary navigation align to the far left with no padding */
+/* horizontal spacing added with the rigth margin */
+/* Only targets the list items directly inside the main nav bar */
+.nav-tabs > .nhsuk-header__navigation-item {    
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-right: 1.5rem;
+}
+
+/* Only targets the links directly inside those top-level items */
+.nav-tabs > .nhsuk-header__navigation-item > .nhsuk-header__navigation-link {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+/* this ensures all the other links line up vertically with the More link */
+.nhsuk-navigation .nav-tabs .nav-link {
+  border:0px solid #fff0;
+}

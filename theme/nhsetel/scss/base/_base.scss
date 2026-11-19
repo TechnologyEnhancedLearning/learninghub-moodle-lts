@@ -1,0 +1,83 @@
+// Base styles for the NHSE theme
+// These are foundational styles that are not resets, but apply globally
+
+html {
+  background-color: #fff !important;
+}
+
+body {
+  height: auto;
+  background-color: core.$nhsuk-form-element-background-color;
+  background: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  font-weight: 600;
+}
+
+h1 {
+  font-size: 1.75rem;
+}
+
+h2 {
+  font-size: 1.50rem;
+}
+
+h3 {
+  font-size: 1.35rem;
+}
+
+h4,
+h5,
+h6 {
+  font-size: 1.1875rem;
+}
+
+.text-muted {
+  color: core.$nhsuk-text-color !important;
+}
+
+ul {
+  @extend .nhsuk-list;
+  @extend .nhsuk-list-with-placeholder !optional;
+}
+
+ol {
+  @extend .nhsuk-list;
+  @extend .nhsuk-list--number;
+}
+
+ul {
+  &.course-list {
+    padding-left: 0;
+    border-left: calc(1px + 5px) solid core.nhsuk-colour("blue");
+  }
+}
+
+.nhsuk-list--number,
+ol {
+  padding-left: 32px;
+}
+
+th,
+td {
+  font-size: 1.0rem;
+}
+
+@media (min-width: 40.0625em) {
+  th,
+  td {
+    font-size: 1.0rem;
+  }
+}

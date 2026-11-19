@@ -1,0 +1,35 @@
+/* ==========================================================================
+// CARDS AND BOX STYLES
+// ========================================================================== */
+
+.card {
+  border: none;
+  border-radius: 0;
+  -moz-border-radius: 0;
+  margin: 0;
+  background-color: core.nhsuk-colour("grey-5");
+
+  &.course-card {
+    background-color: core.nhsuk-colour("white");
+  }
+}
+
+.course_category_tree {
+  .category {
+    >.info {
+      >.categoryname {
+        font-size: inherit;
+      }
+    }
+  }
+}
+
+.dashboard-card-deck {
+  .dashboard-card {
+    background-color: core.nhsuk-colour("white");
+
+    .dashboard-card-img {
+      border-radius: 0;
+    }
+  }
+}

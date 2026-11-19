@@ -1,0 +1,21 @@
+/* ==========================================================================
+// BACKGROUND VARIATIONS
+// ========================================================================== */
+
+.bg-dark {
+  color: $btn-primary-text;
+  background-color: $btn-primary-background !important;
+
+  * {
+    color: $btn-primary-text !important;
+  }
+}
+
+.bg-light {
+  color: core.nhsuk-colour("grey-1");
+  background-color: $btn-default-background !important;
+
+  >* {
+    color: core.nhsuk-colour("grey-1") !important;
+  }
+}

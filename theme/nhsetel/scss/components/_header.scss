@@ -1,0 +1,1170 @@
+// Ensure .text-primary stays white in edit switch
+.nhsuk-header__edit-switch-item label.text-primary {
+  color: core.nhsuk-colour("white") !important;
+}
+// Remove bottom border from dropdown links in nav-tabs when active or focused
+.nav-tabs .dropdown-menu .nhsuk-header__navigation-link,
+.nav-tabs .dropdown-menu .nhsuk-header__navigation-link:focus,
+.nav-tabs .dropdown-menu .nhsuk-header__navigation-link.active,
+.nav-tabs .dropdown-menu .nhsuk-header__navigation-link[aria-current="true"] {
+  border-bottom: none !important;
+}
+
+
+// Fix: Align dropdown-toggle focus border with nav-tabs border
+.nav-tabs button.nhsuk-header__navigation-link.dropdown-toggle:focus {
+  position: relative;
+  box-shadow: none !important;
+  border-bottom: 4px solid core.nhsuk-colour("black") !important;
+  margin-bottom: -4px !important; // Pull border up to sit flush with nav-tabs border
+  background-color: core.nhsuk-colour("yellow") !important; // Optional: keep NHS focus bg
+  outline: none !important;
+}
+// Restore navigation link focus box-shadow for compatibility
+.nhsuk-header .nhsuk-header__navigation-link:focus {
+  box-shadow: inset 0 -4px core.nhsuk-colour("black");
+  border-bottom: 0;
+}
+/* ==========================================================================
+// HEADER STYLES
+// ========================================================================== */
+
+.nhsuk-header {
+
+  background-color: core.nhsuk-colour("blue");
+  color: core.nhsuk-colour("white");
+  outline: 1px solid transparent;
+}
+
+
+.nhsuk-header__container {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 16px;
+}
+
+.nhsuk-header__search .nhsuk-header__search-form {
+    margin-block-end: 0 !important; 
+    margin-bottom: 0 !important; 
+}
+
+.nhsuk-header__search-form {
+  display: flex;
+  height: 100%;
+  overflow: visible;
+}
+
+
+.border-left,
+.border-start {
+  border-left: none !important;
+}
+
+.custom-control-input:checked~.custom-control-label::before {
+  color: $btn-primary-text;
+  background-color: $btn-default-background;
+  border-color: $btn-default-background;
+}
+
+.custom-control-input:checked~.custom-control-label::after {
+  background-color: $btn-primary-background;
+}
+
+.nhsuk-header__content {
+  padding-right: 1.5rem;
+}
+
+.nhsuk-header__service-name {
+  color: inherit;
+}
+
+.nhsuk-header__account-button,
+.nhsuk-header__account-button:visited,
+.nhsuk-header__account-link,
+.nhsuk-header__account-link:visited {
+  color: core.nhsuk-colour("white");
+  text-decoration: underline;
+}
+
+.nhsuk-header__account-button:hover,
+.nhsuk-header__account-button:hover:visited,
+.nhsuk-header__account-link:hover,
+.nhsuk-header__account-link:hover:visited {
+  color: core.nhsuk-colour("white");
+  text-decoration: none;
+}
+
+.nhsuk-header__service-logo {
+  position: relative;
+}
+
+.nhsuk-header__service-logo,
+.nhsuk-header__service-logo:visited,
+.nhsuk-header__service-name[href],
+.nhsuk-header__service-name[href]:visited {
+  color: core.nhsuk-colour("white");
+  text-decoration: none;
+}
+
+.nhsuk-header__service-logo:hover,
+.nhsuk-header__service-logo:hover:visited,
+.nhsuk-header__service-name[href]:hover,
+.nhsuk-header__service-name[href]:hover:visited {
+  color: core.nhsuk-colour("white");
+  text-decoration: none;
+}
+
+.nhsuk-header .nhsuk-header__service-logo:not(:focus):hover,
+.nhsuk-header .nhsuk-header__service-logo:not(:focus):hover .nhsuk-header__service-name,
+.nhsuk-header .nhsuk-header__service-name[href]:not(:focus):hover {
+  text-decoration: underline;
+}
+
+.nhsuk-header__service-logo:has(svg):not(:focus):hover:before {
+  border-bottom: .1rem solid;
+  content: "";
+  display: inline;
+  height: 40px;
+  position: absolute;
+  top: .2rem;
+  width: 100px;
+}
+
+.nhsuk-header .nhsuk-header__service-logo:focus {
+  box-shadow: 0 0 0 4px core.nhsuk-colour("yellow"), 0 0 0 8px core.nhsuk-colour("black");
+  outline: 4px solid transparent;
+}
+
+.nhsuk-header__account-button:focus,
+.nhsuk-header__account-button:focus:visited,
+.nhsuk-header__account-link:focus,
+.nhsuk-header__account-link:focus:visited,
+.nhsuk-header__service-logo:focus,
+.nhsuk-header__service-logo:focus:visited,
+.nhsuk-header__service-name[href]:focus,
+.nhsuk-header__service-name[href]:focus:visited {
+  box-shadow: inset 0 -4px core.nhsuk-colour("black");
+  color: core.nhsuk-colour("black");
+}
+
+.nhsuk-header__account-button:focus,
+.nhsuk-header__account-button:focus .nhsuk-icon,
+.nhsuk-header__account-button:focus:visited,
+.nhsuk-header__account-button:focus:visited .nhsuk-icon,
+.nhsuk-header__account-link:focus,
+.nhsuk-header__account-link:focus .nhsuk-icon,
+.nhsuk-header__account-link:focus:visited,
+.nhsuk-header__account-link:focus:visited .nhsuk-icon,
+.nhsuk-header__service-logo:focus,
+.nhsuk-header__service-logo:focus .nhsuk-icon,
+.nhsuk-header__service-logo:focus:visited,
+.nhsuk-header__service-logo:focus:visited .nhsuk-icon,
+.nhsuk-header__service-name[href]:focus,
+.nhsuk-header__service-name[href]:focus .nhsuk-icon,
+.nhsuk-header__service-name[href]:focus:visited,
+.nhsuk-header__service-name[href]:focus:visited .nhsuk-icon {
+  color: core.nhsuk-colour("black");
+  fill: core.nhsuk-colour("black");
+}
+
+.nhsuk-header__account-button,
+.nhsuk-header__account-link {
+  display: flex;
+  gap: 8px;
+  margin: -8px -12px;
+  overflow-wrap: anywhere;
+  padding: 8px 12px;
+}
+
+.nhsuk-header__account-list {
+  width:100%;
+  justify-content: flex-start;
+}
+
+@media (min-width: 40.0625em) {
+  .nhsuk-header__account-item {
+    font-size: 16px;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+}
+
+.nhsuk-header__account .nhsuk-icon--user {
+  flex-shrink: 0;
+  height: 1.5rem;
+  width: 1.5rem;
+  fill: core.nhsuk-colour("white");
+}
+
+@media (min-width: 40.0625em) {
+  .nhsuk-icon {
+    height: 2rem;
+    width: 2rem;
+  }
+}
+
+.nhsuk-icon {
+  height: 1.5rem;
+  width: 1.5rem;
+  fill: currentcolor;
+}
+
+.nhsuk-account__login {
+  font-size: 0.875rem;
+  float: right;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.nhsuk-account__login--link {
+  color: core.nhsuk-colour("white");
+}
+
+.nhsuk-header__edit-switch { 
+  margin-left: 16px;
+  flex-shrink: 0;
+}
+
+// Change font size for the toggle text that reads Edit mode
+.editmode-switch-form label {
+  font-size: 14px;
+}
+
+// Change the colour of the toggle switch inner circle
+.editmode-switch-form .custom-switch .custom-control-label::after {
+  background-color: $header-account-bg;
+}
+
+@media (max-width: 767.98px) {
+
+  /* Use the form class for better specificity */
+  .editmode-switch-form label {
+    /* REVERSE THE HIDING PROPERTIES */
+    position: static;
+    /* Reverts position from absolute */
+    width: auto;
+    /* Allows the label to take its content width */
+    height: auto;
+    /* Allows the label to take its content height */
+    padding: 0;
+    /* Keep padding standard or set to needed value */
+    margin: 0;
+    /* Keep margin standard or set to needed value */
+    overflow: visible;
+    /* Allows content to display */
+    clip: auto;
+    /* Allows the element to be visible */
+    white-space: normal;
+    /* Allows text to wrap */
+    border: 0;
+  }
+}
+
+
+// Ensure the Search element is next in the flow on desktop
+.nhsuk-header__search {
+  order: 1; // Default desktop order
+}
+
+// Account and Edit Mode should follow on desktop
+.nhsuk-header__account {
+  order: 2;
+}
+
+.nhsuk-header__edit-switch {
+  order: 3;
+
+  .navbar .divider {
+    display: block;
+  }
+
+}
+
+@media (max-width: 40.0525em) {
+
+  /* Use your smallest screen breakpoint */
+  .nhsuk-header__edit-switch {
+    /* Ensure it's not set to flex-grow: 1, which would stretch it */
+    flex-grow: 0;
+
+    /* This is the key: pushes the element to the right */
+    margin-left: auto;
+
+    /* Optional: Remove any right margin that might be pushing it off screen */
+    margin-right: 0;
+
+  }
+}
+
+@media (min-width: 768px) {
+  .header-maxwidth {
+    padding-left: 0;
+    max-width: 100%;
+  }
+}
+
+.icon {
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.editmode-switch-form {
+  margin-block-start: 0.4em;
+  margin-block-end: 0.6em;
+
+  .input-group {
+    label {
+      padding-top: 3px;
+    }
+  }
+}
+
+
+.nhsuk-header__menu-toggle {
+  border-bottom: 0;
+  border-top: 0;
+}
+
+/* More button on navigation botton border focus style */
+button.nhsuk-header__menu-toggle.nav-link:focus {
+
+  border-bottom-width: 4px !important;
+  /* Forces the required 4px bottom border */
+
+  /* FIX FOR SHIFTING: Maintain 4px space at the top using a transparent border */
+  border-top: 4px solid transparent !important;
+  border-bottom-color: core.nhsuk-colour("black") !important;
+  /* Sets the color of the 4px bottom border */
+  border-style: solid !important;
+}
+
+.nhsuk-header__drop-down .nhsuk-header__navigation-link {
+  padding-left: 16px;
+  border: none;
+}
+
+.nhsuk-header__edit-switch {
+  background-color: $header-account-bg;
+  border: 1px solid $header-account-bg;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.nhsuk-header__edit-switch .navbar {
+  background-color: unset;
+}
+
+.nhsuk-header__account-item {  
+  flex-grow: 0;
+}
+
+.nhsuk-header__account-item {
+  font-size: 0.875rem;
+  line-height: 1.71429;
+}
+
+.nhsuk-header__edit-switch-item .moodle-edit-switch-wrapper {
+  border-bottom: 1px solid transparent;
+}
+
+@media (min-width: 40.0625em) {
+  .nhsuk-header__account-item {
+    font-size: 16px;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  .nhsuk-header__edit-switch-item .moodle-edit-switch-wrapper {
+    border-bottom: none;
+  }
+}
+
+/* 1. Reset the library's unwanted margin */
+.nhsuk-header__account-item:nth-last-child(2) {
+    margin-right: 0 !important;
+}
+
+.nhsuk-header__account-item:first-child {
+    margin-right: auto !important; /* When full width aligns My Account and icon to left */
+}
+
+/* Small-screen layout: keep account items on one visual row where possible.
+   Goal: first item left, other items right, account container takes full width.
+   We let the first item grow to take available space and keep the others
+   to the right using `margin-left: auto` on the second item. Use nowrap so
+   items remain on the same line and shrink if necessary rather than wrapping.
+*/
+@media (max-width: 42em) {
+  .nhsuk-header__account,
+  .nhsuk-account__login {
+    width: 100% !important;
+    display: flex !important;
+    flex-basis: 100% !important;
+    float: none !important; /* override earlier float:right on small screens */
+    align-items: center !important;
+  }
+
+  /* Keep the account bar compact when it wraps: match the desktop inline
+     height (approx 42px). Use min-height to avoid clipping if content grows. */
+  .nhsuk-header__account {
+    min-height: 42px !important;
+    height: 42px !important;
+    margin-top: 0 !important; /* remove upstream 16px top margin when stacked */
+    box-sizing: border-box !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    align-items: center !important;
+  }
+
+  .nhsuk-header__account-list {
+    display: flex !important;
+    flex-wrap: nowrap !important; /* keep items on same line */
+    width: 100% !important;
+    align-items: center !important;
+    gap: 0.25rem !important;
+    height: 100% !important;
+  }
+
+  /* Default: don't force items to grow full width */
+  .nhsuk-header__account-item {
+    flex: 0 0 auto !important;
+  }
+
+  /* Let the first item take remaining space so it appears left-aligned
+     while the other items stay to the right. It can shrink if necessary. */
+  .nhsuk-header__account-item:first-child {
+    flex: 1 1 auto !important;
+    margin-right: 0 !important;
+  }
+
+  /* Ensure remaining items are after the first and push them to the right */
+  .nhsuk-header__account-item:nth-child(n+2) {
+    order: 2 !important;
+  }
+
+  /* This pushes the second (and following) items to the far right */
+  .nhsuk-header__account-item:nth-child(2) {
+    margin-left: auto !important;
+  }
+
+  /* Remove the 1px outline/gap that the upstream styles use to create
+     separators — this produces thin borders when the account block uses a
+     contrasting background. Keep focus outlines on interactive controls. */
+  .nhsuk-header__account-list {
+    gap: 0 !important;
+    background: transparent !important;
+  }
+
+  .nhsuk-header__account-item {
+    /* remove library's outline used as separators */
+    outline: none !important;
+    border: none !important;
+    padding: 0 12px !important; /* horizontal breathing space on left/right */
+    display: flex !important;
+    align-items: center !important; /* center the link text vertically */
+    height: 100% !important;
+  }
+
+  .nhsuk-header__edit-switch-item .input-group {
+    align-items: center !important; /* override baseline alignment on mobile */
+    height: 100% !important;
+  }
+
+  /* Remove any extra top padding on the inner label that causes misalignment */
+  .nhsuk-header__account-item .editmode-switch-form .input-group label {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+  }
+
+  /* Reintroduce a 1px vertical separator between items when the account
+     container is full-width (mobile). Use a slightly lighter shade of the
+     background so it reads as a divider. */
+  .nhsuk-header__account-list .nhsuk-header__account-item + .nhsuk-header__account-item {
+    border-left: 1px solid lighten($header-account-bg, 6%) !important;
+  }
+}
+
+
+/* Edit mode switch */
+
+/* Remove the hardcoded Moodle Bootstrap divider */
+.nhsuk-header__edit-switch-item .divider {
+    display: none !important;
+}
+
+/* Ensure the form itself doesn't have inherited Bootstrap margins */
+.nhsuk-header__edit-switch-item form.editmode-switch-form {
+    display: flex;
+    align-items: center;
+    margin: 0;
+}
+
+.nhsuk-header__edit-switch-item label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;    
+    /* Top: 8px | Right: 4px | Bottom: 0 | Left: 12px */
+    padding: 8px 4px 0 12px;       
+    margin: -8px -12px;
+}
+
+
+
+
+
+
+
+.nhsuk-header__account-item.nhsuk-header__edit-switch-item {
+  padding-right:0 !important;
+}
+
+.nhsuk-header__account-item .editmode-switch-form label {
+    font-size: unset !important;
+}
+
+.nhsuk-header__account-item .editmode-switch-form .input-group label {
+    padding-top: 8px !important;
+}
+
+
+.nhsuk-header__edit-switch-item .input-group {
+    display: flex;
+    flex-wrap: nowrap;     /* Prevent the switch from jumping under the text */
+    align-items: baseline;  /* Align text to the baseline first */
+    width: auto;           /* Don't let it take up 100% width */
+    height: auto;
+}
+
+.nhsuk-header__edit-switch-item .custom-control.custom-switch {
+    display: inline-flex;
+    align-items: center;    /* Center the toggle itself relative to the text */
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.nhsuk-header__edit-switch-item label {
+    margin-bottom: 0 !important;
+    padding-top: 0 !important;
+    line-height: 1.5;      /* Match the NHS font metrics exactly */
+}
+
+
+/* ==========================================================================
+// HEADER NAVIGATION
+// ========================================================================== */
+.nhsuk-header--white {
+  .nhsuk-header__navigation-link {
+    color: core.nhsuk-colour("white");
+    white-space: nowrap;
+
+    &:visited {
+      color: core.nhsuk-colour("white");
+    }
+
+    &.active {
+      border-bottom: 4px solid core.nhsuk-colour("white");
+    }
+
+    &:checked {
+      color: core.nhsuk-colour("black");
+      border-bottom: 4px solid core.nhsuk-colour("black");
+    }
+
+  }
+}
+
+/* ==========================================================================
+// HEADER NAVIGATION TABS
+// ========================================================================== */
+.nav-tabs {
+  // Tab links (anchors)
+  a.nhsuk-header__navigation-link {
+    color: core.nhsuk-colour("blue");
+    border-bottom: 0;
+    padding: 12px 12px;
+
+    &.dropdown-item {
+      display: flex;
+      padding-left: 1rem;
+    }
+
+    &:visited {
+      color: core.nhsuk-colour("blue");
+    }
+    /*
+    &.active {
+      /*background-color: core.nhsuk-colour("blue");*/
+      /*color: core.nhsuk-colour("white");   */ 
+      /*border-bottom: 5px solid #005eb8; */ 
+    /*}   */
+  
+
+    &:hover {
+      /*background-color: core.nhsuk-colour("blue"); */
+      /*color: core.nhsuk-colour("white"); */
+      font-weight: bold;
+    }
+
+    &:checked {
+      background-color: core.nhsuk-colour("blue");
+      color: core.nhsuk-colour("white");
+    }
+  }
+
+  // Buttons (exclude padding)
+  button.nhsuk-header__navigation-link, button.nhsuk-header__navigation-link.dropdown-toggle {
+    color: core.nhsuk-colour("blue");
+    border-bottom: 0;
+
+    &.active {
+      //background-color: core.nhsuk-colour("blue");
+      //color: core.nhsuk-colour("white");
+      color: core.nhsuk-colour("blue");
+    }
+
+    &:hover {
+      /*background-color: core.nhsuk-colour("blue");
+      color: core.nhsuk-colour("white"); */
+      font-weight: bold;
+    }
+
+    &:focus {
+      @include core.nhsuk-focused-text;
+    }
+  }
+
+  // Shared focus styling for anchors
+  .nav-link {
+    &:focus {
+      /* @include core.nhsuk-focused-text; */
+      color: core.nhsuk-colour("black") !important;
+      background-color: core.$nhsuk-focus-colour !important;
+    }
+  }
+}
+
+/*
+.nav-tabs a.nav-link:focus {
+  background-color:red !important;
+  color:white !important ;
+}
+  */
+
+
+
+/* ==========================================================================
+// HEADER NAVIGATION LIGHT VERSION
+// ========================================================================== */
+
+.nhsuk-header__navigation {
+  overflow: visible;
+}
+
+
+/*
+.nhsuk-header__service-name {
+  max-width: none;
+}
+
+*/
+
+.nhsuk-header--white {
+  background-color: core.nhsuk-colour("white");
+
+  .nhsuk-header__navigation {
+    color: $btn-default-text;
+    background-color: $btn-default-background;
+
+    /*
+
+    .nhsuk-header__service-name {
+      color: $btn-default-text;
+    }
+
+    */
+  }
+
+
+
+
+
+
+  .nhsuk-header__navigation-link {
+    &:visited {
+      color: core.nhsuk-colour("black");
+    }
+
+    &.active {
+      border-bottom: 4px solid core.nhsuk-colour("blue");
+    }
+
+    &:checked {
+      color: core.nhsuk-colour("white");
+      border-bottom: 4px solid core.nhsuk-colour("white");
+    }
+
+  }
+}
+
+.nhsuk-header__notification-dot {
+  position: absolute;
+  top: 0.2rem;
+  left: 1.55rem;
+  font-size: 0.6875rem;
+  line-height: 1.125rem;
+  font-weight: 900;
+  background: #d5281b;
+  color: core.nhsuk-colour("white");
+  min-width: 1.125rem;
+  height: 1.125rem;
+  text-align: center;
+  border-radius: 0.5625rem;
+  padding: 0.0625rem 0.1875rem 0;
+}
+
+// Extra mobile overrides placed at end to ensure they win over earlier rules
+@media (max-width: 42em) {
+  /* Reduce vertical gap between account and search when header wraps.
+     Upstream sets a larger top margin on `.nhsuk-header__search` for mobile;
+     remove that spacing so the search sits directly under the account bar. */
+  .nhsuk-header__search {
+    margin-top: 0 !important;
+  }
+}
+
+
+.nhsuk-header__search-wrap {
+
+  .btn-close,
+  .btn-open {
+    color: $btn-primary-text;
+    background-color: $btn-primary-background;
+  }
+}
+
+
+.nhsuk-header__search-input.nhsuk-input {
+  width: 16.25rem;
+}
+
+
+@media (max-width: 75rem) {
+
+  // Logo: Retains space-consuming flex: 1 0 0 from global settings, but is guaranteed 
+  // to be first in the visual flow. 
+  .nhsuk-header__service {
+    order: 0;
+    flex-shrink: 1;
+  }
+
+  // Account: Sits next to the Logo, pushed right
+  .nhsuk-header__account {
+    order: 1;
+    margin-left: auto; // For pushing controls right        
+    flex-basis: auto; // Prevents "really wide" issue
+    flex-grow: 0; // Prevents this from consuming space
+  }
+
+  // Edit mode control: Sits to the right of account
+  .nhsuk-header__edit-switch {
+    order: 2;
+    flex-basis: auto;
+    flex-grow: 0; // Prevents this from consuming space
+  }
+
+  // Search: Given the highest order, forcing it to drop.
+  .nhsuk-header__search {
+    order: 3; // Highest order
+
+    // Ensure it uses the available space on the new line, or set it to 100%
+    flex-grow: 1;
+    flex-basis: 100%; // Optional: Forces it to span full width on its new line.
+
+    margin-top: 0; // remove extra vertical spacing when header stacks
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .nhsuk-header__search-form {
+    /* Override the framework's margin: 16px 0 0 */
+    margin-top: 0 !important;
+
+    /* Zero out all vertical margins on the child to consolidate control on the parent */
+    margin-bottom: 0 !important;
+
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  .nhsuk-header__search-input.nhsuk-input {
+    width: 100%;
+  }
+
+}
+
+/* 1. Remove focus styles from the inner wrapper to prevent conflicts */
+.moodle-edit-switch-wrapper:has(.custom-control-input:focus), 
+.moodle-edit-switch-wrapper.is-focused {
+    box-shadow: none !important;
+    margin: 0 !important;
+}
+
+
+/* 1. APPLY NHS FOCUS STYLE TO THE PARENT CONTAINER (The Fix) */
+/* Targets the parent div when the input inside is focused (via :has or JS helper class) */
+.nhsuk-header__edit-switch-item:has(.custom-control-input:focus),
+.nhsuk-header__edit-switch-item.is-focused { 
+  box-shadow: inset 0 0 0 4px core.nhsuk-colour("yellow") !important;   
+  border: none !important;
+  outline: none !important;
+}
+
+/* 2. NEUTRALIZE DEFAULT FOCUS ON NESTED SWITCH ELEMENTS */
+/* This prevents the visible switch track or handle from showing a double focus ring. */
+.nhsuk-header__edit-switch-item .custom-control-input:focus,
+.nhsuk-header__edit-switch-item .custom-control-input:focus~.custom-control-label,
+.nhsuk-header__edit-switch-item .custom-control-input:focus~.custom-control-label::before {
+  box-shadow: none !important;
+  outline: none !important;
+  border-color: initial !important;
+  border-width: initial !important;
+}
+
+
+/* 1. Override the enabled (checked) state background to neutral */
+.nhsuk-header__edit-switch-item .custom-control-input:checked~.custom-control-label::before {
+  /* Set to a neutral color, e.g., white or light grey */
+  background-color: core.nhsuk-colour("white") !important;
+  border-color: core.nhsuk-colour("white") !important;
+  /* Ensure the track border color is also neutral */
+}
+
+/* 2. Override the active state background to neutral */
+.nhsuk-header__edit-switch-item .custom-control-input:not(:disabled):active~.custom-control-label::before {
+  /* Set to a neutral color, matching the checked state above */
+  background-color: core.nhsuk-colour("white") !important;
+  border-color: core.nhsuk-colour("white") !important;
+  /* Ensure the track border color is also neutral */
+}
+
+/* 3. Ensure the default state (unchecked) background is neutral */
+.nhsuk-header__edit-switch-item .custom-control-label::before {
+  background-color: core.nhsuk-colour("white") !important;
+  border-color: core.nhsuk-colour("white") !important;
+  /* Ensure the track border color is also neutral */
+}
+
+/* 1. Disabled/Default State (Ensures initial color is #004b93) */
+/* This is the base color for the handle */
+.editmode-switch-form .custom-switch .custom-control-label::after {
+  background-color: $header-account-bg !important;
+}
+
+/* 2. Enabled State Override (Ensures color stays #004b93 when checked) */
+/* This overrides the Bootstrap rule that turns it white (#fff) */
+.editmode-switch-form .custom-switch .custom-control-input:checked~.custom-control-label::after {
+  background-color: $header-account-bg !important;
+}
+
+
+/* left justify navigation links */
+@media (min-width: 56.25em) {
+  .nhsuk-header__navigation-list {
+    justify-content: normal;
+  }
+}
+
+/* Override the NHS frontend library's flex-wrap: nowrap on all navigation lists.
+   Allow page navigation lists (e.g., admin tabs) to wrap by default.
+   The main header navigation is scoped separately. */
+.nhsuk-frontend-supported .nhsuk-header__navigation-list {
+  flex-wrap: wrap !important;
+}
+
+/* Only the main header navigation inside the actual header should use nowrap */
+.nhsuk-frontend-supported .nhsuk-header .nhsuk-header__navigation-list {
+  flex-wrap: nowrap !important;
+}
+
+/* apply nhsuk focus to header account links */
+.nhsuk-header__rhscontent .nhsuk-account__login--link:focus {
+  @include core.nhsuk-focused-text;
+}
+
+/* focus colour on tab "more" items */
+/*
+.nav-tabs .nhsuk-header__navigation-link.dropdown-item:focus {
+  @include core.nhsuk-focused-text;
+}
+  */
+
+
+.nav-tabs button.nhsuk-header__navigation-link.dropdown-toggle {
+    background: none;
+    border: none !important;  
+}
+
+
+.nav-tabs button.nhsuk-header__navigation-link {
+    color: core.nhsuk-colour("blue");
+    border-bottom: 0;
+    padding: 12px 12px;
+}
+/*
+.nav-tabs button.nhsuk-header__navigation-link:hover {
+    background-color: core.nhsuk-colour("blue") !important;
+    color: core.nhsuk-colour("white") !important;
+}
+    */
+
+
+/* ==========================================================================
+// AUTOSUGGESTION RELATED SCSS
+// ========================================================================== */
+
+.autosuggestion-menu {  
+  padding: 0; 
+  padding-top: 4px;
+  padding-bottom: 4px; 
+  background-color: core.nhsuk-colour("white");
+  border: 1px solid core.nhsuk-colour("grey-4");
+  border-top: none;
+  border-radius: 0px 0px 4px 4px;
+  box-shadow: 0px 2px 3px 0px core.nhsuk-colour("grey-4");
+  list-style: none;
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: absolute;
+  width: 100%;
+  z-index: 20;
+  margin-top: 2px;
+  margin-bottom: 0;
+  top: 100%;  
+}
+
+.autosuggestion-option { 
+  list-style: none;
+  /* 2. Remove padding/border from here */
+  padding: 0; 
+  border-bottom: none; 
+  margin-bottom: 0 !important;
+}
+
+.autosuggestion-option p {
+  margin-bottom: 0; 
+}
+
+.autosuggestion-option a {
+  display: block; /* Make link fill the LI */
+  padding: 10px 16px; /* 3. Add padding here instead */
+  text-decoration: none;
+  border-bottom: 1px solid core.nhsuk-colour("grey-4");
+  color: core.nhsuk-colour("blue");
+}
+
+.autosuggestion-option .autosuggestion-icon {
+    fill: core.nhsuk-colour("grey-3") !important;
+    float: left;
+    height: 20px;
+    margin: 2px 8px 0 0;
+    width: 16px;
+}
+
+/* Style the link when it is focused OR hovered */
+.autosuggestion-option a:focus,
+.autosuggestion-option a:hover {
+    background-color: core.nhsuk-colour("yellow"); /* Yellow background */
+    /* 4. The thick bottom border now sits inside the focus area */
+    /* 1. Remove the border entirely to stop the height change */
+    box-shadow: 0 4px 0 0 core.nhsuk-colour("black");
+    
+    /* Pull this item to the front so the shadow sits over the border of the item below */
+    z-index: 5;
+    outline: none !important; /* Hide default browser outline if using custom border */
+    text-decoration: none;
+    
+    /* Pull padding up by 3px to compensate for 4px border (vs 1px) 
+       to prevent the list from "jumping" when focused */
+    padding-bottom: 10px; 
+
+    .autosuggestion-icon {
+        fill: core.nhsuk-colour("black") !important; /* Changes icon color to dark grey/black */
+    }
+}
+
+.autosuggestion-option .autosuggestion-subtext {
+    color: core.nhsuk-colour("grey-2") !important;       
+    margin: 0px;
+}
+
+/* Ensure icons and text behave inside the flex/block link */
+.autosuggestion-option .autosuggestion-link {
+    display: flex;
+    align-items: center; /* Vertically center icon with text */
+    margin-bottom: 0;
+    text-decoration: underline;
+}
+
+/* Bold text on focus */
+.autosuggestion-option a:focus .autosuggestion-link,
+.autosuggestion-option a:hover .autosuggestion-link {
+    font-weight: bold;
+    color: core.nhsuk-colour("black");    
+    text-decoration: none;
+}
+
+.autosuggest-wrapper {
+    position: relative;
+    flex-grow: 1;
+    flex-shrink: 0;
+}
+
+
+
+.nav-tabs .nav-link.active,
+.nav-tabs .nav-item.show .nav-link {
+  border-color: transparent !important;
+  /* Or set to your desired color */
+}
+
+.nav-tabs .nav-link:hover,
+.nav-tabs .nav-link:focus {
+  border-color: transparent !important;
+  /* Or set to your preferred color */
+}
+
+.nav-tabs a.nav-link:focus {
+  // border-bottom-width: 0 !important;
+  border-top:none !important;
+  // border-bottom:none !important;
+  border-bottom: 4px solid black !important;
+}
+
+// Default and visited: dark text, no background
+.nav-tabs .dropdown-menu .nhsuk-header__navigation-link,
+.nav-tabs .dropdown-menu .nhsuk-header__navigation-link:visited {
+  color: core.nhsuk-colour("blue") !important; // or black
+  background: none !important;
+}
+
+// Focus and active: white text, blue background
+.nav-tabs .dropdown-menu .nhsuk-header__navigation-link:focus,
+.nav-tabs .dropdown-menu .nhsuk-header__navigation-link:active {
+  color: #fff !important;
+  background-color: #005eb8 !important;
+}
+
+// Hover: dark text, light background (optional)
+.nav-tabs .dropdown-menu .nhsuk-header__navigation-link:hover {
+  color: core.nhsuk-colour("blue") !important; // or black
+  background: core.nhsuk-colour("grey-4") !important; // or your preferred hover bg
+}
+
+
+.dropdown-item {
+  position: relative;
+  padding-left: 1.5rem !important; // adjust as needed for tick space
+}
+
+.dropdown-item[aria-current=true]::before,
+.dropdown-item[aria-selected=true]::before {
+  content: "";
+  position: absolute;
+  left: 0.4rem;
+  top: 50%;
+  transform: translateY(-20%);
+  font-size: 0.7rem;
+}
+
+.dropdown-menu .dropdown-item[aria-current="true"]::before {
+  border-bottom-width: 0 !important;
+  border: none !important;  
+}
+
+/*
+.nav-tabs .nhsuk-header__navigation-link {
+  border-bottom: 4px solid transparent;
+}
+.nav-tabs .nhsuk-header__navigation-link[aria-current="true"]::before ,
+.nav-tabs .nhsuk-header__navigation-link.active::before  {
+  border-bottom: 4px solid core.nhsuk-colour("blue");
+}
+  */
+
+
+// Show black border for active/current
+.nav-tabs .nhsuk-header__navigation-link[aria-current=true],
+.nav-tabs .nhsuk-header__navigation-link.active {
+  border-top: none !important;
+  border:none;
+  border-bottom: 4px solid #005eb8 !important;
+  background-color: transparent;
+}
+
+// Show yellow background only when focused (and keep black border)
+.nav-tabs .nhsuk-header__navigation-link:focus {
+  background-color: #ffeb3b;
+  border-bottom: 4px solid #000 !important;
+  border-top: none !important;
+}
+
+// Remove ::before border when active/current
+.nav-tabs .nhsuk-header__navigation-link[aria-current=true]::before {
+  border-bottom-width: 0 !important;
+}
+
+.nav-tabs .nhsuk-header__navigation-link,
+.nav-tabs .nhsuk-header__navigation-link:focus {
+  border-left: none !important;
+  border-right: none !important;
+}
+
+// Only apply focus border to tab links, not dropdown links
+.nav-tabs > .nav-item > .nhsuk-header__navigation-link:focus {
+  border-bottom: 4px solid #000 !important;
+  border-top: none !important;
+}
+
+.nav-tabs .dropdown-menu .nhsuk-header__navigation-link:focus {
+  border-bottom: none !important;
+  border-top: none !important;
+}
+
+.nhsuk-header__account-item {
+  padding: 8px 12px;
+}
+
+/* Admin logged in as another user banner  */
+.nhsuk-banner--admin-login {
+    background-color: #ffeb3b;     // NHS yellow
+    color: #212b32;                  // Dark text    
+    padding: 12px 16px;
+    width: 100%;
+    box-sizing: border-box;
+
+    /* Make the inner container full width and flex for right alignment */
+    .nhsuk-width-container {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;  // right-align text
+        align-items: center;
+        padding-right: 1rem;                
+    }
+
+    /* Style the text */
+    .nhsuk-banner__content {
+        margin: 0;
+        font-size: 1.25rem;
+    }
+
+    /* Optional: make the strong name a little bolder */
+    .nhsuk-banner__content strong {
+        font-weight: 700;
+    }
+}

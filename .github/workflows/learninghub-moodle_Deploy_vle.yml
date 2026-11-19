@@ -106,17 +106,11 @@ jobs:
       - name: Create PersistentVolume
         run: kubectl apply -f kubectl/pv-definition-${{ vars.AZURE_ENVIRONMENT }}.yml
 
-      - name: Create PersistentVolume for theme
-        run: kubectl apply -f kubectl/pv-definition-theme-${{ vars.AZURE_ENVIRONMENT }}.yml
-
       - name: Create PersistentVolume for uploads
         run: kubectl apply -f kubectl/pv-definition-uploads-${{ vars.AZURE_ENVIRONMENT }}.yml
   
       - name: Create PersistentVolumeClaim
         run: kubectl apply -f kubectl/pvc-definition-${{ vars.AZURE_ENVIRONMENT }}.yml
-   
-      - name: Create PersistentVolumeClaim for theme
-        run: kubectl apply -f kubectl/pvc-definition-theme-${{ vars.AZURE_ENVIRONMENT }}.yml
 
       - name: Create PersistentVolumeClaim for uploads
         run: kubectl apply -f kubectl/pvc-definition-uploads-${{ vars.AZURE_ENVIRONMENT }}.yml

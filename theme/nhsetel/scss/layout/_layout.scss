@@ -1,0 +1,333 @@
+// Fix for Moodle Dialogue Scroll-Lock Issue
+// Prevents background scrolling when Permissions/SCORM popups are open.
+html.lockscroll {
+  overflow: hidden !important;
+  position: relative;
+}
+
+body.lockscroll {
+  overflow: hidden !important;
+  height: 100vh !important;
+  position: fixed;
+  width: 100%;
+}
+
+// Ensure YUI3/Legacy Moodle dialogues stay centered in viewport
+.moodle-dialogue-base .moodle-dialogue {
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+}
+
+
+/**
+ * Page and headings
+ */
+
+#page-wrapper {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  #page {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1200px;
+
+    &.nhsuk-width-container {
+      max-width: 1200px;
+    }
+
+    .main-inner {
+      padding: 1.5rem;
+      width: 100%;
+
+      @media (min-width: 1200px) {
+
+        /* When lhs drawer is closed set a minimum width to ensure the content doesn't sit in a central column */
+        body:not(:has(#page.show-drawer-left)) & {
+          min-width: 1200px;
+        }
+
+        /* When lhs drawer is open give the page a minimum width to content doesnt sit in a central column if the content width is smaller */
+        /* Ensures the total width (285+915) is 1200px */
+        body:has(#page.show-drawer-left) & {
+          min-width: 915px;        }
+        }
+    }
+  }
+
+  svg {
+    max-height: 50px;
+  }
+}
+
+/* Ensure footer sits at the bottom when page content is brief */
+/* Prevents footer sitting half way up the page when there is little content */
+
+#page-wrapper {
+  height: auto !important;
+  min-height: 100vh !important;
+  display: flex;
+  flex-direction: column;
+}
+
+#page {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/**
+ * Max width except reportbuilder
+ */
+#page-admin-reportbuilder,
+#page-admin-reportbuilder-edit {
+  height: 100%;
+
+  #page-wrapper {
+    #page {
+      width: 100%;
+      max-width: 100%;
+    }
+  }
+}
+
+#page {
+  width: 100%;
+  max-width: 1920px;
+  margin: 0 auto;
+
+  &.drawers {
+    margin-top: 0;
+
+    .main-inner {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+  }
+
+  a {
+    &:not([class]) {
+      text-decoration: underline;
+
+      &:focus {
+        @include core.nhsuk-focused-text;
+      }
+    }
+  }
+}
+
+@media (min-width: 992px) {
+  #page {
+    &.drawers {
+      &.show-drawer-left {
+        padding-left: 286px;
+        margin-left: 0;
+      }
+
+      &.show-drawer-right {
+        padding-right: 316px;
+        margin-right: 0;
+      }
+    }
+  }
+}
+
+.pagelayout-admin,
+.pagelayout-mycourses,
+.pagelayout-mydashboard {
+  #page-wrapper {
+    #page {
+      padding-top: 0;
+    }
+  }
+}
+
+.pagelayout-login,
+.pagelayout-popup,
+.pagelayout-embedded,
+.pagelayout-redirect {
+  #page-wrapper {
+    #page {
+      padding-top: 60px;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  #page.drawers {
+    .main-inner {
+      padding: 1.5rem 1.5rem;
+      width: 100%;
+    }
+
+    div[role="main"] {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+}
+
+#region-main {
+  height: auto;
+}
+
+
+/* ==========================================================================
+// ADJUST WIDTH AND RADIUS OF WHITE CONTENT AREA
+// ========================================================================== */
+
+/* Prevent width of white area of course pages being limited in width - to match header */
+@media (min-width: 768px) {
+
+  body.pagelayout-base #page.drawers .main-inner,
+  body.limitedwidth.pagelayout-frontpage #page.drawers .main-inner,
+  body.limitedwidth.pagelayout-coursecategory #page.drawers .main-inner,
+  body.limitedwidth.pagelayout-course #page.drawers .main-inner,
+  body.limitedwidth.pagelayout-mycourses #page.drawers .main-inner,
+  body.pagelayout-incourse #page.drawers .main-inner,
+  body.pagelayout-admin #page.drawers .main-inner,
+  body.pagelayout-report #page.drawers .main-inner {
+    max-width: unset;
+  }
+}
+
+/* Remove padding to maximise the width of the white area of course pages and match header */
+/* Rules to apply when the menu is NOT open */
+@media (min-width: 768px) {
+
+  body.pagelayout-base #page.drawers:not(.show-drawer-left),
+  body.pagelayout-frontpage #page.drawers:not(.show-drawer-left),
+  body.pagelayout-coursecategory #page.drawers:not(.show-drawer-left),
+  body.pagelayout-course #page.drawers:not(.show-drawer-left),
+  body.pagelayout-mycourses #page.drawers:not(.show-drawer-left),
+  body.pagelayout-incourse #page.drawers:not(.show-drawer-left),
+  body.pagelayout-admin #page.drawers:not(.show-drawer-left),
+  body.pagelayout-report #page.drawers:not(.show-drawer-left) {
+    padding-left: 0;
+  }
+}
+
+/* Rule to remove padding-right always */
+@media (min-width: 768px) {
+
+  body.pagelayout-base #page.drawers,
+  body.pagelayout-frontpage #page.drawers,
+  body.pagelayout-coursecategory #page.drawers,
+  body.pagelayout-course #page.drawers,
+  body.pagelayout-mycourses #page.drawers,
+  body.pagelayout-incourse #page.drawers,
+  body.pagelayout-admin #page.drawers,
+  body.pagelayout-report #page.drawers {
+    padding-right: 0;
+  }
+}
+
+/* Limit width of content area to prevent wide text area on course pages */
+@media (min-width: 768px) {
+
+  body.pagelayout-base #page-wrapper #page #page-content,
+  body.limitedwidth.pagelayout-frontpage #page-wrapper #page #page-content,
+  body.limitedwidth.pagelayout-coursecategory #page-wrapper #page #page-content,
+  body.limitedwidth.pagelayout-course #page-wrapper #page #page-content,
+  body.limitedwidth.pagelayout-mycourses #page-wrapper #page #page-content,
+  body.pagelayout-incourse #page-wrapper #page #page-content {
+    max-width: 830px;
+  }
+
+  /* No limit required when displaying SCORM content inline */
+  body#page-mod-scorm-player #page-wrapper #page #page-content {
+    max-width: unset;
+  }
+}
+
+/* Remove rounded corners on course page white content area */
+body.pagelayout-base #page.drawers .main-inner,
+body.limitedwidth.pagelayout-frontpage #page.drawers .main-inner,
+body.limitedwidth.pagelayout-coursecategory #page.drawers .main-inner,
+body.limitedwidth.pagelayout-course #page.drawers .main-inner,
+body.limitedwidth.pagelayout-mycourses #page.drawers .main-inner,
+body.pagelayout-incourse #page.drawers .main-inner,
+body.pagelayout-admin #page.drawers .main-inner,
+body.pagelayout-report #page.drawers .main-inner {
+  border-radius: 0;
+}
+
+/* Allow space for the draw toggle buttons */
+/* 1. At wide widths (1200px+), the central container has room, 
+      so we keep padding minimal to maximize content space. */
+@media (min-width: 1200px) {
+
+  /* Base State: Drawer CLOSED  */
+  body.pagelayout-course #page-wrapper #page .main-inner,
+  body.pagelayout-incourse #page-wrapper #page .main-inner,
+  body.pagelayout-report #page-wrapper #page .main-inner {
+    padding-left: 2rem !important;
+    padding-right: 1rem !important;
+  }
+
+  /* Override State: Drawer is OPEN (5rem) */
+  /* This provides breathing room between the lhs drawer and the content  */
+  #page.show-drawer-left .main-inner {
+    padding-left: 5rem !important;
+  }
+}
+
+/* When the screen narrows (below 1200px), the 2.5rem left padding 
+      provides space for the lhs drawer toggle button. */
+@media (max-width: 1199px) {
+  body.pagelayout-course #page-wrapper #page .main-inner,
+  body.pagelayout-incourse #page-wrapper #page .main-inner,
+  body.pagelayout-report #page-wrapper #page .main-inner {
+    padding-left: 2.5rem !important;
+    padding-right: 1rem !important;
+  }
+}
+
+/* remove the max-width restriction and allow the breadcrumb and title */
+/*  to align left with the rest of the content                         */
+.path-admin.path-admin-roles:not(.format-site) .header-maxwidth {
+  max-width: none !important;
+}
+
+/* Override the 830px restriction for Learning Plans and Admin Roles */
+.path-admin.path-admin-tool-lp .header-maxwidth,
+.path-admin.path-admin-roles:not(.format-site) .header-maxwidth,
+body.pagelayout-admin #page.drawers .main-inner header .header-maxwidth {
+  max-width: none !important;
+}
+
+/* remove the 100% height on in-page "modal" */
+/* also reduce vertical padding generally */
+#page-course-delete #notice {
+  height: auto;
+
+  #modal-content.py-3 {
+    padding: 0 !important;
+  }
+
+  .btn {
+    margin-bottom: 0;
+  }
+}
+
+.page-mycourses .drawers .block_myoverview>.card-body.p-3 {
+  padding-top: 1.25rem !important;
+  padding-left: 1.25rem !important;
+  padding-right: 1.25rem !important;
+}
+
+.continuebutton {
+  text-align: unset;
+}
+
+[role="main"] h2:first-of-type {
+  margin-bottom: 1rem;
+}
+
+// Fix for inline alert dialogues forcing 100% height and overlapping the footer
+div[role="alertdialog"].modal-in-page {
+  height: auto !important;
+}

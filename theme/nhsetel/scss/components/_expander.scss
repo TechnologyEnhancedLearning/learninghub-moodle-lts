@@ -1,0 +1,72 @@
+.nhsuk-expander[open] .nhsuk-expander {
+
+  &:not([open]) .nhsuk-details__summary-text::before {
+    background: url("data:image/svg+xml,%3Csvg class='nhsuk-icon nhsuk-icon__plus' xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 24 24' aria-hidden='true'%3E%3Ccircle cx='12' cy='12' r='10' fill='%23005eb8'%3E%3C/circle%3E%3Cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M12 8v8M8 12h8'%3E%3C/path%3E%3C/svg%3E%0A") left -2px center no-repeat;
+  }
+
+  &:not([open]) .nhsuk-details__summary:focus .nhsuk-details__summary-text::before {
+    background: url("data:image/svg+xml,%3Csvg class='nhsuk-icon nhsuk-icon__plus' xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 24 24' aria-hidden='true'%3E%3Ccircle cx='12' cy='12' r='10' fill='%23002f5c'%3E%3C/circle%3E%3Cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M12 8v8M8 12h8'%3E%3C/path%3E%3C/svg%3E%0A") left -2px center no-repeat;
+  }
+
+  &[open] .nhsuk-details__summary-text::before {
+    background: url("data:image/svg+xml,%3Csvg class='nhsuk-icon nhsuk-icon__minus' xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 24 24' aria-hidden='true'%3E%3Ccircle cx='12' cy='12' r='10' fill='%23005eb8'%3E%3C/circle%3E%3Cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M8 12h8'%3E%3C/path%3E%3C/svg%3E%0A") left -2px center no-repeat;
+  }
+
+  &[open] .nhsuk-details__summary:focus .nhsuk-details__summary-text::before {
+    background: core.$nhsuk-focus-color url("data:image/svg+xml,%3Csvg class='nhsuk-icon nhsuk-icon__minus' xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 24 24' aria-hidden='true'%3E%3Ccircle cx='12' cy='12' r='10' fill='%23002f5c'%3E%3C/circle%3E%3Cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M8 12h8'%3E%3C/path%3E%3C/svg%3E%0A") left -2px center no-repeat;
+  }
+}
+
+/* removal of border around nested expanders and reducing vertical padding */
+
+.nhsuk-expander .activity.subsection.modtype_subsection>.activity-item {
+  border: none;
+  margin: 0;
+}
+
+.nhsuk-expander .activity.subsection.modtype_subsection>.activity-item .section-item {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.nhsuk-expander .nhsuk-details.nhsuk-expander {
+  margin-bottom: 0;
+}
+
+.course-section .section-item {
+  padding: 0px;
+  border: none;
+  border-radius: 0px;
+}
+
+.nhsuk-expander .h4.sectionname {
+  font-size: 1.1875rem;
+  font-weight: 400;
+}
+
+.nhsuk-details.nhsuk-expander .section_link,
+.nhsuk-details.nhsuk-expander .summarytext,
+.course-content ul.topics li.section .nhsuk-expander .nhsuk-details__text.content,
+.course-content ul.weeks li.section .nhsuk-expander .nhsuk-details__text.content {
+  padding-left: 2rem;
+}
+
+@media (max-width: 37.49em) {
+  .nhsuk-details.nhsuk-expander .section_link,
+  .nhsuk-details.nhsuk-expander .summarytext,
+  .course-content ul.topics li.section .nhsuk-expander .nhsuk-details__text.content,
+  .course-content ul.weeks li.section .nhsuk-expander .nhsuk-details__text.content {
+    padding-left: 1.5rem;
+  }
+}
+
+.nhsuk-expander {
+  .nhsuk-details__text [data-for="sectioninfo"] {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  .section_availability:empty {
+    display: none;
+  }
+}

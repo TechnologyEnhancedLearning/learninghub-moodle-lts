@@ -1,0 +1,291 @@
+/* =========================================================================
+   Multitopic Course Format Styles
+   ========================================================================= */
+
+/* Align course header banner text to match page content layout */
+body.format-multitopic div#course-header>div#course-header-banner>div#course-header-banner-text {
+  padding-left: 0;
+}
+
+/* =========================================================================
+   1. DRAWER NAVIGATION (Scrollspy & Highlights)
+   ========================================================================= */
+.format-multitopic {
+
+  /* Remove background hover state from drawer items to prevent group highlighting */
+  .courseindex .courseindex-item:has(ul):hover {
+    background-color: transparent !important;
+  }
+
+  /* Hide 'Current section' badges in drawer */
+  .courseindex .courseindex-item .badge {
+    display: none !important;
+  }
+
+  /* Add padding gutter to prevent active state bar from overlapping chevrons */
+  .courseindex .courseindex-item {
+    padding-left: 1rem !important;
+  }
+
+  /* Retain primary color and font weight for current section text */
+  .courseindex .courseindex-section.current>.courseindex-section-title .courseindex-link,
+  .courseindex .courseindex-section.current>.courseindex-section-title .courseindex-chevron {
+    color: #005eb8 !important;
+    font-weight: bold !important;
+  }
+
+  /* Remove default solid background from the current section */
+  .courseindex .is-current-section>.courseindex-item {
+    background-color: transparent !important;
+  }
+
+  /* Ensure text and icons maintain primary color in active state */
+  .courseindex .is-current-section>.courseindex-item .courseindex-link,
+  .courseindex .is-current-section>.courseindex-item .courseindex-chevron,
+  .courseindex .is-current-section>.courseindex-item i {
+    color: #005eb8 !important;
+  }
+}
+
+/* Apply gradient indicator bar for all active drawer states */
+body.format-multitopic .courseindex .courseindex-item.pageitem,
+body.format-multitopic .courseindex .courseindex-item.is-active,
+body.format-multitopic .courseindex .courseindex-item.active {
+  background: linear-gradient(to right, #005eb8 .4rem, transparent 0) !important;
+}
+
+/* Enforce primary color for active and visited drawer links */
+body.format-multitopic .courseindex .courseindex-item.pageitem .courseindex-link,
+body.format-multitopic .courseindex .courseindex-item.is-active .courseindex-link,
+body.format-multitopic .courseindex .courseindex-item.active .courseindex-link,
+body.format-multitopic .courseindex .courseindex-link:visited {
+  color: #005eb8 !important;
+}
+
+/* Prevent inherited underlines on nested elements during parent hover */
+body.format-multitopic .courseindex .courseindex-item:hover:not(:has(.courseindex-item:hover)) .courseindex-link {
+    text-decoration: none !important;
+}
+
+/* Apply text underline strictly on direct link hover */
+body.format-multitopic .courseindex .courseindex-item:hover:not(:has(.courseindex-item:hover)) .courseindex-link:hover {
+    text-decoration: underline !important;
+}
+
+/* =========================================================================
+   2. MAIN COURSE CONTENT AREA
+   ========================================================================= */
+body.format-multitopic #region-main {
+
+  /* Standardize activity indentation to match baseline layout */
+  ul.section .activity-item {
+    padding-left: 2rem !important;
+  }
+
+  /* Remove border from nested subsections */
+  .activity.subsection>.activity-item {
+    border: none !important;
+  }
+
+  /* Remove vertical padding from nested subsection items */
+  .activity.subsection .section .section-item {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  /* Section Card Container */
+  li.section.course-section {
+    background-color: #ffffff !important;
+    border: 1px solid #d8dde0 !important;
+    border-radius: 4px !important;
+    padding: 1.25rem !important;
+    margin-bottom: 1.5rem !important;
+    list-style: none;
+
+    /* Remove border and adjust margins for nested subsections */
+    &.delegated-section {
+      border: none !important;
+      padding: 0 !important;
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
+    }
+
+    .collapse.show,
+    .collapsing {
+      margin-top: 1rem !important;
+    }
+  }
+
+  /* Global Section Toggles */
+  #collapsesections {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #005eb8;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+
+    &:hover {
+      color: #7c2855;
+    }
+
+    &:focus {
+      background-color: #ffeb3b !important;
+      color: #212b32 !important;
+      box-shadow: 0 -2px #ffeb3b, 0 4px #212b32 !important;
+      text-decoration: none !important;
+      outline: none !important;
+    }
+  }
+
+  /* =========================================================================
+     3. EXPANDABLE TOPICS (Full-Width Clickable Header via Stretched Link)
+     ========================================================================= */
+  li.section.course-section:has(a.icons-collapse-expand) {
+
+    .course-section-header {
+      display: flex !important;
+      align-items: center !important;
+      width: 100% !important;
+      padding: 0.5rem !important;
+      margin: -0.5rem !important;
+
+      /* Stretch inner container to full width for stretched-link target */
+      .d-flex.align-items-start {
+        flex-grow: 1 !important;
+        align-items: center !important;
+        cursor: pointer;
+
+        /* Section title typography */
+        .sectionname {
+          margin-bottom: 0 !important;
+          font-size: 1.1875rem !important;
+          line-height: 1.5 !important;
+          pointer-events: none !important;
+          /* Allow click events to pass through text to the underlying anchor */
+          z-index: 2 !important;
+
+          &,
+          a,
+          .inplaceeditable {
+            color: #005eb8;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            font-weight: 700;
+            pointer-events: none !important;
+          }
+        }
+
+        /* Hover state typography */
+        &:hover .sectionname {
+
+          &,
+          a,
+          .inplaceeditable {
+            color: #7c2855;
+            text-decoration: none !important;
+          }
+        }
+      }
+
+      /* Accessibility focus state */
+      &:focus-within {
+        background-color: #ffeb3b !important;
+        box-shadow: 0 -2px #ffeb3b, 0 4px #212b32 !important;
+        outline: none !important;
+
+        .sectionname {
+
+          &,
+          a,
+          .inplaceeditable {
+            color: #212b32 !important;
+            text-decoration: none !important;
+          }
+        }
+
+        /* Invert icon colors on focus */
+        a.icons-collapse-expand {
+          background-color: #212b32 !important;
+          background-image:
+            linear-gradient(#ffeb3b, #ffeb3b),
+            linear-gradient(#ffeb3b, #ffeb3b) !important;
+        }
+      }
+    }
+
+    /* Circular Toggle Button styling */
+    a.icons-collapse-expand {
+      display: inline-flex !important;
+      background-color: #005eb8 !important;
+      border-radius: 50% !important;
+      width: 1.5rem !important;
+      height: 1.5rem !important;
+      min-width: 1.5rem !important;
+      padding: 0 !important;
+      margin-right: 0.75rem !important;
+      border: none !important;
+      outline: none !important;
+      box-shadow: none !important;
+      z-index: 2 !important;
+
+      /* Render plus (+) icon using CSS gradients */
+      background-image:
+        linear-gradient(#ffffff, #ffffff),
+        linear-gradient(#ffffff, #ffffff) !important;
+      background-size: 10px 2px, 2px 10px !important;
+      background-position: center !important;
+      background-repeat: no-repeat !important;
+
+      &:focus,
+      &:active {
+        outline: none !important;
+        box-shadow: none !important;
+      }
+
+      /* Hide native Moodle chevrons */
+      .expanded-icon,
+      .collapsed-icon {
+        display: none !important;
+      }
+
+      /* Transform to minus (-) icon when expanded */
+      &[aria-expanded="true"] {
+        background-size: 10px 2px, 2px 0px !important;
+      }
+    }
+  }
+
+  /* =========================================================================
+     4. STATIC SECTIONS (Introduction / Folder Links)
+     ========================================================================= */
+  li.section.course-section:not(:has(a.icons-collapse-expand)) {
+    .d-flex.align-items-start {
+
+      .sectionname {
+        font-size: 1.1875rem !important;
+        /* Match collapsible section sizing */
+        margin-bottom: 0 !important;
+
+        /* Link typography and state styling */
+        a,
+        .inplaceeditable {
+          color: #005eb8 !important;
+          /* Enforce primary color and override default visited state */
+          text-decoration: underline !important;
+          text-underline-offset: 3px !important;
+          font-weight: 700 !important;
+
+          /* Hover state typography */
+          &:hover {
+            color: #7c2855 !important;
+            text-decoration: none !important;
+          }
+        }
+      }
+
+      .icon {
+        color: #4c6272;
+      }
+    }
+  }
+}

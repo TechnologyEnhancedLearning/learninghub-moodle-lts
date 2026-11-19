@@ -1,0 +1,18 @@
+.comment-area {
+  padding: 10px 0 0;
+}
+
+.comment-list {
+  font-size: 1rem;
+  color: core.$nhsuk-text-color;
+
+  li {
+    background-color: core.nhsuk-colour("white");
+    margin: 0;
+    margin-bottom: 10px;
+  }
+}
+
+.comment-ctrl {
+  font-size: 1rem;
+}

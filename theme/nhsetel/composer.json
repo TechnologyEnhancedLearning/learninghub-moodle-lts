@@ -1,0 +1,17 @@
+{
+    "name": "technologyenhancedlearning/moodle-theme-nhsetel",
+    "type": "moodle-theme",
+    "version": "2026060500",
+    "require": {
+        "composer/installers": "~1.0"
+    },
+    "extra": {
+        "installer-name": "moodle-nhsetel"
+    },
+    "config": {
+        "allow-plugins": {
+            "composer/installers": true
+        },
+        "preferred-install": "dist"
+    }
+}

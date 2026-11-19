@@ -1,0 +1,104 @@
+/* ==========================================================================
+// DOUBLE SIZED CHECKBOXES
+// ========================================================================== */
+
+input[type=checkbox] {
+  -ms-transform: scale(2);
+  /* IE */
+  -moz-transform: scale(2);
+  /* FF */
+  -webkit-transform: scale(2);
+  /* Safari and Chrome */
+  -o-transform: scale(2);
+  /* Opera */
+  transform: scale(2);
+}
+
+label input[type=checkbox] {
+  margin-right: 1.0rem !important;
+}
+
+.form-check label {
+  padding-left: 1.0rem !important;
+}
+
+.form-check-inline .form-check-input {
+  margin-left: 1.0rem;
+  margin-right: 1.0rem;
+}
+
+.form-control {
+  padding: 0 0.75rem;
+  border-radius: 0;
+}
+
+.form-item {
+  .form-setting {
+    .form-defaultinfo {
+      padding-left: 1rem;
+    }
+  }
+}
+
+.custom-select {
+  padding: 0 1.75rem 0 .75rem
+}
+
+// ==========================================================================
+// SIMPLE SEARCH FORM STYLES
+// ========================================================================== */
+
+.simplesearchform {
+  .btn-close {
+    right: -2.5em;
+    top: 0.2rem;
+  }
+
+  .collapse.show {
+    background-color: core.nhsuk-colour("blue");
+    right: 0;
+  }
+
+  .collapsing {
+    background-color: core.nhsuk-colour("blue");
+    right: 0;
+  }
+
+  .searchform-navbar {
+    padding-right: 2.5em;
+  }
+
+  .input-group {
+    input.form-control {
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+}
+
+/* Ensure accessible text colour in the select boxes initial text that appears on a dark grey? */
+select .bg-secondary,
+[role="option"].bg-secondary {
+  color: #fff !important;
+}
+
+
+// ==========================================================================
+// BACKUP AND RESTORE PAGE OVERRIDES
+// ==========================================================================
+
+// Targets the restore and backup pages specifically
+#page-backup-restorefile, 
+#page-backup-backup {
+    // Adds breathing space below the heading
+    h3.mt-6 {
+        margin-bottom: 0.5rem !important; 
+    }
+
+    // Adds space below the description text (e.g Private backup files...)
+    .mb-3 {
+        margin-bottom: 1rem !important;
+    }
+}

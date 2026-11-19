@@ -1,0 +1,76 @@
+/* =========================================================================
+   Topics Course Format Styles
+   ========================================================================= */
+
+.format-topics {
+
+    /* Hide 'Current section' badges in drawer */
+    .courseindex .courseindex-item .badge {
+        display: none !important;
+    }
+
+    /* Add padding gutter to prevent active state bar from overlapping chevrons */
+    .courseindex .courseindex-item {
+        padding-left: 1rem !important;
+    }
+
+    /* Retain primary color and font weight for current section text */
+    .courseindex .courseindex-section.current > .courseindex-section-title .courseindex-link,
+    .courseindex .courseindex-section.current > .courseindex-section-title .courseindex-chevron {
+        color: #005eb8 !important;
+        font-weight: bold !important;
+    }
+
+    /* Remove default solid background from the current section */
+    .courseindex .is-current-section > .courseindex-item {
+        background-color: transparent !important;
+    }
+
+    /* Ensure text and icons maintain primary color in active state */
+    .courseindex .is-current-section > .courseindex-item .courseindex-link,
+    .courseindex .is-current-section > .courseindex-item .courseindex-chevron,
+    .courseindex .is-current-section > .courseindex-item i {
+        color: #005eb8 !important;
+    }
+
+    /* Align expander icon vertically to the top */
+    .nhsuk-expander .nhsuk-details__summary-text::before {
+        bottom: auto !important;
+        top: 0 !important;
+        margin-top: 2px;
+    }
+
+    /* Increase top margin for badges within content area expanders */
+    .course-content .section .badge {
+        margin-top: 1rem;
+    }
+}
+
+/* Apply gradient indicator bar for all active drawer states */
+body.format-topics .courseindex .courseindex-item.pageitem,
+body.format-topics .courseindex .courseindex-item.is-active,
+body.format-topics .courseindex .courseindex-item.active {
+    background: linear-gradient(to right, #005eb8 .4rem, transparent 0) !important;
+}
+
+/* Enforce primary color for active and visited drawer links */
+body.format-topics .courseindex .courseindex-item.pageitem .courseindex-link,
+body.format-topics .courseindex .courseindex-item.is-active .courseindex-link,
+body.format-topics .courseindex .courseindex-item.active .courseindex-link,
+body.format-topics .courseindex .courseindex-link:visited {
+    color: #005eb8 !important;
+}
+
+/* =========================================================================
+   Drawer Navigation (Hover & Underline Overrides)
+   ========================================================================= */
+
+/* Prevent inherited underlines on nested elements during parent hover */
+body.format-topics .courseindex .courseindex-item:hover:not(:has(.courseindex-item:hover)) .courseindex-link {
+    text-decoration: none !important;
+}
+
+/* Apply text underline strictly on direct link hover */
+body.format-topics .courseindex .courseindex-item:hover:not(:has(.courseindex-item:hover)) .courseindex-link:hover {
+    text-decoration: underline !important;
+}
