@@ -54,9 +54,21 @@ $CFG->session_redis_port = 6379; // Or 6380 for SSL
 $CFG->session_redis_auth = 'REDIS_PRIMARY_ACCESS_KEY'; // Leave blank if unauthenticated in dev
 $CFG->session_redis_database = 0; // Default database index
 $CFG->session_redis_prefix = 'moodle_sess_'; // Unique prefix for your cluster
+$CFG->session_redis_acquire_lock_timeout = 120;
+$CFG->session_redis_acquire_lock_warn = 10;
+$CFG->session_redis_serializer_use_igbinary = true;
+$CFG->enable_read_only_sessions = true;
+
+// The following config required the Open LMS Redis Lock plugin
+//$CFG->lock_factory = '\local_redislock\lock\redis_lock_factory';
+//$CFG->local_redislock_redis_server = 'moodle-cache.redis.cache.windows.net:6379';
+//$CFG->local_redislock_redis_auth = 'REDIS_PRIMARY_ACCESS_KEY';
+//$CFG->local_redislock_logging = false; // Prevents excessive CLI log output
+
+
 
 $CFG->localcachedir = '/tmp/moodle-localcache';
-
+$CFG->localrequestdir = '/tmp/moodle-localrequest';
 
 require_once(__DIR__ . '/lib/setup.php');
 
