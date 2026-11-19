@@ -71,7 +71,7 @@ data "azurerm_private_dns_zone" "file_dns_zone" {
 
 resource "azurerm_private_dns_zone_virtual_network_link" "file_dns_link" {
   name                  = "moodle-file-dns-link"
-  resource_group_name   = azurerm_resource_group.learningHubMoodleResourceGroup.name
+  resource_group_name   = "MC_LearningHub-Moodle-MoocNE_learningHubMoodleMooc_northeurope"
   private_dns_zone_name = data.azurerm_private_dns_zone.file_dns_zone.name
   virtual_network_id    = data.azurerm_virtual_network.aks_vnet.id
 }
