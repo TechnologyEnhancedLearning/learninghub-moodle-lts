@@ -17,6 +17,6 @@ spec:
     volumeAttributes:
       protocol: nfs
       shareName: moodlerestuploads
-      server: premiumlhmoodlmooc.privatelink.file.core.windows.net # Ensure Private Endpoint DNS exists for this!
+      server: premiumlhmoodlemooc.privatelink.file.core.windows.net # Ensure Private Endpoint DNS exists for this!
   mountOptions:
     - nconnect=4
