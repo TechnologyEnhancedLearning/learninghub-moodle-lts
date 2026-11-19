@@ -400,7 +400,7 @@ resource "azurerm_redis_cache" "moodle_cache" {
   sku_name            = "Standard"
   non_ssl_port_enabled = true
   minimum_tls_version = "1.2"
-  public_network_access_enabled = false
+  public_network_access_enabled = true
 }
 
 resource "azurerm_communication_service" "CommunicationService" {
