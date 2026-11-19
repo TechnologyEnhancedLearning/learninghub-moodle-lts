@@ -72,7 +72,7 @@ data "azurerm_private_dns_zone" "file_dns_zone" {
 resource "azurerm_private_dns_zone_virtual_network_link" "file_dns_link" {
   name                  = "moodle-file-dns-link"
   resource_group_name   = azurerm_resource_group.learningHubMoodleResourceGroup.name
-  private_dns_zone_name = azurerm_private_dns_zone.file_dns_zone.name
+  private_dns_zone_name = data.azurerm_private_dns_zone.file_dns_zone.name
   virtual_network_id    = data.azurerm_virtual_network.aks_vnet.id
 }
 
@@ -92,7 +92,7 @@ resource "azurerm_private_endpoint" "premium_file_pe" {
   # Automatically registers the new storage account's private IP in your existing DNS zone
   private_dns_zone_group {
     name                 = "file-dns-zone-group"
-    private_dns_zone_ids = [azurerm_private_dns_zone.file_dns_zone.id]
+    private_dns_zone_ids = [data.azurerm_private_dns_zone.file_dns_zone.id]
   }
 }
 
