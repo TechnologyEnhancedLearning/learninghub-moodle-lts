@@ -66,7 +66,7 @@ data "azurerm_virtual_network" "aks_vnet" {
 
 data "azurerm_private_dns_zone" "existing_file_dns_zone" {
   name                = "privatelink.file.core.windows.net"
-  resource_group_name = azurerm_resource_group.learningHubMoodleResourceGroup.name
+  resource_group_name = "MC_LearningHub-Moodle-Test_learninghubMoodleTest_uksouth"
 }
 
 resource "azurerm_private_endpoint" "premium_file_pe" {
@@ -93,13 +93,6 @@ resource "azurerm_storage_share" "premium_moodledata" {
   name               = "moodledata"
   storage_account_id = azurerm_storage_account.premium_file_storage.id
   quota              = 500 # Minimum 100 GiB for Premium FileStorage
-  enabled_protocol   = "NFS"
-}
-
-resource "azurerm_storage_share" "premium_moodletheme" {
-  name               = "moodletheme"
-  storage_account_id = azurerm_storage_account.premium_file_storage.id
-  quota              = 500
   enabled_protocol   = "NFS"
 }
 
