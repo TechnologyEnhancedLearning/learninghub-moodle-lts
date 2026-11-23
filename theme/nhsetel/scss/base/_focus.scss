@@ -1,0 +1,217 @@
+// Global focus styles for interactive elements
+a {
+  &.btn,
+  &.nav-link {
+    &:focus {
+      @include core.nhsuk-focused-text;
+    }
+  }
+}
+
+button.btn:focus {
+  @include core.nhsuk-focused-text;
+}
+
+input.custom-control-input:focus {
+  outline: core.$nhsuk-focus-width solid core.$nhsuk-focus-colour;
+  outline-offset: 0;
+  box-shadow: 0 0 0 core.$nhsuk-focus-width core.$nhsuk-focus-colour;
+  border-color: core.$nhsuk-focus-text-colour;
+}
+
+// Override Boost theme defaults with NHS.UK styles
+.aalink.focus,
+a.focus.autolink,
+.aalink:focus,
+a.autolink:focus,
+.arrow_link.focus,
+.arrow_link:focus,
+a:not([class]).focus,
+a:not([class]):focus,
+.activityinstance > a.focus,
+.activityinstance > a:focus {
+  background-color: core.nhsuk-colour("yellow");
+  box-shadow: 0 -2px core.nhsuk-colour("yellow"), 0 3px core.nhsuk-colour("black");
+  outline: 4px solid transparent;
+  text-decoration: none;
+}
+
+.btn.btn-icon:focus {
+  background-color: core.nhsuk-colour("yellow");
+}
+
+// Left-hand menu toggle button overrides
+.drawer-toggles .drawer-toggler .btn:focus {
+  @include core.nhsuk-focused-button;
+}
+
+#page .drawer-toggles .drawer-toggler {
+  top: unset; // Prevents Boost static CSS from altering position
+}
+
+.drawerheader .aabtn.text-reset.d-flex.align-items-center.py-1.h-100.d-md-none,
+.drawerheader .drawerheadercontent {
+  display: none !important;
+}
+
+// ---------------------------------------------------------
+// Course Index Focus States
+// ---------------------------------------------------------
+
+// Remove Moodle's default focus rings
+.courseindex [role="treeitem"]:focus,
+.courseindex [role="treeitem"]:not([aria-expanded="true"]):focus {
+  outline: 0 !important;
+  box-shadow: none !important;
+}
+
+// Target non-active links when a parent is focused
+// Note: Omit !important on color to allow active state overrides
+#course-index [role="treeitem"]:focus .courseindex-item:not(.is-current-page):not(.pageitem) .courseindex-link:not(:focus) {
+  color: red; 
+  background-color: transparent;
+}
+
+// Active section styling
+.is-current-section > .courseindex-item {
+  background-color: #005eb8 !important;
+  color: #ffffff !important;
+  
+  a, span, i {
+    color: #ffffff !important;
+  }
+}
+
+// Ensure icon and badge contrast inside active elements
+.is-current-page i, 
+.is-current-page span,
+.is-current-section i,
+.is-current-section span,
+.pageitem i,
+.pageitem span,
+.pageitem .courseindex-link {
+  color: #212b32 !important;
+}
+
+// ---------------------------------------------------------
+// Navigation & Form Controls
+// ---------------------------------------------------------
+
+a.sr-only.sr-only-focusable[href="#maincontent"]:focus {
+  @include core.nhsuk-focused-button;
+}
+
+// Activity completion buttons
+.activity-item .activity-completion {
+  button.btn:focus,
+  button.btn.focus,
+  button.btn-success:focus,
+  a[role=button].btn:focus,
+  a[role=button].btn.focus {
+    @include core.nhsuk-focused-button;
+  }
+}
+
+// Neutralize Bootstrap blue focus ring
+.nav-link:focus {
+  box-shadow: none !important; 
+}
+
+// Non-shifting NHS visual focus for navigation links
+a.nav-link:focus,
+a.nav-link:active {
+  border-width: 0 !important;
+  border-bottom-width: 4px !important;
+  border-top: 4px solid transparent !important; // Transparent top border prevents layout shift
+  background-color: core.nhsuk-colour("yellow") !important;
+  border-bottom-color: core.nhsuk-colour("black") !important;
+  border-style: solid !important;
+  color: core.nhsuk-colour("black") !important;
+  box-shadow: none !important;
+  outline: none !important;
+  text-decoration: none !important;
+}
+
+// Prevent global styles from overriding dropdown appearance
+.dropdown-item,
+.dropdown-item:visited {
+  box-shadow: none !important;
+}
+
+.btn.dropdown-toggle,
+.btn-outline-secondary.dropdown-toggle {
+  box-shadow: none !important; 
+}
+
+.btn.dropdown-toggle:focus,
+.btn-outline-secondary.dropdown-toggle:focus,
+select.form-control:focus,
+.custom-select:focus {
+  border: 2px solid #212b32 !important;
+  box-shadow: inset 0 0 0 2px #212b32 !important;
+  outline: 4px solid #ffeb3b !important;
+  outline-offset: 0 !important;
+  background-color: transparent !important;
+  text-decoration: none !important;
+  color: #212b32 !important;
+}
+
+.simplesearchform .form-control:focus {
+  color: #212b32;
+  background-color: #fff;
+  border: 2px solid #212b32 !important;
+  box-shadow: inset 0 0 0 2px #212b32 !important;
+  outline: 4px solid #ffeb3b !important;
+  outline-offset: 0 !important;
+}
+
+// ---------------------------------------------------------
+// Course Index Drawer Focus (Sections, Subsections & Activities)
+// ---------------------------------------------------------
+
+// 1. Section & Subsection Titles
+// Targets the title block directly. The :not(:has(ul :focus-within)) prevents 
+// the title from highlighting when a user tabs into a nested child activity.
+#nhs-courseindex-sidebar [role="treeitem"] {
+  
+  &:focus-visible > .courseindex-section-title,
+  &:focus-visible > .courseindex-section > .courseindex-section-title,
+  &:focus-visible > .nhsuk-focus-target,
+  &:focus-within:not(:has(ul :focus-within)) > .courseindex-section-title,
+  &:focus-within:not(:has(ul :focus-within)) > .courseindex-section > .courseindex-section-title,
+  &:focus-within:not(:has(ul :focus-within)) > .nhsuk-focus-target {
+    
+    background-color: #ffeb3b !important;
+    box-shadow: 0 -2px #ffeb3b, 0 4px #212b32 !important;
+    position: relative !important;
+    z-index: 10 !important;
+
+    // Maintain dark text/icon contrast on yellow focus
+    a, span, i, .courseindex-link, .courseindex-chevron {
+      color: #212b32 !important;
+      background-color: transparent !important;
+      outline: none !important;
+      box-shadow: none !important;
+    }
+  }
+}
+
+// 2. Leaf Activities
+// Targets items that do not contain a <ul> list, preventing wrappers from catching focus.
+#nhs-courseindex-sidebar .courseindex-item[role="treeitem"]:not(:has(ul)) {
+  
+  &:focus-visible,
+  &:focus-within {
+    background-color: #ffeb3b !important;
+    box-shadow: 0 -2px #ffeb3b, 0 4px #212b32 !important;
+    position: relative !important;
+    z-index: 10 !important;
+
+    .courseindex-link, span, i, .icon {
+      color: #212b32 !important;
+      background-color: transparent !important;
+      outline: none !important;
+      box-shadow: none !important;
+    }
+  }
+}

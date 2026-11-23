@@ -1,0 +1,341 @@
+/* ==========================================================================
+   BUTTON STYLES
+   Mapping Moodle's native Bootstrap buttons to the NHSUK Design System
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. GLOBAL BASE BUTTONS
+   -------------------------------------------------------------------------- */
+
+.btn {
+    &:not(.btn-icon, .btn-close, .btn-link, .btn-open, .search-icon, .navbar .dropdown-toggle, .icon-no-margin) {
+        @extend .nhsuk-button--small;
+        box-shadow: 0 2px 0 core.$nhsuk-button-shadow-colour;
+    }
+
+    &.disabled {
+        @extend .nhsuk-button--disabled !optional;
+        box-shadow: 0 2px 0 core.$nhsuk-button-shadow-colour;
+    }
+
+    &.active,
+    &.visited {
+        @extend .nhsuk-button--reverse;
+        box-shadow: 0 2px 0 core.$nhsuk-button-shadow-colour;
+    }
+
+    &.text-primary {
+        color: $btn-secondary-text !important;
+    }
+
+    /* SEARCH BAR INTEGRATION PATCH:
+   Forces the primary search button within input-append groups to stretch and 
+   match the full compute height baseline of the text input next to it on mobile screens. */
+    .input-group-append {
+        .btn-primary.search-icon {
+            padding: 0 16px !important;
+            /* Restores side padding while maintaining vertical alignment */
+            min-height: 38px !important;
+            /* Matches your design system layout target */
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+    }
+}
+
+/* Fix Bootstrap button group radiuses */
+.btn-group>.btn:not(:first-child),
+.btn-group>.btn:not(:last-child):not(.dropdown-toggle),
+.btn-group>.btn-group:not(:first-child)>.btn,
+.btn-group>.btn-group:not(:last-child)>.btn {
+    border-radius: 4px !important;
+}
+
+/* REFACTORED: Remove Bootstrap's default focus glow without killing NHS tactile shadows */
+.btn.dropdown-toggle:focus,
+.btn-outline-secondary.dropdown-toggle:focus {
+    /* Kill the fuzzy blue Bootstrap glow on focus, but preserve standard outlines */
+    box-shadow: none;
+}
+
+/* Maintain the crisp NHS pseudo-element cleanup from the original repo */
+.nhsuk-button--secondary::after,
+.btn.btn-secondary::after,
+.btn.btn-outline-secondary::after,
+.nhsuk-button--secondary-solid::after {
+    box-shadow: none !important;
+}
+
+/* --------------------------------------------------------------------------
+   2. PRIMARY BUTTONS (NHS Green)
+   -------------------------------------------------------------------------- */
+
+.btn-primary {
+    background-color: core.nhsuk-colour("green") !important;
+    box-shadow: 0 4px 0 core.nhsuk-shade(core.nhsuk-colour("green"), 20%) !important;
+    border: none !important;
+    color: core.nhsuk-colour("white") !important;
+    font-weight: 600 !important;
+    padding: 8px 16px !important;
+
+    /* GLOBAL FIX: If a primary button happens to act as a dropdown toggle (e.g., Content Bank Add),
+       force the NHS tactile depth back onto it, overriding the flat layout adjustments. */
+    &.dropdown-toggle {
+        box-shadow: 0 4px 0 core.nhsuk-shade(core.nhsuk-colour("green"), 20%) !important;
+
+        &:hover,
+        &:active,
+        &.show {
+            box-shadow: 0 4px 0 core.nhsuk-shade(core.nhsuk-colour("green"), 20%) !important;
+        }
+    }
+
+    &:hover {
+        background-color: core.nhsuk-shade(core.nhsuk-colour("green"), 20%) !important;
+        color: core.nhsuk-colour("white") !important;
+    }
+
+    &:focus {
+        background-color: core.nhsuk-colour("yellow") !important;
+        color: core.nhsuk-colour("black") !important;
+        box-shadow: 0 4px 0 core.nhsuk-colour("black") !important;
+        outline: 3px solid transparent !important;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   3. SECONDARY BUTTONS (Authentic NHS Blue)
+   -------------------------------------------------------------------------- */
+
+.btn-secondary,
+.btn-outline-secondary,
+.btn-outline-primary {
+    background-color: #ffffff !important;
+    color: #005eb8 !important;
+    font-weight: normal !important;
+
+    border: 2px solid #005eb8 !important;
+    border-bottom-color: transparent !important;
+    box-shadow: 0 4px 0 0 #005eb8 !important;
+
+    &:hover,
+    &:active,
+    &.active {
+        background-color: #d9e7f4 !important;
+        color: #005eb8 !important;
+        border: 2px solid #005eb8 !important;
+        border-bottom-color: transparent !important;
+        box-shadow: 0 4px 0 0 #005eb8 !important;
+    }
+
+    &:focus {
+        background-color: core.nhsuk-colour("yellow") !important;
+        color: core.nhsuk-colour("black") !important;
+        border: 2px solid transparent !important;
+        box-shadow: 0 4px 0 core.nhsuk-colour("black") !important;
+        outline: 3px solid transparent !important;
+    }
+
+    /* FIX FOR DROPDOWNS (e.g., Course Overview Filters) */
+    &.dropdown-toggle {
+        box-shadow: none !important;
+        /* Keep shadows off layout-sensitive dropdowns */
+        border-bottom-color: #005eb8 !important;
+        /* Restore the physical bottom line */
+
+        /* Ensure the bottom line stays closed even when hovered or clicked open */
+        &:hover,
+        &:active,
+        &.active,
+        &.show {
+            box-shadow: none !important;
+            border-bottom-color: #005eb8 !important;
+        }
+    }
+}
+
+/* --------------------------------------------------------------------------
+   4. CONTEXT-SPECIFIC OVERRIDES
+   -------------------------------------------------------------------------- */
+
+/* Navigation Buttons */
+#navbuttons input[type="submit"] {
+    @extend .nhsuk-button--small;
+}
+
+/* Search Input Group Buttons */
+.input-group-append .btn-primary.search-icon {
+    box-shadow: none !important;
+    border: 1px solid transparent !important;
+    border-radius: 0 0.25rem 0.25rem 0 !important;
+    width: 2.75rem !important;    
+    margin: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+
+    &:hover {
+        background-color: core.nhsuk-shade(core.nhsuk-colour("green"), 20%) !important;
+        color: core.nhsuk-colour("white") !important;
+        box-shadow: none !important;
+    }
+
+    &:focus {
+        background-color: core.nhsuk-colour("yellow") !important;
+        color: core.nhsuk-colour("black") !important;
+        box-shadow: 0 4px 0 core.nhsuk-colour("black") !important;
+        outline: 3px solid transparent !important;
+    }
+}
+
+/* Bulk Enable & Edit Restrictions (Course Management) */
+button.bulkEnable.btn,
+.editavailability a.btn-sm {
+    @extend .nhsuk-button--secondary !optional;
+
+    background-color: #ffffff !important;
+    color: #005eb8 !important;
+
+    /* Updated to the new transparent border trick */
+    border: 2px solid #005eb8 !important;
+    border-bottom-color: transparent !important;
+    box-shadow: 0 4px 0 0 #005eb8 !important;
+    /* Changed to 4px */
+
+    display: inline-flex !important;
+    align-items: center;
+    padding: 10px 16px !important;
+    font-weight: 600 !important;
+    border-radius: 4px !important;
+    position: relative;
+    top: 0;
+    transition: none !important;
+
+    &:focus {
+        background-color: #ffeb3b !important;
+        color: #212b32 !important;
+        border: 2px solid transparent !important;
+        /* Fixed for high-contrast safety */
+        box-shadow: 0 4px 0 0 #212b32, 0 0 0 0px #ffeb3b !important;
+        outline: none !important;
+        top: 0 !important;
+    }
+
+    &:active {
+        top: 2px !important;
+        box-shadow: 0 0 0 0 transparent !important;
+        border: 2px solid #005eb8 !important;
+    }
+
+    i.icon {
+        margin: 0 !important;
+
+        &:first-child {
+            margin-right: 8px !important;
+        }
+
+        &:last-child {
+            margin-left: 8px !important;
+        }
+    }
+}
+
+/* Profile Header Buttons (Message, Add to Contacts) */
+#message-user-button,
+#toggle-contact-button {
+    /* Updated to match the global secondary buttons */
+    background-color: #ffffff !important;
+    color: #005eb8 !important;
+    font-weight: normal !important;
+
+    border: 2px solid #005eb8 !important;
+    border-bottom-color: transparent !important;
+    box-shadow: 0 4px 0 0 #005eb8 !important;
+
+    i.icon {
+        color: #005eb8 !important;
+    }
+
+    &:hover,
+    &:active {
+        background-color: #d9e7f4 !important;
+        color: #005eb8 !important;
+        border: 2px solid #005eb8 !important;
+        border-bottom-color: transparent !important;
+        box-shadow: 0 4px 0 0 #005eb8 !important;
+    }
+
+    &:focus {
+        background-color: core.nhsuk-colour("yellow") !important;
+        color: core.nhsuk-colour("black") !important;
+        border: 2px solid transparent !important;
+        box-shadow: 0 4px 0 core.nhsuk-colour("black") !important;
+        outline: 3px solid transparent !important;
+
+        i.icon {
+            color: core.nhsuk-colour("black") !important;
+        }
+    }
+}
+
+a.btn-secondary:visited {
+    color: #005eb8;
+}
+
+
+a.btn-primary:visited {
+    color: #fff;
+}
+
+
+/* --------------------------------------------------------------------------
+   NHS FRAMEWORK MARGIN INTERCEPTION
+   Overrides the global margin-bottom leak inside toolbars and flex-rows
+   -------------------------------------------------------------------------- */
+
+// Target any button inside flex layout structures or standard Bootstrap wrappers
+.d-flex,
+.btn-toolbar,
+.btn-group,
+.input-group {
+
+    // Force the margin back to 0 to mimic default Boost behavior
+    .btn:not(.btn-link) {
+        margin-bottom: 0 !important;
+        margin-top: 0 !important;
+        align-self: center !important; // Keeps horizontal baselines unified
+    }
+}
+
+/* --------------------------------------------------------------------------
+   5. CONTENT BANK TOOLBAR SYMMETRY
+   -------------------------------------------------------------------------- */
+
+/* Target the container to normalize rendering math across buttons and links */
+.cb-toolbar-container {
+    /* Allow the row items to break and stack naturally 
+       on small mobile screens instead of breaking out of the viewport bounds. */
+    flex-wrap: wrap !important;
+    gap: 12px 4px;
+
+    /* Adds comfortable breathing space if items drop to a new line */
+    .btn {
+        font-size: 0.875rem !important;
+        line-height: 1.5 !important;
+        padding: 6px 12px !important;
+
+        /* Force both elements to compute an identical bounding box height 
+           regardless of whether they are button tags or anchor tags */
+        height: 38px !important;
+        align-self: center !important;
+    }
+
+    /* Keep the primary depth shadow active on the green split button toggle */
+    .btn-primary.dropdown-toggle {
+        box-shadow: 0 4px 0 core.nhsuk-shade(core.nhsuk-colour("green"), 20%) !important;
+        border-top: 2px solid transparent !important;
+        border-bottom: none !important;
+    }
+}

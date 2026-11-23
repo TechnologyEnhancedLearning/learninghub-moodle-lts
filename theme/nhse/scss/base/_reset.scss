@@ -1,0 +1,40 @@
+// Reset and base normalization for nhse theme
+// Only existing reset rules from nhse.scss are included here
+
+// 1. Universal box-sizing
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+// 2. Remove default margin
+body, h1, h2, h3, h4, h5, h6, p, figure, blockquote, dl, dd {
+  margin: 0;
+}
+
+// 3. Remove default padding
+ul[class], ol[class] {
+  padding: 0;
+}
+
+// 4. Remove list styles on elements with a class attribute
+ul[class], ol[class] {
+  list-style: none;
+}
+
+// 5. Remove outline for non-keyboard focus (if present in original)
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+// 6. Remove border for images (if present in original)
+img {
+  border-style: none;
+}
+
+// 7. Remove default button styles (if present in original)
+button, input, select, textarea {
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}

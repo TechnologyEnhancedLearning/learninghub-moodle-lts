@@ -40,17 +40,22 @@ $CFG->disableupdateautodeploy = true;
 // Disable DB sessions to let Redis handle them
 $CFG->dbsessions = false;
 
+//Allow read only sessions
+$CFG->enable_read_only_sessions = true;
+
 // Configure Redis Session Driver
 $CFG->session_handler_class = '\core\session\redis';
-$CFG->session_redis_host = 'moodle-cache-test.redis.cache.windows.net';
+$CFG->session_redis_host = 'moodle-cache.redis.cache.windows.net';
 $CFG->session_redis_port = 6379; // Or 6380 for SSL
-
-// Tell Moodle to use TLS encryption explicitly
-//$CFG->session_redis_encrypt = ['verify_peer' => true]; 
-
 $CFG->session_redis_auth = 'REDIS_PRIMARY_ACCESS_KEY'; // Leave blank if unauthenticated in dev
-$CFG->session_redis_database = 0; // Default database index
+$CFG->session_redis_database = 1; // Default database index
 $CFG->session_redis_prefix = 'moodle_sess_'; // Unique prefix for your cluster
+$CFG->session_redis_acquire_lock_timeout = 120;
+$CFG->session_redis_acquire_lock_warn = 10;
+$CFG->session_redis_serializer_use_igbinary = true;  //Shrink session payload sizes
+
+$CFG->localcachedir = '/tmp/moodle-localcache';
+$CFG->localrequestdir = '/tmp/moodle-localrequest';
 
 require_once(__DIR__ . '/lib/setup.php');
 

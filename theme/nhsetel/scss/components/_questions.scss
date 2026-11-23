@@ -1,0 +1,17 @@
+/* ==========================================================================
+// CORE QUESTION SUBSYSTEM (_questions.scss)
+// 
+// Scope: Styles for Moodle's central question engine, Question Bank, 
+// and question-type plugins (e.g., multichoice). These rules affect 
+// Quizzes, Lessons, and anywhere core questions are rendered.
+// ========================================================================== */
+
+
+/* 
+// 1. Question Bank Checkbox Overrides
+// Overrides the hardcoded inline style (style="width: 30px;") on the master 
+// "Select all" column header to prevent clipping the enlarged 1.5rem width checkbox.
+*/
+table.question-bank-table th.checkbox {
+  width: 2.5rem !important;
+}

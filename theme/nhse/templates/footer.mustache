@@ -1,0 +1,62 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or,
+    at your option, any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle. If not, see <http://www.gnu.org/licenses/>.
+}}
+
+{{!
+    @template theme_nhse/footer
+    Fully NHSUK Frontend v10 compliant footer, matching the service manual
+}}
+
+<footer class="nhsuk-footer" role="contentinfo">
+    <div class="nhsuk-width-container">
+        <div class="nhsuk-footer__meta">
+            <!-- Accessible heading for screen readers -->
+            <h2 class="nhsuk-u-visually-hidden">Support links</h2>
+
+            <!-- Primary footer links -->
+            <ul class="nhsuk-footer__list">
+                <li class="nhsuk-footer__list-item">
+                    <a class="nhsuk-footer__list-item-link" href="https://support.learninghub.nhs.uk/support/home" target="_blank">Help</a>
+                </li>
+                <li class="nhsuk-footer__list-item">
+                    <a class="nhsuk-footer__list-item-link" href="{{dotnet_base_url}}Home/Contactus">Contact us</a>
+                </li>
+                <li class="nhsuk-footer__list-item">
+                    <a class="nhsuk-footer__list-item-link" href="{{dotnet_base_url}}Home/Aboutus">About us</a>
+                </li>
+                <li class="nhsuk-footer__list-item">
+                    <a class="nhsuk-footer__list-item-link" href="{{dotnet_base_url}}Updates">Service updates and releases</a>
+                </li>
+                <li class="nhsuk-footer__list-item">
+                    <a class="nhsuk-footer__list-item-link" href="{{dotnet_base_url}}Home/NHSsites">NHS sites</a>
+                </li>
+                <li class="nhsuk-footer__list-item">
+                    <a class="nhsuk-footer__list-item-link" href="{{dotnet_base_url}}Policies">Our policies</a>
+                </li>
+                <li class="nhsuk-footer__list-item">
+                    <a class="nhsuk-footer__list-item-link" href="{{dotnet_base_url}}Home/Accessibility">Accessibility statement</a>
+                </li>
+            </ul>
+
+            <!-- Footer metadata / copyright -->
+            <p class="nhsuk-body-s">© NHS England</p>
+
+            <!-- Moodle scripts / injected HTML -->
+            {{{ output.standard_end_of_body_html }}}
+        </div>
+    </div>
+</footer>
+

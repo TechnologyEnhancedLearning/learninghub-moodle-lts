@@ -1,0 +1,13 @@
+.nhsuk-breadcrumb__list {
+  .nhsuk-breadcrumb__item {
+    .nhsuk-breadcrumb__link {
+      padding: 0 10px 10px 0;
+    }
+  }
+}
+
+@media (min-width: 40.0625em) {
+  .nhsuk-breadcrumb__item {
+    font-size: 1.1875rem;
+  }
+}

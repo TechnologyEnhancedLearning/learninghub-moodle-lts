@@ -1,0 +1,19 @@
+.reportbuilder-toggle-card {
+  .toggle-card-button {
+    i.toggle-card-icon {
+      color: core.nhsuk-colour("white");
+    }
+  }
+}
+
+@media (min-width: 992px) {
+  .path-admin-reportbuilder {
+    &.pagelayout-popup {
+      .dynamictabs {
+        .nav-tabs {
+          padding-top: 0;
+        }
+      }
+    }
+  }
+}

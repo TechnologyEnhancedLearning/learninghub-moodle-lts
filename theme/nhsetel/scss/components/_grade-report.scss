@@ -1,0 +1,46 @@
+/* Prevent the grade report expanding outside the page */
+#page-grade-report-grader-index .gradeparent {
+    overflow-x: auto !important;
+    max-width: 100%;
+    -webkit-overflow-scrolling: touch;
+    display: grid !important;           /* fix for Firefox layout engine to ensure horizonal scroll bar appears */
+    justify-items: stretch;             /* addition to go with above Firefox fixEnsures small tables stretch full-width in Chrome/Edge */
+}
+
+#page-grade-report-grader-index #user-grades {    
+    width: 100% !important;
+    min-width: 100%;
+}
+
+
+/* Add a little breathing space for the sorting arrow on the name column */
+#page-grade-report-grader-index #studentheader .arrow_link,
+#page-grade-report-grader-index #studentheader .moodle-actionmenu {
+    margin: 0 8px; /* Just a tiny bit of horizontal space */
+}
+
+/* Remove activity icons from the Grader Report headers */
+#page-grade-report-grader-index .gradereport-grader-table .itemicon {
+    display: none !important;
+}
+
+
+/* Fix wrapping issue of header text. When wrapping the next line wasn't aligned to match the text above */
+
+/* Ensure header text link uses the full available width */
+#page-grade-report-grader-index .gradereport-grader-table .gradeitemheader {
+    display: block !important;
+    text-indent: 0 !important;
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+}
+
+/* Force the flex container to allow the text to wrap to the far left */
+#page-grade-report-grader-index .gradereport-grader-table .d-flex.flex-grow-1 {
+    display: block !important; /* Overrides d-flex to let text wrap naturally */
+}
+
+/* Ensure the text itself is left-aligned */
+#page-grade-report-grader-index .gradereport-grader-table th {
+    text-align: left !important;
+}

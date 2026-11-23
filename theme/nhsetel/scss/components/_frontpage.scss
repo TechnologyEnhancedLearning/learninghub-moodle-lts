@@ -1,0 +1,25 @@
+#frontpage-available-course-list {
+  .coursebox {
+    @extend .nhsuk-card__content;
+    border-radius: 0;
+    border-top: 1px solid core.nhsuk-colour("grey-4");
+
+    &>.info {
+      @extend .nhsuk-card--care__heading;
+
+      &>.coursename {
+        @extend .nhsuk-card--care__heading;
+        font-size: 1.5rem;
+        font-weight: bold;
+
+        & a {
+          color: inherit;
+        }
+      }
+    }
+
+    &>.content {
+      @extend .nhsuk-card__content;
+    }
+  }
+}

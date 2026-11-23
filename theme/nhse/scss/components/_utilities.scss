@@ -1,0 +1,21 @@
+.popover-region-header-container {
+  height: 50px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.popover-region-toggle::before,
+.popover-region-toggle::after {
+  display: none;
+}
+
+.activity-icon,
+.page-header-image {
+  display: none;
+}
+
+.icon-no-margin {
+  &:focus {
+    @include core.nhsuk-focused-button;
+  }
+}

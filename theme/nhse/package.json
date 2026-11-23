@@ -1,0 +1,28 @@
+{
+  "name": "nhse-tel-moodle-theme",
+  "version": "1.0.0",
+  "description": "A custom Moodle theme using the NHS England TEL frontend",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TechnologyEnhancedLearning/moodle-nhse-learninghub"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TechnologyEnhancedLearning/moodle-nhse-learninghub/issues"
+  },
+  "homepage": "https://github.com/TechnologyEnhancedLearning/moodle-nhse-learninghub#readme",
+  "dependencies": {
+    "nhsuk-frontend": "^10.0.0",
+    "sass": "^1.79.4"
+  },
+  "scripts": {
+  "build": "sass scss/nhse.scss:css/nhse.min.css --style compressed --verbose --load-path node_modules",
+  "watch": "sass --watch scss/nhse.scss:css/nhse.min.css --style compressed --load-path node_modules"
+  }
+}

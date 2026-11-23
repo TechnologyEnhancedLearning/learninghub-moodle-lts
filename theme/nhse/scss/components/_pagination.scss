@@ -1,0 +1,19 @@
+.nhsuk-pagination__link .nhsuk-icon {
+  fill: core.nhsuk-colour("blue");
+}
+
+/* hide course pagination */
+/* Global removal of redundant course/activity navigation */
+.path-course-view .nhsuk-pagination,
+.path-mod .nhsuk-pagination {
+    display: none !important;
+}
+
+// Fix for vertical alignment in Moodle pagination
+// Overrides global NHS button margins that push the dropdown out of alignment.
+[data-region="paging-control-container"] {
+    .btn, 
+    .page-link {
+        margin-bottom: 0 !important;
+    }
+}

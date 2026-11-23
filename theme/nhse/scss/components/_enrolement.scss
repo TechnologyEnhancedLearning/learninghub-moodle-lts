@@ -1,0 +1,39 @@
+/* ==========================================================================
+// ENROLLMENT INDEX PAGE 
+// ========================================================================== */
+
+#page-enrol-index #region-main #maincontent+h2 {
+  display: none;
+}
+
+#page-enrol-index #fitem_id_submitbutton .col-md-3,
+#page-enrol-index #fitem_id_submitbutton .col-md-9 {
+  flex-basis: 100%;
+  max-width: 100%;
+}
+
+#page-enrol-index #id_selfheader .icons-collapse-expand,
+#page-enrol-index #id_selfheadercontainer {
+  display: none;
+}
+
+#page-enrol-index #id_selfheader {
+  border-style: none
+}
+
+#page-enrol-index h3.coursename {
+  display: none;
+}
+
+#page-enrol-index .coursebox .content .teachers {
+  margin-left: 0px;
+}
+
+#page-enrol-index .mform {
+  padding-left: 0px;
+}
+
+/* Hide confusing enrolment icons */
+.coursebox .info .enrolmenticons {
+  display: none;
+}

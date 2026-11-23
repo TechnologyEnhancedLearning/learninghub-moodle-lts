@@ -1,0 +1,51 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+
+{{#is_user_logged_in}} {{! This block will only be rendered if is_user_logged_in is true }}
+<div class="nhsuk-account__login nhsuk-header__not-mobile">
+    <ul class="nhsuk-header__account-list">
+         <li class="nhsuk-header__account-item">
+            <a class="nhsuk-header__account-link" href="{{dotnet_base_url}}myaccount">
+                <svg class="nhsuk-icon nhsuk-icon--user" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" focusable="false" aria-hidden="true">
+                    <path d="M12 1a11 11 0 1 1 0 22 11 11 0 0 1 0-22Zm0 2a9 9 0 0 0-5 16.5V18a4 4 0 0 1 4-4h2a4 4 0 0 1 4 4v1.5A9 9 0 0 0 12 3Zm0 3a3.5 3.5 0 1 1-3.5 3.5A3.4 3.4 0 0 1 12 6Z"></path>
+                </svg>
+                {{#notification_count}}
+                {{! The section tag also makes the notification_count available within the block }}
+                    <span class="nhsuk-header__notification-dot">
+                    {{display_notification_count}}
+                    </span>
+                {{/notification_count}}
+                <span class="nhsuk-header__account-link-text">My account</span>
+            </a>
+         </li>
+        <li class="nhsuk-header__account-item">
+            <a class="nhsuk-header__account-link" href="/login/logout.php?sesskey={{sessionKey}}">Log out</a>    
+        </li>   
+
+        {{#output.edit_switch}}
+        <li class="nhsuk-header__account-item nhsuk-header__edit-switch-item">
+            <div class="moodle-edit-switch-wrapper">
+                {{{ . }}}
+            </div>
+        </li>
+        {{/output.edit_switch}}
+    </ul>
+</div>
+{{/is_user_logged_in}} {{! End of the conditional block }}
+
+
+

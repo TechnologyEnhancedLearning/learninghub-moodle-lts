@@ -2259,10 +2259,6 @@ $footer-link-color: $bg-inverse-link-color !default;
     bottom: calc(4rem + #{$stickyfooter-height});
 }
 
-.hasstickyfooter .maintenancewarning {
-    bottom: #{$stickyfooter-height};
-}
-
 .popover.footer {
     .popover-body {
         padding: 0;
@@ -2293,10 +2289,6 @@ $footer-link-color: $bg-inverse-link-color !default;
     .jsenabled .btn-footer-communication {
         display: block;
         z-index: $zindex-dropdown;
-    }
-    .jsenabled .maintenancewarning,
-    .jsenabled.hasstickyfooter:has(.drawer-right-toggle) .maintenancewarning {
-        right: 5rem;
     }
 }
 
@@ -2957,22 +2949,13 @@ body.dragging {
     }
 }
 
-.page-mycourses {
+.drawers {
     .block_myoverview {
-        .block-cards {
-            border-top: 1px solid $border-color;
-            padding-top: map-get($spacers, 2);
-        }
-    }
-    // Boost theme styling only (drawers not used in classic).
-    .drawers {
-        .block_myoverview {
-            border: 0;
-            & > .card-body {
-                padding-top: 0 !important; /* stylelint-disable-line declaration-no-important */
-                padding-left: 0 !important; /* stylelint-disable-line declaration-no-important */
-                padding-right: 0 !important; /* stylelint-disable-line declaration-no-important */
-            }
+        border: 0;
+        & > .card-body {
+            padding-top: 0 !important; /* stylelint-disable-line declaration-no-important */
+            padding-left: 0 !important; /* stylelint-disable-line declaration-no-important */
+            padding-right: 0 !important; /* stylelint-disable-line declaration-no-important */
         }
     }
 }
@@ -3138,9 +3121,11 @@ blockquote {
             display: none;
         }
     }
-    .showmore-button {
+    button {
         float: right;
-        text-decoration: none;
+        &.btn-link {
+            text-decoration: none;
+        }
         .icon {
             font-size: $btn-font-size-sm;
             margin: 0;

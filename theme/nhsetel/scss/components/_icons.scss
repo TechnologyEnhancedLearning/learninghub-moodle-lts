@@ -1,0 +1,46 @@
+/* ==========================================================================
+// Lock icon alignment on the details expander
+// ========================================================================== */
+.nhsuk-details.nhsuk-expander .icon.fa-lock {
+	font-size: 16px;
+    width: 1.6em;
+    height: 1.6em;   
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 4px;
+}
+
+/* =========================================================================
+// Left hand side menu icons alignment
+.. ========================================================================= */
+
+.drawercontent .courseindex .completioninfo .icon {  
+    margin-top: 0;   
+}
+
+.drawercontent .courseindex .icon.fa-circle, .drawercontent .courseindex .icon.fa {
+	display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.drawercontent .courseindex .completioninfo {
+    display: inline-flex;
+    align-items: center;
+    align-self: center;
+}
+
+/* Course index lock icons: visible only for actually locked sections */
+.drawercontent .courseindex .courseindex-item .courseindex-locked {
+    display: none; /* hide by default for all sections */
+    align-items: center;
+    align-self: center;
+}
+
+/* Show lock only for sections with restrictions */
+.drawercontent .courseindex .courseindex-item.restrictions .courseindex-locked {
+    display: inline-flex; /* show visually */
+    align-items: center;
+    align-self: center;
+}
