@@ -27,7 +27,7 @@ $logouturl = $CFG->logouturl = 'index.php';
 
 $CFG->tool_generator_users_password = 'TOOL-GENERATOR-PASSWORD';
 
-//$CFG->sslproxy = true;
+$CFG->sslproxy = true;
 
 $CFG->phpunit_prefix = 'phpu_';
 $CFG->phpunit_dataroot = 'phpu_moodledata';
@@ -69,6 +69,8 @@ $CFG->debugsessionlock = 5; // Logs any backend thread holding a session lock fo
 $CFG->localcachedir = '/tmp/moodle-localcache';
 $CFG->localrequestdir = '/tmp/moodle-localrequest';
 
+$CFG->altcacheconfigpath = '/tmp/muc_fallback.php';
+$CFG->enable_read_only_sessions = false;
 
 require_once(__DIR__ . '/lib/setup.php');
 
