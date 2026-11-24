@@ -46,7 +46,7 @@ $CFG->disableupdateautodeploy = true;
 // Disable DB sessions to let Redis handle them
 $CFG->dbsessions = false;
 
-$CFG->enable_read_only_sessions = true;
+//$CFG->enable_read_only_sessions = true;
 
 // Configure Redis Session Driver
 $CFG->session_handler_class = '\core\session\redis';
