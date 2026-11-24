@@ -61,16 +61,13 @@ $CFG->session_redis_database = 1; // Default database index
 $CFG->session_redis_prefix = 'moodle_sess_'; // Unique prefix for your cluster
 $CFG->session_redis_acquire_lock_warn = 10;
 $CFG->session_redis_serializer_use_igbinary = true;  //Shrink session payload sizes
-$CFG->session_redis_acquire_lock_timeout = 60; // Reduces standard wait cycles to 60 seconds
+$CFG->session_redis_acquire_lock_timeout = 120; // Reduces standard wait cycles to 60 seconds
 
 
 $CFG->debugsessionlock = 5; // Logs any backend thread holding a session lock for >5 seconds
 
 $CFG->localcachedir = '/tmp/moodle-localcache';
 $CFG->localrequestdir = '/tmp/moodle-localrequest';
-
-$CFG->altcacheconfigpath = '/tmp/muc_fallback.php';
-$CFG->enable_read_only_sessions = false;
 
 require_once(__DIR__ . '/lib/setup.php');
 
