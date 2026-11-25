@@ -6,17 +6,26 @@ metadata:
   name: moodletheme
 spec:
   capacity:
-    storage: 100Gi
+    storage: 5Gi
   accessModes:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
   storageClassName: azurefile-csi
   csi:
     driver: file.csi.azure.com
-    volumeHandle: "moodleCluster#premiumlhmoodleprod#moodletheme"
+    volumeHandle: "moodleCluster#learninghubmoodleprod#moodletheme"  # make sure this volumeid is unique for every identical share in the cluster
     volumeAttributes:
-      protocol: nfs
       shareName: moodletheme
-      server: premiumlhmoodleprod.privatelink.file.core.windows.net # Ensure Private Endpoint DNS exists for this!
+      server: lhmoodleproduction.privatelink.file.core.windows.net
+    nodeStageSecretRef:
+      name: azure-secret
+      namespace: learninghubmoodle
   mountOptions:
-    - nconnect=4
+    - dir_mode=0777
+    - file_mode=0777
+    - uid=0
+    - gid=0
+    - mfsymlinks
+    - cache=strict
+    - nosharesock
+    - nobrl  # disable sending byte range lock requests to the server and for applications which have challenges with posix locks
