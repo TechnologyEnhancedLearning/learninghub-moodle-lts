@@ -19,11 +19,10 @@ spec:
         imagePullPolicy: Always
         resources:
           requests:
-            cpu: "500m"
-            memory: "256Mi"
-          limits:
             cpu: "1000m"
-            memory: "512Mi"
+            memory: "2Gi"
+          limits:
+            memory: "4Gi"
         ports:
         - containerPort: 80
         volumeMounts:
@@ -32,6 +31,8 @@ spec:
           readOnly: false
         - name: moodlerestuploads
           mountPath: /var/www/html/webservice/rest/uploads
+        - name: localcache
+          mountPath: /tmp/moodlelocalcache
       volumes:
       - name: moodledata
         persistentVolumeClaim:
@@ -39,3 +40,6 @@ spec:
       - name: moodlerestuploads
         persistentVolumeClaim:
           claimName: moodleuploadsclaim
+      - name: localcache
+        emptyDir:
+          sizeLimit: 1Gi

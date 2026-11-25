@@ -66,6 +66,8 @@ $CFG->session_redis_serializer_use_igbinary = true;  //Shrink session payload si
 $CFG->localcachedir = '/tmp/moodle-localcache';
 $CFG->localrequestdir = '/tmp/moodle-localrequest';
 
+$CFG->lock_factory = '\core\lock\db_record_lock_factory';
+
 require_once(__DIR__ . '/lib/setup.php');
 
 // There is no php closing tag in this file,
