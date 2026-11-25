@@ -19,7 +19,7 @@ spec:
         imagePullPolicy: Always
         resources:
           requests:
-            cpu: 500m
+            cpu: 2000m
             memory: 4Gi
           limits:
             memory: 8Gi
@@ -29,7 +29,12 @@ spec:
         - name: moodledata
           mountPath: /var/www/moodledata
           readOnly: false
+        - name: moodletheme
+          mountPath: /var/www/html/theme
       volumes:
       - name: moodledata
         persistentVolumeClaim:
           claimName: moodledataclaim
+      - name: moodletheme
+        persistentVolumeClaim:
+          claimName: moodlethemeclaim
