@@ -110,7 +110,7 @@ jobs:
       - name: Create PersistentVolume for uploads
         run: kubectl apply -f kubectl/pv-definition-uploads-test.yml
 
-      - name: Create PersistentVolume for uploads
+      - name: Create PersistentVolume for theme
         run: kubectl apply -f kubectl/pv-definition-theme-test.yml
   
       - name: Create PersistentVolumeClaim
@@ -119,7 +119,7 @@ jobs:
       - name: Create PersistentVolumeClaim for uploads
         run: kubectl apply -f kubectl/pvc-definition-uploads-test.yml
 
-      - name: Create PersistentVolumeClaim for uploads
+      - name: Create PersistentVolumeClaim for theme
         run: kubectl apply -f kubectl/pvc-definition-theme-test.yml
 
       - name: Attach ACR to cluster
