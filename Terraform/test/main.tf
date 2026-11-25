@@ -103,6 +103,13 @@ resource "azurerm_storage_share" "premium_moodlerestuploads" {
   enabled_protocol   = "NFS"
 }
 
+resource "azurerm_storage_share" "premium_moodletheme" {
+  name               = "moodletheme"
+  storage_account_id = azurerm_storage_account.premium_file_storage.id
+  quota              = 500
+  enabled_protocol   = "NFS"
+}
+
 resource "azurerm_kubernetes_cluster" "aks" {
   name                = var.ClusterName
   location            = azurerm_resource_group.learningHubMoodleResourceGroup.location
