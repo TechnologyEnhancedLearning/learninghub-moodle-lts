@@ -8,6 +8,6 @@ spec:
     - ReadWriteMany
   resources:
     requests:
-      storage: 100Gi
+      storage: 5Gi
   storageClassName: azurefile-csi
   volumeName: moodletheme
