@@ -297,7 +297,7 @@ resource "azurerm_mssql_managed_instance" "sqlmi" {
   resource_group_name = azurerm_resource_group.learningHubMoodleResourceGroup.name
   location = azurerm_resource_group.learningHubMoodleResourceGroup.location
   license_type = "BasePrice"
-  administrator_login = var.SQLAdministratorLogin
+  administrator_login = "MoodleSQLAdmin"
   administrator_login_password = var.SQLAdministratorLoginPassword
   subnet_id = azurerm_subnet.subnet.id
   sku_name = var.SQLSkuName
