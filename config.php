@@ -4,7 +4,7 @@ unset($CFG);
 global $CFG;
 $CFG = new stdClass();
 
-$CFG->dbtype    = 'sqlsrv';
+$CFG->dbtype    = 'mysqli';
 $CFG->dblibrary = 'native';
 $CFG->dbhost    = 'DB-HOST-NAME';
 $CFG->dbname    = 'DB-NAME';
@@ -12,10 +12,10 @@ $CFG->dbuser    = 'DB-USER-NAME';
 $CFG->dbpass    = 'DB-USER-PASSWORD';
 $CFG->prefix    = 'mdl_';
 $CFG->dboptions = array (
-  'dbpersist' => true,
-  'dbport' => 1433,
-  'dbsocket' => false,
-  'dbcollation' => 'SQL_Latin1_General_CP1_CI_AS'
+  'dbpersist' => false,
+  'dbport' => 3306,
+  'dbsocket' => '',
+  'dbcollation' => 'utf8mb4_unicode_ci'
 );
 
 $CFG->wwwroot   = 'WWW-ROOT';
@@ -27,7 +27,7 @@ $logouturl = $CFG->logouturl = 'index.php';
 
 $CFG->tool_generator_users_password = 'TOOL-GENERATOR-PASSWORD';
 
-$CFG->sslproxy = true;
+//$CFG->sslproxy = true;
 
 $CFG->phpunit_prefix = 'phpu_';
 $CFG->phpunit_dataroot = 'phpu_moodledata';
